@@ -21,7 +21,7 @@ interface Props {
 
 export default function Bento({ projets }: Props) {
   const sectionRef = useRef<HTMLElement>(null)
-  const [p0, p1, p2] = projets
+  const [, p1, p2] = projets
 
   useEffect(() => {
     const ctx = gsap.context(() => {
