@@ -1,0 +1,445 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────
+   CSS VARIABLES — Identité visuelle Alexis Bossy
+   ───────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg:        #f8f6f2;
+  --bg-card:   #ffffff;
+
+  /* Texte */
+  --text:      #111010;
+  --text-mid:  #9a9590;
+  --text-dim:  #d0ccc8;
+
+  /* Accent unique — rouge cerise */
+  --accent:    #c0293a;
+  --accent-d:  #a01f2e;
+
+  /* UI */
+  --border:    rgba(0, 0, 0, 0.07);
+  --shadow:    0 1px 20px rgba(0, 0, 0, 0.06);
+  --shadow-h:  0 4px 32px rgba(0, 0, 0, 0.10);
+
+  /* Layout */
+  --container-width:   1100px;
+  --grid-width:        1200px;
+  --px-desktop:        56px;
+  --px-mobile:         20px;
+  --section-pt:        96px;
+  --section-pt-large:  120px;
+
+  /* Radius */
+  --radius-card:    20px;
+  --radius-card-sm: 18px;
+  --radius-pill:    100px;
+
+  /* Transitions */
+  --transition-base:  0.25s ease;
+  --transition-hover: 0.3s ease;
+}
+
+/* ─────────────────────────────────────────────
+   RESET
+   ───────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth; /* Lenis overrides this */
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ─────────────────────────────────────────────
+   UTILITAIRES DE BASE
+   ───────────────────────────────────────────── */
+
+/* Container principal */
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding-inline: var(--px-desktop);
+}
+
+/* Container grille projets (plus large) */
+.container-grid {
+  width: 100%;
+  max-width: var(--grid-width);
+  margin-inline: auto;
+  padding-inline: var(--px-desktop);
+}
+
+/* Labels — uppercase tiny */
+.label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* Section spacing */
+.section-pt  { padding-top: var(--section-pt); }
+.section-ptl { padding-top: var(--section-pt-large); }
+
+/* ─────────────────────────────────────────────
+   BOUTONS
+   ───────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: var(--radius-pill);
+  padding: 12px 24px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-base), box-shadow var(--transition-base);
+  border: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--text);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: #222020;
+  box-shadow: var(--shadow-h);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-mid);
+}
+
+.btn-secondary:hover {
+  border-color: rgba(0, 0, 0, 0.14);
+  color: var(--text);
+}
+
+/* ─────────────────────────────────────────────
+   TAGS / PILLS
+   ───────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border);
+  font-size: 0.67rem;
+  font-weight: 400;
+  color: var(--text-mid);
+  backdrop-filter: blur(8px);
+}
+
+/* ─────────────────────────────────────────────
+   NAV
+   ───────────────────────────────────────────── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background: rgba(248, 246, 242, 0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  transition: box-shadow 0.3s ease;
+}
+
+.nav--scrolled {
+  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* Lien hover — trait cerise scaleX */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Dot pulsant */
+.nav-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+/* Responsive — masquer desktop links / afficher hamburger */
+@media (max-width: 767px) {
+  .nav-desktop-links { display: none !important; }
+  .nav-hamburger { display: flex !important; }
+}
+@media (min-width: 768px) {
+  .nav-hamburger { display: none !important; }
+}
+
+/* ─────────────────────────────────────────────
+   PROJECT CARDS — hover barre cerise top
+   ───────────────────────────────────────────── */
+.project-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  display: block;
+  text-decoration: none;
+  background: var(--bg-card);
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+.project-card:hover::before {
+  transform: scaleX(1);
+}
+.project-card:hover .card-overlay {
+  opacity: 1;
+}
+.card-overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* ─────────────────────────────────────────────
+   SERVICE CARDS — hover trait cerise gauche
+   ───────────────────────────────────────────── */
+.service-card {
+  position: relative;
+  transition: box-shadow var(--transition-base), background var(--transition-base);
+}
+.service-card:hover {
+  background: var(--bg-card);
+  box-shadow: var(--shadow-h);
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.service-card:hover::before {
+  opacity: 1;
+}
+
+/* ─────────────────────────────────────────────
+   BARRE DE PROGRESSION SCROLL
+   ───────────────────────────────────────────── */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--accent);
+  z-index: 9999;
+  transform-origin: left;
+  transition: width 0.05s linear;
+}
+
+/* ─────────────────────────────────────────────
+   ANIMATIONS GLOBALES
+   ───────────────────────────────────────────── */
+
+/* Dot pulsant — Nav "Disponible" */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* Fade + translateY — entrées GSAP au scroll */
+.gsap-fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* Texte circulaire Hero */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.circular-text {
+  animation: spin 18s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+/* ─────────────────────────────────────────────
+   MASONRY PROJECTS — hover overlay
+   ───────────────────────────────────────────── */
+.masonry-hover-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 24px;
+  background: linear-gradient(to top, rgba(17,16,16,0.85) 0%, transparent 80%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 2;
+}
+.project-card:hover .masonry-hover-info {
+  opacity: 1;
+}
+.masonry-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s;
+}
+.project-card:hover .masonry-arrow {
+  background: rgba(255,255,255,0.28);
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+   ───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  :root {
+    --px-desktop: 32px;
+    --section-pt: 72px;
+    --section-pt-large: 96px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --px-desktop: var(--px-mobile);
+    --section-pt: 56px;
+    --section-pt-large: 72px;
+  }
+
+  /* Bento grid → 1 colonne */
+  .bento-grid {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+  }
+  .bento-right-col {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+  }
+  .bento-small-row {
+    grid-template-columns: 1fr 1fr !important;
+    height: 180px !important;
+  }
+
+  /* Stats → 2 colonnes */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .stats-sep { display: none !important; }
+
+  /* Masonry → 1 colonne */
+  .masonry-container {
+    flex-direction: column !important;
+    height: auto !important;
+  }
+  .masonry-col {
+    width: 100% !important;
+    height: auto !important;
+  }
+  .masonry-col > * {
+    aspect-ratio: 16/9 !important;
+    height: auto !important;
+    flex: none !important;
+  }
+
+  /* Services grid → 2 colonnes */
+  .services-grid-large {
+    grid-template-columns: 1fr !important;
+  }
+  .services-grid-small {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* EditoSplit → 1 colonne */
+  .edito-inner {
+    grid-template-columns: 1fr !important;
+  }
+  .edito-img {
+    aspect-ratio: 16/9 !important;
+  }
+
+  /* Footer engage → 1 colonne */
+  .engage-inner {
+    grid-template-columns: 1fr !important;
+  }
+  .engage-img { display: none !important; }
+  .footer-links-inner {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}

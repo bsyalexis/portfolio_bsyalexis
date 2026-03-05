@@ -1,0 +1,174 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+import Link from 'next/link'
+import { gsap } from 'gsap'
+
+export default function Hero() {
+  const containerRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.hero-eyebrow', { opacity: 0, y: 20, duration: 0.7, delay: 0.3 })
+      gsap.from('.hero-line',    { opacity: 0, y: 40, duration: 0.9, stagger: 0.15, delay: 0.5, ease: 'power3.out' })
+      gsap.from('.hero-cta',     { opacity: 0, y: 20, duration: 0.6, delay: 1.1 })
+      gsap.from('.hero-circular', { opacity: 0, duration: 0.8, delay: 1.4 })
+    }, containerRef)
+    return () => ctx.revert()
+  }, [])
+
+  return (
+    <section id="hero" ref={containerRef} style={styles.section}>
+
+      {/* Fond cinématographique */}
+      <div style={styles.bg} aria-hidden="true" />
+      <div style={styles.overlay} aria-hidden="true" />
+
+      {/* Contenu — bottom left */}
+      <div style={styles.content}>
+        <p className="label hero-eyebrow" style={styles.eyebrow}>
+          Vidéaste&nbsp;&middot;&nbsp;Photographe&nbsp;&middot;&nbsp;DA&nbsp;&mdash;&nbsp;Innolive
+        </p>
+
+        <h1 style={styles.title}>
+          <span className="hero-line" style={styles.lineLight}>Créer des</span>
+          <br />
+          <span className="hero-line" style={styles.lineLight}>images qui</span>
+          <br />
+          <span className="hero-line" style={styles.lineStrong}>restent.</span>
+        </h1>
+
+        <div className="hero-cta" style={styles.ctaWrap}>
+          <Link href="/travaux" style={styles.btnPrimary}>
+            Voir les travaux &rarr;
+          </Link>
+        </div>
+      </div>
+
+      {/* Texte circulaire rotatif — bottom right */}
+      <div className="hero-circular" style={styles.circularWrap} aria-hidden="true">
+        <svg
+          viewBox="0 0 120 120"
+          width="120"
+          height="120"
+          style={styles.circularSvgStyle}
+          className="circular-text"
+        >
+          <path
+            id="hero-circle-path"
+            d="M 60,60 m -42,0 a 42,42 0 1,1 84,0 a 42,42 0 1,1 -84,0"
+            fill="none"
+          />
+          <text>
+            <textPath
+              href="#hero-circle-path"
+              style={{
+                fontSize: '9.5px',
+                fill: 'rgba(255,255,255,0.55)',
+                fontWeight: '500',
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                fontFamily: 'Inter, sans-serif',
+              } as React.CSSProperties}
+            >
+              {`Vidéaste · DA · Photographe · Innolive · `}
+            </textPath>
+          </text>
+        </svg>
+        <span style={styles.circularCenter}>✕</span>
+      </div>
+
+    </section>
+  )
+}
+
+const styles: Record<string, React.CSSProperties> = {
+  section: {
+    position: 'relative',
+    width: '100%',
+    height: '100vh',
+    minHeight: '640px',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+  },
+  bg: {
+    position: 'absolute',
+    inset: 0,
+    background: 'linear-gradient(160deg, #c8c2ba 0%, #a09890 35%, #7a706a 70%, #4a4240 100%)',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
+  overlay: {
+    position: 'absolute',
+    inset: 0,
+    background: 'linear-gradient(to top, rgba(17,16,16,0.9) 0%, rgba(17,16,16,0.35) 50%, rgba(17,16,16,0.05) 100%)',
+  },
+  content: {
+    position: 'relative',
+    zIndex: 2,
+    padding: '0 56px 80px',
+    maxWidth: '860px',
+  },
+  eyebrow: {
+    color: 'rgba(255,255,255,0.5)',
+    marginBottom: '20px',
+    display: 'block',
+    letterSpacing: '0.14em',
+  },
+  title: {
+    fontSize: 'clamp(3.5rem, 8vw, 7.5rem)',
+    lineHeight: 1.0,
+    letterSpacing: '-0.035em',
+    marginBottom: '40px',
+  },
+  lineLight: {
+    fontWeight: 300,
+    color: 'rgba(255,255,255,0.6)',
+    display: 'inline',
+  },
+  lineStrong: {
+    fontWeight: 700,
+    color: '#ffffff',
+    display: 'inline',
+  },
+  ctaWrap: {
+    display: 'flex',
+  },
+  btnPrimary: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    padding: '13px 28px',
+    borderRadius: '100px',
+    background: '#ffffff',
+    color: '#111010',
+    fontSize: '0.82rem',
+    fontWeight: 600,
+    textDecoration: 'none',
+    letterSpacing: '0.01em',
+  },
+  circularWrap: {
+    position: 'absolute',
+    bottom: '56px',
+    right: '56px',
+    zIndex: 2,
+    width: '120px',
+    height: '120px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  circularSvgStyle: {
+    position: 'absolute',
+    inset: 0,
+    width: '100%',
+    height: '100%',
+  },
+  circularCenter: {
+    position: 'relative',
+    zIndex: 1,
+    color: 'rgba(255,255,255,0.4)',
+    fontSize: '0.7rem',
+  },
+}

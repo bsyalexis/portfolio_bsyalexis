@@ -1,0 +1,152 @@
+[
+  {
+    "slug": "innolive-brand-film",
+    "title": "Innolive Brand Film",
+    "client": "Innolive",
+    "category": "video",
+    "year": "2024",
+    "cover": "/images/projets/innolive-brand-film/cover.jpg",
+    "ratio": "16:9",
+    "featured": true,
+    "chapters": [
+      {
+        "number": "I",
+        "title": "Le contexte",
+        "text": "Innolive souhaitait affirmer son identité de marque premium à travers un film de marque court et percutant, destiné aux réseaux sociaux et aux présentations clients.",
+        "visuals": ["/images/projets/innolive-brand-film/01.jpg"]
+      },
+      {
+        "number": "II",
+        "title": "La démarche",
+        "text": "Une approche cinématographique mêlant séquences produit en macro et portraits d'équipe, rythmée par une bande-son sur mesure.",
+        "visuals": ["/images/projets/innolive-brand-film/02.jpg", "/images/projets/innolive-brand-film/03.jpg"]
+      },
+      {
+        "number": "III",
+        "title": "Le résultat",
+        "text": "Un film de 90 secondes déployé sur LinkedIn et Instagram, générant +340% d'engagement par rapport aux posts précédents.",
+        "visuals": ["/images/projets/innolive-brand-film/04.jpg"]
+      }
+    ]
+  },
+  {
+    "slug": "campagne-produit-cosmetique",
+    "title": "Campagne Cosmétique",
+    "client": "Studio Éclat",
+    "category": "photo",
+    "year": "2024",
+    "cover": "/images/projets/campagne-produit-cosmetique/cover.jpg",
+    "ratio": "9:16",
+    "featured": true,
+    "chapters": [
+      {
+        "number": "I",
+        "title": "Le contexte",
+        "text": "Lancement d'une nouvelle gamme de soins naturels nécessitant une identité photographique cohérente pour le packaging et le digital.",
+        "visuals": ["/images/projets/campagne-produit-cosmetique/01.jpg"]
+      },
+      {
+        "number": "II",
+        "title": "La démarche",
+        "text": "Direction artistique épurée, fond minéral texturé, lumière naturelle diffuse — pour évoquer la pureté et l'authenticité des ingrédients.",
+        "visuals": ["/images/projets/campagne-produit-cosmetique/02.jpg", "/images/projets/campagne-produit-cosmetique/03.jpg"]
+      },
+      {
+        "number": "III",
+        "title": "Le résultat",
+        "text": "40 visuels déclinés sur packaging, site e-commerce et réseaux sociaux. Identité cohérente et différenciante dans un marché saturé.",
+        "visuals": ["/images/projets/campagne-produit-cosmetique/04.jpg"]
+      }
+    ]
+  },
+  {
+    "slug": "identite-visuelle-startup",
+    "title": "Identité Visuelle Startup",
+    "client": "Arca Tech",
+    "category": "da",
+    "year": "2023",
+    "cover": "/images/projets/identite-visuelle-startup/cover.jpg",
+    "ratio": "16:9",
+    "featured": true,
+    "chapters": [
+      {
+        "number": "I",
+        "title": "Le contexte",
+        "text": "Arca Tech, startup SaaS B2B, cherchait à se repositionner avec une identité visuelle reflétant ambition et fiabilité pour convaincre les grands comptes.",
+        "visuals": ["/images/projets/identite-visuelle-startup/01.jpg"]
+      },
+      {
+        "number": "II",
+        "title": "La démarche",
+        "text": "Audit concurrentiel, définition d'un système de design complet — logotype, palette, typographie, grille — et création des templates clés.",
+        "visuals": ["/images/projets/identite-visuelle-startup/02.jpg", "/images/projets/identite-visuelle-startup/03.jpg"]
+      },
+      {
+        "number": "III",
+        "title": "Le résultat",
+        "text": "Système de design documenté (Figma), déployé sur site web, app et supports commerciaux. Levée de fonds réussie 3 mois après le lancement.",
+        "visuals": ["/images/projets/identite-visuelle-startup/04.jpg"]
+      }
+    ]
+  },
+  {
+    "slug": "portrait-corporate-serie",
+    "title": "Portraits Corporate",
+    "client": "Cabinet Novaris",
+    "category": "photo",
+    "year": "2023",
+    "cover": "/images/projets/portrait-corporate-serie/cover.jpg",
+    "ratio": "4:3",
+    "featured": true,
+    "chapters": [
+      {
+        "number": "I",
+        "title": "Le contexte",
+        "text": "Refonte du site web d'un cabinet de conseil nécessitant une série de portraits professionnels unifiés pour 24 associés et consultants.",
+        "visuals": ["/images/projets/portrait-corporate-serie/01.jpg"]
+      },
+      {
+        "number": "II",
+        "title": "La démarche",
+        "text": "Session photo sur deux jours en studio modulable, lumière cinématographique, post-traitement cohérent pour garantir l'unité visuelle de la série.",
+        "visuals": ["/images/projets/portrait-corporate-serie/02.jpg", "/images/projets/portrait-corporate-serie/03.jpg"]
+      },
+      {
+        "number": "III",
+        "title": "Le résultat",
+        "text": "96 portraits livrés (4 variantes par personne), intégrés au nouveau site. Délai tenu, budget respecté, client fidélisé.",
+        "visuals": ["/images/projets/portrait-corporate-serie/04.jpg"]
+      }
+    ]
+  },
+  {
+    "slug": "motion-design-teaser",
+    "title": "Motion Design Teaser",
+    "client": "Maison Dorée",
+    "category": "video",
+    "year": "2024",
+    "cover": "/images/projets/motion-design-teaser/cover.jpg",
+    "ratio": "9:16",
+    "featured": true,
+    "chapters": [
+      {
+        "number": "I",
+        "title": "Le contexte",
+        "text": "Création d'un teaser motion design pour le lancement d'une collection capsule de luxe accessible.",
+        "visuals": ["/images/projets/motion-design-teaser/01.jpg"]
+      },
+      {
+        "number": "II",
+        "title": "La démarche",
+        "text": "Animation typographique cinétique, palette restreinte noir/or, rythme calqué sur la musique choisie par le client.",
+        "visuals": ["/images/projets/motion-design-teaser/02.jpg"]
+      },
+      {
+        "number": "III",
+        "title": "Le résultat",
+        "text": "Teaser de 30s diffusé sur Stories Instagram et LinkedIn. 2,4M impressions en 7 jours.",
+        "visuals": ["/images/projets/motion-design-teaser/03.jpg"]
+      }
+    ]
+  }
+]
