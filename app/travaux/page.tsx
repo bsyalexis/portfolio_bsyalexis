@@ -1,18 +1,18 @@
-import Grid from '@/components/travaux/Grid'
-import Filters from '@/components/travaux/Filters'
+import { Metadata } from 'next'
+import projets        from '@/data/projets.json'
+import TravauxContent from '@/components/travaux/TravauxContent'
+import TravauxCTA     from '@/components/travaux/TravauxCTA'
 
-export const metadata = {
-  title: 'Travaux — Alexis Bossy',
+export const metadata: Metadata = {
+  title:       'Travaux — Alexis Bossy',
+  description: 'Tous les projets de vidéo, photographie et direction artistique.',
 }
 
 export default function TravauxPage() {
   return (
-    <main>
-      <div className="container" style={{ paddingTop: '80px' }}>
-        <h1 style={{ fontWeight: 300, fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}>Travaux</h1>
-        <Filters />
-      </div>
-      <Grid />
+    <main style={{ background: 'var(--bg)' }}>
+      <TravauxContent projets={projets} />
+      <TravauxCTA />
     </main>
   )
 }
