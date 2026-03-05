@@ -1,26 +1,72 @@
-import projets from '@/data/projets.json'
-import ProjectHero from '@/components/projet/ProjectHero'
-import Chapter from '@/components/projet/Chapter'
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import projets      from '@/data/projets.json'
+
+import ProjectHero from '@/components/projet/ProjectHero'
+import Chapter     from '@/components/projet/Chapter'
+import ProjectNav  from '@/components/projet/ProjectNav'
+import NextProject from '@/components/projet/NextProject'
 
 interface Props {
   params: { slug: string }
 }
 
+/* ── Génération statique ─────────────────────── */
 export function generateStaticParams() {
   return projets.map((p) => ({ slug: p.slug }))
 }
 
+/* ── Metadata dynamique ──────────────────────── */
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const projet = projets.find((p) => p.slug === params.slug)
+  if (!projet) return {}
+
+  const typeLabel =
+    projet.category === 'video'
+      ? 'Vidéo'
+      : projet.category === 'photo'
+      ? 'Photographie'
+      : 'Direction Artistique'
+
+  return {
+    title:       `${projet.title} — Alexis Bossy`,
+    description: `${typeLabel} · ${projet.client} · ${projet.year}`,
+  }
+}
+
+/* ── Page ────────────────────────────────────── */
 export default function ProjetPage({ params }: Props) {
   const projet = projets.find((p) => p.slug === params.slug)
   if (!projet) notFound()
 
   return (
     <main>
-      <ProjectHero />
-      {projet.chapters.map((chapter) => (
-        <Chapter key={chapter.number} />
+      {/* Hero plein écran */}
+      <ProjectHero projet={projet} />
+
+      {/* Chapitres I / II / III */}
+      {projet.chapters.map((chapter, i) => (
+        <Chapter
+          key={chapter.number}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          chapter={chapter as any}
+          meta={
+            i === 0
+              ? {
+                  client:   projet.client,
+                  year:     projet.year,
+                  category: projet.category,
+                }
+              : undefined
+          }
+        />
       ))}
+
+      {/* Navigation prev / next */}
+      <ProjectNav currentSlug={projet.slug} />
+
+      {/* Section "Projet suivant" */}
+      <NextProject currentSlug={projet.slug} />
     </main>
   )
 }
