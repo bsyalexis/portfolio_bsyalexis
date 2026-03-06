@@ -562,6 +562,38 @@ a {
     --section-pt-large: 72px;
   }
 
+  /* Hero → padding réduit */
+  #hero .hero-content-inner {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+
+  /* ProjectsGrid header → padding + 1 colonne */
+  .projects-grid-header {
+    padding-inline: 24px !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    margin-bottom: 24px !important;
+  }
+
+  /* About → padding + 1 colonne */
+  #about .about-inner {
+    padding-inline: 24px !important;
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  /* Footer → padding réduit */
+  .footer-engage {
+    padding: 56px 24px 48px !important;
+  }
+  .footer-links-inner {
+    padding-inline: 24px !important;
+  }
+  .footer-bottom-inner {
+    padding-inline: 24px !important;
+  }
+
   /* Bento grid → 1 colonne */
   .bento-grid {
     grid-template-columns: 1fr !important;
@@ -587,6 +619,7 @@ a {
   .masonry-container {
     flex-direction: column !important;
     height: auto !important;
+    padding-inline: 24px !important;
   }
   .masonry-col {
     width: 100% !important;

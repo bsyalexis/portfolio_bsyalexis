@@ -24,7 +24,7 @@ export default function Hero() {
       <div style={styles.overlay} aria-hidden="true" />
 
       {/* Contenu — bottom left */}
-      <div style={styles.content}>
+      <div style={styles.content} className="hero-content-inner">
         <p className="label hero-eyebrow" style={styles.eyebrow}>
           Vidéaste&nbsp;&middot;&nbsp;Photographe&nbsp;&middot;&nbsp;DA
         </p>
@@ -76,7 +76,8 @@ const styles: Record<string, React.CSSProperties> = {
     position: 'relative',
     zIndex: 2,
     padding: '0 56px 56px',
-    maxWidth: '860px',
+    width: '100%',
+    maxWidth: '1100px',
   },
   eyebrow: {
     color: 'rgba(255,255,255,0.5)',

@@ -55,7 +55,7 @@ export default function ProjectsGrid({ projets }: Props) {
     <section id="projets" ref={sectionRef} style={styles.section}>
 
       {/* Header — 2 colonnes */}
-      <div style={styles.header}>
+      <div style={styles.header} className="projects-grid-header">
         <h2 style={styles.heading}>
           <span style={styles.headLight}>Travaux</span>
           <br />

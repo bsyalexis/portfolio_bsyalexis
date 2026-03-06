@@ -6,7 +6,7 @@ export default function Footer() {
     <footer id="contact">
 
       {/* ── Section sombre + formulaire ── */}
-      <div style={styles.engage}>
+      <div style={styles.engage} className="footer-engage">
         <div style={styles.engageInner} className="engage-inner">
 
           {/* Gauche — texte */}
@@ -66,7 +66,7 @@ export default function Footer() {
 
       {/* ── Barre © ── */}
       <div style={styles.bottom}>
-        <div style={styles.bottomInner}>
+        <div style={styles.bottomInner} className="footer-bottom-inner">
           <span style={styles.copy}>Site confectionné par mes soins — {new Date().getFullYear()}</span>
         </div>
       </div>

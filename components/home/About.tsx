@@ -34,7 +34,7 @@ export default function About() {
 
   return (
     <section id="about" ref={sectionRef} style={styles.section}>
-      <div style={styles.inner}>
+      <div style={styles.inner} className="about-inner">
 
         {/* Portrait */}
         <div className="about-portrait" style={styles.portraitWrap}>
