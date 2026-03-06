@@ -64,11 +64,11 @@ export default function Bento({ projets }: Props) {
           {/* Deux petites images */}
           <div className="bento-small-row" style={styles.smallRow}>
             <div className="bento-item" style={styles.smallCard}>
-              <div style={{ ...styles.smallBg, background: 'linear-gradient(160deg, #c8c0b4 0%, #9a9080 100%)' }} />
+              <div style={{ ...styles.smallBg, background: 'radial-gradient(ellipse at 60% 30%, rgba(255,255,255,0.18) 0%, transparent 50%), linear-gradient(155deg, #cac2b8 0%, #9c9488 100%)' }} />
               {p1 && <span className="label" style={styles.smallLabel}>{p1.title}</span>}
             </div>
             <div className="bento-item" style={styles.smallCard}>
-              <div style={{ ...styles.smallBg, background: 'linear-gradient(160deg, #b0a89c 0%, #807870 100%)' }} />
+              <div style={{ ...styles.smallBg, background: 'radial-gradient(ellipse at 35% 65%, rgba(255,255,255,0.14) 0%, transparent 50%), linear-gradient(155deg, #b8b0a4 0%, #908880 100%)' }} />
               {p2 && <span className="label" style={styles.smallLabel}>{p2.title}</span>}
             </div>
           </div>
@@ -111,7 +111,7 @@ const styles: Record<string, React.CSSProperties> = {
   mainBg: {
     width: '100%',
     height: '100%',
-    background: 'linear-gradient(160deg, #c8c0b6 0%, #a09288 40%, #786860 100%)',
+    background: 'radial-gradient(ellipse at 28% 32%, rgba(255,255,255,0.22) 0%, transparent 52%), linear-gradient(155deg, #cec6ba 0%, #a89a8e 40%, #806c62 100%)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },

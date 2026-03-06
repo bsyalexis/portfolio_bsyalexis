@@ -20,13 +20,13 @@ interface Props {
   projets: Projet[]
 }
 
-/* Gradients placeholder par projet */
+/* Gradients placeholder — lumière simulée par projet */
 const placeholders = [
-  'linear-gradient(160deg, #b5aea6 0%, #8a8278 100%)',
-  'linear-gradient(160deg, #c2b8a8 0%, #9a8f82 100%)',
-  'linear-gradient(160deg, #a8a09a 0%, #7a7470 100%)',
-  'linear-gradient(160deg, #bab0a6 0%, #928880 100%)',
-  'linear-gradient(160deg, #c0b8b0 0%, #9a9288 100%)',
+  'radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 55%), linear-gradient(155deg, #c8c0b6 0%, #9a9088 40%, #787068 100%)',
+  'radial-gradient(ellipse at 65% 25%, rgba(255,255,255,0.16) 0%, transparent 50%), linear-gradient(155deg, #d0c8bc 0%, #a8a094 40%, #888078 100%)',
+  'radial-gradient(ellipse at 40% 65%, rgba(255,255,255,0.14) 0%, transparent 52%), linear-gradient(155deg, #b8b0a8 0%, #8c8880 40%, #6a6860 100%)',
+  'radial-gradient(ellipse at 70% 40%, rgba(255,255,255,0.18) 0%, transparent 55%), linear-gradient(155deg, #c4bcb4 0%, #9c9490 40%, #7a7470 100%)',
+  'radial-gradient(ellipse at 35% 55%, rgba(255,255,255,0.15) 0%, transparent 50%), linear-gradient(155deg, #ccbcb0 0%, #a09080 40%, #806c60 100%)',
 ]
 
 export default function ProjectsGrid({ projets }: Props) {

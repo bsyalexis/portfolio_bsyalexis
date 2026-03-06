@@ -13,7 +13,7 @@ const FILTERS = [
   { key: 'all',   label: 'Tous' },
   { key: 'video', label: 'Vidéo' },
   { key: 'photo', label: 'Photo' },
-  { key: 'da',    label: 'Direction Artistique' },
+  { key: 'autres', label: 'Autres' },
 ]
 
 export default function TravauxHeader({ activeFilter, count, onFilter }: Props) {

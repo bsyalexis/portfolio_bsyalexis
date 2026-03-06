@@ -11,15 +11,15 @@ interface Projet {
 }
 
 const gradients: Record<string, string> = {
-  video: 'linear-gradient(160deg, #b5aea6 0%, #7a7470 100%)',
-  photo: 'linear-gradient(160deg, #c2b8a8 0%, #8a8078 100%)',
-  da:    'linear-gradient(160deg, #a8a09a 0%, #686058 100%)',
+  video:  'linear-gradient(155deg, #2e2a28 0%, #5c5250 40%, #3e3a38 100%)',
+  photo:  'linear-gradient(155deg, #d0c8c0 0%, #b0a898 40%, #948880 100%)',
+  autres: 'linear-gradient(155deg, #b8bcc0 0%, #909498 40%, #707478 100%)',
 }
 
 const categoryLabels: Record<string, string> = {
-  video: 'Vidéo',
-  photo: 'Photographie',
-  da:    'Direction Artistique',
+  video:  'Vidéo',
+  photo:  'Photographie',
+  autres: 'Autres',
 }
 
 function ratioToCss(ratio: string = '16:9'): string {

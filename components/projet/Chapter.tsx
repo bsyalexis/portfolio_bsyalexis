@@ -32,9 +32,9 @@ interface Props {
 }
 
 const categoryLabels: Record<string, string> = {
-  video: 'Vidéo',
-  photo: 'Photographie',
-  da:    'Direction Artistique',
+  video:  'Vidéo',
+  photo:  'Photographie',
+  autres: 'Autres',
 }
 
 export default function Chapter({ chapter, meta }: Props) {

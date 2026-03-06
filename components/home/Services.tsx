@@ -3,46 +3,17 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Link from 'next/link'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const services = [
-  {
-    num: '01',
-    title: 'Vidéaste',
-    desc: 'Films de marque, teasers produit, documentaires corporate. De la captation au montage final.',
-    large: true,
-  },
-  {
-    num: '02',
-    title: 'Photographe',
-    desc: 'Corporate, produit, événementiel. Des images nettes, cohérentes, directement exploitables.',
-    large: true,
-  },
-  {
-    num: '03',
-    title: 'Direction Artistique',
-    desc: 'Identité visuelle, charte graphique, supervision de campagnes.',
-    large: false,
-  },
-  {
-    num: '04',
-    title: 'Communication',
-    desc: 'Stratégie visuelle, contenus réseaux sociaux, supports print & digital.',
-    large: false,
-  },
-  {
-    num: '05',
-    title: 'Webdesign',
-    desc: 'Sites vitrine, landing pages, interfaces — design & intégration.',
-    large: false,
-  },
-  {
-    num: '06',
-    title: 'Graphisme',
-    desc: 'Identité de marque, typographie, mise en page éditoriale.',
-    large: false,
-  },
+  { num: '01', title: 'Vidéaste',           desc: 'Films de marque, teasers produit, documentaires corporate.' },
+  { num: '02', title: 'Photographe',        desc: 'Corporate, produit, événementiel. Images nettes et cohérentes.' },
+  { num: '03', title: 'Direction Art.',     desc: 'Identité visuelle, charte graphique, supervision de campagnes.' },
+  { num: '04', title: 'Communication',      desc: 'Stratégie visuelle, contenus réseaux, supports print & digital.' },
+  { num: '05', title: 'Webdesign',          desc: 'Sites vitrine, landing pages, interfaces — design & intégration.' },
+  { num: '06', title: 'Graphisme',          desc: 'Identité de marque, typographie, mise en page éditoriale.' },
 ]
 
 export default function Services() {
@@ -50,143 +21,65 @@ export default function Services() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.service-card', {
+      gsap.from('.svc-row', {
         opacity: 0,
-        y: 30,
-        duration: 0.6,
-        stagger: 0.1,
+        y: 16,
+        duration: 0.5,
+        stagger: 0.07,
         ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-        },
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' },
       })
     }, sectionRef)
     return () => ctx.revert()
   }, [])
 
-  const large = services.filter((s) => s.large)
-  const small = services.filter((s) => !s.large)
-
   return (
-    <section id="services" ref={sectionRef} style={styles.section}>
-      <div style={styles.inner}>
+    <section id="services" ref={sectionRef} style={{ paddingTop: '80px', paddingBottom: '80px', background: 'var(--bg)' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', paddingInline: '56px' }}>
 
-        <h2 style={styles.heading}>
-          <span style={styles.headLight}>Ce que je</span>{' '}
-          <span style={styles.headStrong}>fais.</span>
-        </h2>
-
-        {/* 2 grandes cartes */}
-        <div style={styles.gridLarge}>
-          {large.map((s) => (
-            <div key={s.num} className="service-card" style={styles.cardLarge}>
-              <span className="label" style={styles.num}>{s.num}</span>
-              <h3 style={styles.cardTitle}>{s.title}</h3>
-              <p style={styles.cardDesc}>{s.desc}</p>
-            </div>
-          ))}
+        {/* En-tête */}
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '40px' }}>
+          <h2 style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 300, letterSpacing: '-0.02em', color: 'var(--text-mid)', margin: 0 }}>
+            Ce que je <strong style={{ fontWeight: 700, color: 'var(--text)' }}>fais.</strong>
+          </h2>
+          <Link
+            href="#contact"
+            style={{ fontSize: '0.75rem', fontWeight: 500, color: 'var(--text-mid)', textDecoration: 'none', letterSpacing: '0.04em', borderBottom: '1px solid var(--border)', paddingBottom: '2px' }}
+          >
+            Travaillons ensemble →
+          </Link>
         </div>
 
-        {/* 4 petites cartes */}
-        <div style={styles.gridSmall}>
-          {small.map((s, i) => (
-            <div key={s.num} className="service-card" style={{
-              ...styles.cardSmall,
-              borderRadius: [
-                '0 0 0 18px',
-                '0 0 18px 0',
-                '0 0 0 0',
-                '0 0 0 0',
-              ][i] || '0',
-            }}>
-              <span className="label" style={styles.num}>{s.num}</span>
-              <h3 style={styles.cardTitleSm}>{s.title}</h3>
-              <p style={styles.cardDescSm}>{s.desc}</p>
+        {/* Liste services */}
+        <div>
+          {services.map((s, i) => (
+            <div
+              key={s.num}
+              className="svc-row"
+              style={{
+                display:       'grid',
+                gridTemplateColumns: '36px 1fr 2fr',
+                gap:           '24px',
+                alignItems:    'center',
+                padding:       '18px 0',
+                borderTop:     '1px solid var(--border)',
+                ...(i === services.length - 1 ? { borderBottom: '1px solid var(--border)' } : {}),
+              }}
+            >
+              <span style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.12em', color: 'var(--accent)' }}>
+                {s.num}
+              </span>
+              <span style={{ fontSize: '0.92rem', fontWeight: 600, color: 'var(--text)', letterSpacing: '-0.01em' }}>
+                {s.title}
+              </span>
+              <span style={{ fontSize: '0.82rem', fontWeight: 300, color: 'var(--text-mid)', lineHeight: 1.5 }}>
+                {s.desc}
+              </span>
             </div>
           ))}
         </div>
 
       </div>
-
     </section>
   )
-}
-
-const styles: Record<string, React.CSSProperties> = {
-  section: {
-    paddingTop: '96px',
-    paddingBottom: '96px',
-    background: 'var(--bg)',
-  },
-  inner: {
-    maxWidth: '1100px',
-    margin: '0 auto',
-    paddingInline: '56px',
-  },
-  heading: {
-    fontSize: '2.2rem',
-    lineHeight: 1.2,
-    marginBottom: '40px',
-    letterSpacing: '-0.02em',
-  },
-  headLight: {
-    fontWeight: 300,
-    color: 'var(--text-mid)',
-  },
-  headStrong: {
-    fontWeight: 700,
-    color: 'var(--text)',
-  },
-  gridLarge: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '3px',
-    marginBottom: '3px',
-  },
-  gridSmall: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
-    gap: '3px',
-  },
-  cardLarge: {
-    background: 'var(--bg-card)',
-    padding: '36px',
-    borderRadius: '0',
-  },
-  cardSmall: {
-    background: 'var(--bg-card)',
-    padding: '28px 24px',
-  },
-  num: {
-    display: 'block',
-    marginBottom: '16px',
-    color: 'var(--accent)',
-  },
-  cardTitle: {
-    fontSize: '1.25rem',
-    fontWeight: 600,
-    marginBottom: '12px',
-    color: 'var(--text)',
-    letterSpacing: '-0.01em',
-  },
-  cardTitleSm: {
-    fontSize: '0.95rem',
-    fontWeight: 600,
-    marginBottom: '10px',
-    color: 'var(--text)',
-    letterSpacing: '-0.01em',
-  },
-  cardDesc: {
-    fontSize: '0.88rem',
-    fontWeight: 300,
-    color: 'var(--text-mid)',
-    lineHeight: 1.65,
-  },
-  cardDescSm: {
-    fontSize: '0.8rem',
-    fontWeight: 300,
-    color: 'var(--text-mid)',
-    lineHeight: 1.6,
-  },
 }

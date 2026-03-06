@@ -484,11 +484,44 @@ a {
   opacity: 0;
 }
 
-/* TRAVAUX GRID — responsive */
+/* TRAVAUX GRID — cartes uniformes 4:3 */
 .travaux-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 3px;
+}
+.travaux-grid .projet-card {
+  aspect-ratio: 4 / 3;
+}
+
+/* CONTACT FORM — thème sombre (footer) */
+.contact-form input,
+.contact-form textarea {
+  display: block;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 11px 14px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.2s ease;
+  -webkit-appearance: none;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: rgba(255, 255, 255, 0.32);
+}
+.contact-form textarea {
+  resize: vertical;
+  min-height: 96px;
 }
 
 /* ─────────────────────────────────────────────

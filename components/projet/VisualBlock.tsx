@@ -8,11 +8,11 @@ interface Props {
   dark?:  boolean
 }
 
-/* Gradients placeholder (utilisés jusqu'à ce que les vraies images soient disponibles) */
+/* Gradients placeholder — lumière simulée pour habiller les blocs sans image */
 const GRAD = [
-  'linear-gradient(160deg, #b5aea6 0%, #7a7470 100%)',
-  'linear-gradient(160deg, #c2b8a8 0%, #9a8f82 100%)',
-  'linear-gradient(160deg, #a8a09a 0%, #706860 100%)',
+  'radial-gradient(ellipse at 35% 35%, rgba(255,255,255,0.18) 0%, transparent 55%), linear-gradient(155deg, #c8c0b8 0%, #a09080 50%, #7a7068 100%)',
+  'radial-gradient(ellipse at 65% 30%, rgba(255,255,255,0.14) 0%, transparent 50%), linear-gradient(155deg, #b0b4b8 0%, #888c90 50%, #606468 100%)',
+  'radial-gradient(ellipse at 40% 60%, rgba(255,255,255,0.12) 0%, transparent 55%), linear-gradient(155deg, #d0c8be 0%, #aca098 50%, #888078 100%)',
 ]
 
 function ImgBlock({ src, grad }: { src: string; grad: string }) {

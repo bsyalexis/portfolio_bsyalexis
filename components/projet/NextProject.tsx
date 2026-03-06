@@ -6,15 +6,15 @@ interface Props {
 }
 
 const gradients: Record<string, string> = {
-  video: 'linear-gradient(160deg, #b5aea6 0%, #7a7470 100%)',
-  photo: 'linear-gradient(160deg, #c2b8a8 0%, #8a8078 100%)',
-  da:    'linear-gradient(160deg, #a8a09a 0%, #686058 100%)',
+  video:  'linear-gradient(155deg, #302c2a 0%, #5e5a56 40%, #3a3634 100%)',
+  photo:  'linear-gradient(155deg, #cec8c0 0%, #a8a098 40%, #888078 100%)',
+  autres: 'linear-gradient(155deg, #b8bcbf 0%, #909498 40%, #6c7074 100%)',
 }
 
 const categoryLabels: Record<string, string> = {
-  video: 'Vidéo',
-  photo: 'Photographie',
-  da:    'Direction Artistique',
+  video:  'Vidéo',
+  photo:  'Photographie',
+  autres: 'Autres',
 }
 
 export default function NextProject({ currentSlug }: Props) {

@@ -1,28 +1,34 @@
-import Link from 'next/link'
+import Link        from 'next/link'
+import ContactForm from './ContactForm'
 
 export default function Footer() {
   return (
     <footer id="contact">
 
-      {/* ── Section sombre "Engageons la conversation" ── */}
+      {/* ── Section sombre + formulaire ── */}
       <div style={styles.engage}>
-        <div style={styles.engageInner}>
+        <div style={styles.engageInner} className="engage-inner">
 
+          {/* Gauche — texte */}
           <div style={styles.engageLeft}>
+            <p className="label" style={{ color: 'rgba(255,255,255,0.35)', letterSpacing: '0.18em', marginBottom: '18px' }}>
+              Contact
+            </p>
             <h2 style={styles.engageHeading}>
               Engageons la<br />conversation.
             </h2>
             <p style={styles.engageDesc}>
               Disponible pour des missions de vidéo, photographie,
-              direction artistique et webdesign. Travaillons ensemble.
+              direction artistique et webdesign.
             </p>
             <a href="mailto:contact@alexisbossy.com" style={styles.engageCta}>
-              contact@alexisbossy.com &rarr;
+              contact@alexisbossy.com
             </a>
           </div>
 
-          <div style={styles.engageImgWrap}>
-            <div style={styles.engageImgBg} />
+          {/* Droite — formulaire de contact */}
+          <div style={styles.formWrap}>
+            <ContactForm />
           </div>
 
         </div>
@@ -30,10 +36,10 @@ export default function Footer() {
 
       {/* ── Liens + grand nom ── */}
       <div style={styles.links}>
-        <div style={styles.linksInner}>
+        <div style={styles.linksInner} className="footer-links-inner">
 
           <div style={styles.col}>
-            <span className="label" style={styles.colLabel}>À propos</span>
+            <span className="label" style={styles.colLabel}>Navigation</span>
             <Link href="/" style={styles.link}>Accueil</Link>
             <Link href="/travaux" style={styles.link}>Travaux</Link>
             <Link href="/#services" style={styles.link}>Services</Link>
@@ -52,7 +58,6 @@ export default function Footer() {
             <a href="mailto:contact@alexisbossy.com" style={styles.link}>contact@alexisbossy.com</a>
           </div>
 
-          {/* Grand logo en bas à droite */}
           <div style={styles.logoCol}>
             <span style={styles.bigLogo}>Alexis Bossy</span>
           </div>
@@ -79,122 +84,112 @@ const styles: Record<string, React.CSSProperties> = {
     padding: '80px 56px 72px',
   },
   engageInner: {
-    maxWidth: '1100px',
-    margin: '0 auto',
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '64px',
-    alignItems: 'center',
+    maxWidth:             '1100px',
+    margin:               '0 auto',
+    display:              'grid',
+    gridTemplateColumns:  '1fr 1fr',
+    gap:                  '72px',
+    alignItems:           'start',
   },
   engageLeft: {
-    display: 'flex',
+    display:       'flex',
     flexDirection: 'column',
-    gap: '20px',
+    gap:           '16px',
   },
   engageHeading: {
-    fontSize: 'clamp(2.2rem, 4vw, 3.5rem)',
-    fontWeight: 700,
+    fontSize:      'clamp(2rem, 3.5vw, 3rem)',
+    fontWeight:    700,
     letterSpacing: '-0.03em',
-    lineHeight: 1.05,
-    color: '#ffffff',
-    margin: 0,
+    lineHeight:    1.08,
+    color:         '#ffffff',
+    margin:        0,
   },
   engageDesc: {
-    fontSize: '0.88rem',
+    fontSize:   '0.85rem',
     fontWeight: 300,
-    color: 'rgba(255,255,255,0.45)',
+    color:      'rgba(255,255,255,0.4)',
     lineHeight: 1.75,
-    maxWidth: '360px',
-    margin: 0,
+    maxWidth:   '340px',
+    margin:     0,
   },
   engageCta: {
-    display: 'inline-block',
-    color: '#ffffff',
-    fontSize: '0.85rem',
-    fontWeight: 500,
+    display:        'inline-block',
+    color:          'rgba(255,255,255,0.55)',
+    fontSize:       '0.78rem',
+    fontWeight:     400,
     textDecoration: 'none',
-    borderBottom: '1px solid rgba(255,255,255,0.3)',
-    paddingBottom: '3px',
-    width: 'fit-content',
-    transition: 'border-color 0.2s',
+    borderBottom:   '1px solid rgba(255,255,255,0.18)',
+    paddingBottom:  '2px',
+    width:          'fit-content',
   },
-  engageImgWrap: {
-    borderRadius: '8px',
-    overflow: 'hidden',
-    aspectRatio: '4/3',
-  },
-  engageImgBg: {
-    width: '100%',
-    height: '100%',
-    background: 'linear-gradient(160deg, #3a3430 0%, #1c1614 100%)',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+  formWrap: {
+    paddingTop: '4px',
   },
 
   /* Links */
   links: {
-    background: '#111010',
-    borderTop: '1px solid rgba(255,255,255,0.07)',
-    paddingTop: '56px',
+    background:    '#111010',
+    borderTop:     '1px solid rgba(255,255,255,0.07)',
+    paddingTop:    '48px',
     paddingBottom: '24px',
   },
   linksInner: {
-    maxWidth: '1100px',
-    margin: '0 auto',
-    paddingInline: '56px',
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr 1.5fr',
-    gap: '32px',
-    alignItems: 'end',
+    maxWidth:             '1100px',
+    margin:               '0 auto',
+    paddingInline:        '56px',
+    display:              'grid',
+    gridTemplateColumns:  '1fr 1fr 1fr 1.5fr',
+    gap:                  '32px',
+    alignItems:           'end',
   },
   col: {
-    display: 'flex',
+    display:       'flex',
     flexDirection: 'column',
-    gap: '10px',
+    gap:           '10px',
   },
   colLabel: {
-    color: 'rgba(255,255,255,0.25)',
+    color:        'rgba(255,255,255,0.25)',
     marginBottom: '4px',
-    display: 'block',
+    display:      'block',
   },
   link: {
-    fontSize: '0.82rem',
-    fontWeight: 300,
-    color: 'rgba(255,255,255,0.55)',
+    fontSize:       '0.82rem',
+    fontWeight:     300,
+    color:          'rgba(255,255,255,0.5)',
     textDecoration: 'none',
-    transition: 'color 0.2s',
+    transition:     'color 0.2s',
   },
   logoCol: {
-    display: 'flex',
-    alignItems: 'flex-end',
+    display:        'flex',
+    alignItems:     'flex-end',
     justifyContent: 'flex-end',
   },
   bigLogo: {
-    fontSize: 'clamp(1.6rem, 2.8vw, 2.4rem)',
-    fontWeight: 700,
-    color: 'rgba(255,255,255,0.12)',
+    fontSize:      'clamp(1.5rem, 2.6vw, 2.2rem)',
+    fontWeight:    700,
+    color:         'rgba(255,255,255,0.1)',
     letterSpacing: '-0.02em',
-    lineHeight: 1,
+    lineHeight:    1,
   },
 
   /* Bottom */
   bottom: {
-    background: '#111010',
-    borderTop: '1px solid rgba(255,255,255,0.06)',
+    background:   '#111010',
+    borderTop:    '1px solid rgba(255,255,255,0.06)',
     paddingBlock: '18px',
   },
   bottomInner: {
-    maxWidth: '1100px',
-    margin: '0 auto',
-    paddingInline: '56px',
-    display: 'flex',
+    maxWidth:       '1100px',
+    margin:         '0 auto',
+    paddingInline:  '56px',
+    display:        'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems:     'center',
   },
   copy: {
-    fontSize: '0.7rem',
-    fontWeight: 400,
-    color: 'rgba(255,255,255,0.2)',
+    fontSize:       '0.7rem',
+    fontWeight:     400,
+    color:          'rgba(255,255,255,0.2)',
     textDecoration: 'none',
   },
 }
