@@ -1,7 +1,6 @@
 import Hero from '@/components/home/Hero'
 import Bento from '@/components/home/Bento'
 import ProjectsGrid from '@/components/home/ProjectsGrid'
-import Services from '@/components/home/Services'
 import About from '@/components/home/About'
 import Footer from '@/components/layout/Footer'
 import projets from '@/data/projets.json'
@@ -14,7 +13,6 @@ export default function HomePage() {
       <Hero />
       <Bento projets={featured.slice(0, 3)} />
       <ProjectsGrid projets={featured} />
-      <Services />
       <About />
       <Footer />
     </main>

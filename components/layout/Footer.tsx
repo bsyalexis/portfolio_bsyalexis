@@ -21,8 +21,8 @@ export default function Footer() {
               Disponible pour des missions de vidéo, photographie,
               direction artistique et webdesign.
             </p>
-            <a href="mailto:contact@alexisbossy.com" style={styles.engageCta}>
-              contact@alexisbossy.com
+            <a href="mailto:bsy.alexis@gmail.com" style={styles.engageCta}>
+              bsy.alexis@gmail.com
             </a>
           </div>
 
@@ -42,20 +42,19 @@ export default function Footer() {
             <span className="label" style={styles.colLabel}>Navigation</span>
             <Link href="/" style={styles.link}>Accueil</Link>
             <Link href="/travaux" style={styles.link}>Travaux</Link>
-            <Link href="/#services" style={styles.link}>Services</Link>
             <Link href="/#contact" style={styles.link}>Contact</Link>
           </div>
 
           <div style={styles.col}>
             <span className="label" style={styles.colLabel}>Réseaux</span>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={styles.link}>LinkedIn</a>
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={styles.link}>Instagram</a>
-            <a href="https://vimeo.com" target="_blank" rel="noopener noreferrer" style={styles.link}>Vimeo</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={styles.link}>LinkedIn</a>
+            <a href="https://behance.net" target="_blank" rel="noopener noreferrer" style={styles.link}>Behance</a>
           </div>
 
           <div style={styles.col}>
             <span className="label" style={styles.colLabel}>Contact</span>
-            <a href="mailto:contact@alexisbossy.com" style={styles.link}>contact@alexisbossy.com</a>
+            <a href="mailto:bsy.alexis@gmail.com" style={styles.link}>bsy.alexis@gmail.com</a>
           </div>
 
           <div style={styles.logoCol}>
@@ -68,8 +67,7 @@ export default function Footer() {
       {/* ── Barre © ── */}
       <div style={styles.bottom}>
         <div style={styles.bottomInner}>
-          <span style={styles.copy}>© {new Date().getFullYear()} Alexis Bossy</span>
-          <Link href="/travaux" style={styles.copy}>Travaux</Link>
+          <span style={styles.copy}>Site confectionné par mes soins — {new Date().getFullYear()}</span>
         </div>
       </div>
 
@@ -183,7 +181,7 @@ const styles: Record<string, React.CSSProperties> = {
     margin:         '0 auto',
     paddingInline:  '56px',
     display:        'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems:     'center',
   },
   copy: {

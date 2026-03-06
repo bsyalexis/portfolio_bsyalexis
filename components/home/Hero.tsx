@@ -12,7 +12,6 @@ export default function Hero() {
       gsap.from('.hero-eyebrow', { opacity: 0, y: 20, duration: 0.7, delay: 0.3 })
       gsap.from('.hero-line',    { opacity: 0, y: 40, duration: 0.9, stagger: 0.15, delay: 0.5, ease: 'power3.out' })
       gsap.from('.hero-cta',     { opacity: 0, y: 20, duration: 0.6, delay: 1.1 })
-      gsap.from('.hero-circular', { opacity: 0, duration: 0.8, delay: 1.4 })
     }, containerRef)
     return () => ctx.revert()
   }, [])
@@ -27,7 +26,7 @@ export default function Hero() {
       {/* Contenu — bottom left */}
       <div style={styles.content}>
         <p className="label hero-eyebrow" style={styles.eyebrow}>
-          Vidéaste&nbsp;&middot;&nbsp;Photographe&nbsp;&middot;&nbsp;DA&nbsp;&mdash;&nbsp;Innolive
+          Vidéaste&nbsp;&middot;&nbsp;Photographe&nbsp;&middot;&nbsp;DA
         </p>
 
         <h1 style={styles.title}>
@@ -45,38 +44,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Texte circulaire rotatif — bottom right */}
-      <div className="hero-circular" style={styles.circularWrap} aria-hidden="true">
-        <svg
-          viewBox="0 0 120 120"
-          width="120"
-          height="120"
-          style={styles.circularSvgStyle}
-          className="circular-text"
-        >
-          <path
-            id="hero-circle-path"
-            d="M 60,60 m -42,0 a 42,42 0 1,1 84,0 a 42,42 0 1,1 -84,0"
-            fill="none"
-          />
-          <text>
-            <textPath
-              href="#hero-circle-path"
-              style={{
-                fontSize: '9.5px',
-                fill: 'rgba(255,255,255,0.55)',
-                fontWeight: '500',
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                fontFamily: 'Inter, sans-serif',
-              } as React.CSSProperties}
-            >
-              {`Vidéaste · DA · Photographe · Innolive · `}
-            </textPath>
-          </text>
-        </svg>
-        <span style={styles.circularCenter}>✕</span>
-      </div>
 
     </section>
   )
@@ -86,8 +53,8 @@ const styles: Record<string, React.CSSProperties> = {
   section: {
     position: 'relative',
     width: '100%',
-    height: '100vh',
-    minHeight: '640px',
+    height: '70vh',
+    minHeight: '480px',
     overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column',
@@ -108,7 +75,7 @@ const styles: Record<string, React.CSSProperties> = {
   content: {
     position: 'relative',
     zIndex: 2,
-    padding: '0 56px 80px',
+    padding: '0 56px 56px',
     maxWidth: '860px',
   },
   eyebrow: {
@@ -118,10 +85,10 @@ const styles: Record<string, React.CSSProperties> = {
     letterSpacing: '0.14em',
   },
   title: {
-    fontSize: 'clamp(3.5rem, 8vw, 7.5rem)',
+    fontSize: 'clamp(2.8rem, 6vw, 5.5rem)',
     lineHeight: 1.0,
     letterSpacing: '-0.035em',
-    marginBottom: '40px',
+    marginBottom: '32px',
   },
   lineLight: {
     fontWeight: 300,
@@ -147,28 +114,5 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 600,
     textDecoration: 'none',
     letterSpacing: '0.01em',
-  },
-  circularWrap: {
-    position: 'absolute',
-    bottom: '56px',
-    right: '56px',
-    zIndex: 2,
-    width: '120px',
-    height: '120px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  circularSvgStyle: {
-    position: 'absolute',
-    inset: 0,
-    width: '100%',
-    height: '100%',
-  },
-  circularCenter: {
-    position: 'relative',
-    zIndex: 1,
-    color: 'rgba(255,255,255,0.4)',
-    fontSize: '0.7rem',
   },
 }

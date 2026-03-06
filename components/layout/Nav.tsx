@@ -45,10 +45,6 @@ export default function Nav() {
           <Link href="/#contact" style={styles.navLink} className="nav-link">
             Contact
           </Link>
-          <span style={styles.pill} className="nav-pill">
-            <span style={styles.dot} className="nav-dot" aria-hidden="true" />
-            Disponible
-          </span>
         </div>
 
         {/* Hamburger mobile */}
@@ -79,10 +75,6 @@ export default function Nav() {
         <Link href="/#contact" style={styles.mobileLink} onClick={() => setMobileOpen(false)}>
           Contact
         </Link>
-        <span style={{ ...styles.pill, marginTop: '8px', display: 'inline-flex' }}>
-          <span style={styles.dot} aria-hidden="true" />
-          Disponible
-        </span>
       </div>
 
     </header>

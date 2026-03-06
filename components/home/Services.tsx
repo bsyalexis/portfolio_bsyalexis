@@ -8,12 +8,12 @@ import Link from 'next/link'
 gsap.registerPlugin(ScrollTrigger)
 
 const services = [
-  { num: '01', title: 'Vidéaste',           desc: 'Films de marque, teasers produit, documentaires corporate.' },
-  { num: '02', title: 'Photographe',        desc: 'Corporate, produit, événementiel. Images nettes et cohérentes.' },
-  { num: '03', title: 'Direction Art.',     desc: 'Identité visuelle, charte graphique, supervision de campagnes.' },
-  { num: '04', title: 'Communication',      desc: 'Stratégie visuelle, contenus réseaux, supports print & digital.' },
-  { num: '05', title: 'Webdesign',          desc: 'Sites vitrine, landing pages, interfaces — design & intégration.' },
-  { num: '06', title: 'Graphisme',          desc: 'Identité de marque, typographie, mise en page éditoriale.' },
+  { title: 'Vidéaste',       big: true  },
+  { title: 'Photographe',    big: true  },
+  { title: 'Direction Art.', big: false },
+  { title: 'Communication',  big: false },
+  { title: 'Webdesign',      big: false },
+  { title: 'Graphisme',      big: false },
 ]
 
 export default function Services() {
@@ -21,13 +21,13 @@ export default function Services() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.svc-row', {
+      gsap.from('.svc-word', {
         opacity: 0,
-        y: 16,
-        duration: 0.5,
-        stagger: 0.07,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' },
+        y: 24,
+        duration: 0.6,
+        stagger: 0.08,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' },
       })
     }, sectionRef)
     return () => ctx.revert()
@@ -38,7 +38,7 @@ export default function Services() {
       <div style={{ maxWidth: '1100px', margin: '0 auto', paddingInline: '56px' }}>
 
         {/* En-tête */}
-        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '40px' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '56px' }}>
           <h2 style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 300, letterSpacing: '-0.02em', color: 'var(--text-mid)', margin: 0 }}>
             Ce que je <strong style={{ fontWeight: 700, color: 'var(--text)' }}>fais.</strong>
           </h2>
@@ -50,32 +50,44 @@ export default function Services() {
           </Link>
         </div>
 
-        {/* Liste services */}
-        <div>
-          {services.map((s, i) => (
-            <div
-              key={s.num}
-              className="svc-row"
-              style={{
-                display:       'grid',
-                gridTemplateColumns: '36px 1fr 2fr',
-                gap:           '24px',
-                alignItems:    'center',
-                padding:       '18px 0',
-                borderTop:     '1px solid var(--border)',
-                ...(i === services.length - 1 ? { borderBottom: '1px solid var(--border)' } : {}),
-              }}
-            >
-              <span style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.12em', color: 'var(--accent)' }}>
-                {s.num}
-              </span>
-              <span style={{ fontSize: '0.92rem', fontWeight: 600, color: 'var(--text)', letterSpacing: '-0.01em' }}>
+        {/* Une seule ligne — grands à gauche, petits à droite alignés en bas */}
+        <div
+          className="svc-word"
+          style={{
+            display:     'flex',
+            alignItems:  'baseline',
+            gap:         '32px',
+            borderTop:   '1px solid var(--border)',
+            padding:     '28px 0',
+          }}
+        >
+          {services.filter(s => s.big).map(s => (
+            <span key={s.title} style={{
+              fontSize:      'clamp(2.2rem, 4vw, 3.6rem)',
+              fontWeight:    300,
+              letterSpacing: '-0.03em',
+              color:         'var(--text)',
+              lineHeight:    1,
+            }}>
+              {s.title}
+            </span>
+          ))}
+
+          <span style={{ color: 'var(--border)', fontSize: '1.2rem', fontWeight: 300 }}>—</span>
+
+          {services.filter(s => !s.big).map((s, i, arr) => (
+            <span key={s.title} style={{ display: 'inline-flex', alignItems: 'baseline', gap: '20px' }}>
+              <span style={{
+                fontSize:      'clamp(0.78rem, 1vw, 0.88rem)',
+                fontWeight:    400,
+                letterSpacing: '-0.01em',
+                color:         'var(--text-mid)',
+                whiteSpace:    'nowrap',
+              }}>
                 {s.title}
               </span>
-              <span style={{ fontSize: '0.82rem', fontWeight: 300, color: 'var(--text-mid)', lineHeight: 1.5 }}>
-                {s.desc}
-              </span>
-            </div>
+              {i < arr.length - 1 && <span style={{ color: 'var(--border)', fontSize: '0.7rem' }}>·</span>}
+            </span>
           ))}
         </div>
 

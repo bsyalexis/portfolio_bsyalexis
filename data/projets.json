@@ -1,8 +1,8 @@
 [
   {
     "slug": "innolive-brand-film",
-    "title": "Innolive Brand Film",
-    "client": "Innolive",
+    "title": "Brand Film Corporate",
+    "client": "Client Confidentiel",
     "category": "video",
     "year": "2024",
     "cover": "/images/projets/innolive-brand-film/cover.jpg",
@@ -14,7 +14,7 @@
       {
         "number": "I",
         "title": "Le contexte",
-        "text": "Innolive souhaitait affirmer son identité de marque premium à travers un film de marque court et percutant, destiné aux réseaux sociaux et aux présentations clients.",
+        "text": "La marque souhaitait affirmer son identité premium à travers un film court et percutant, destiné aux réseaux sociaux et aux présentations clients.",
         "darkBackground": false,
         "visuals": [
           { "layout": "full", "images": ["/images/projets/innolive-brand-film/01.jpg"] }

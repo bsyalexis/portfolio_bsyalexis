@@ -51,7 +51,7 @@ export default function About() {
             <span style={styles.nameStrong}>Bossy</span>
           </h2>
           <p style={styles.bio}>
-            Directeur Artistique chez Innolive, je travaille en parallèle sur des missions freelance
+            Directeur Artistique, je travaille sur des missions freelance
             pour des marques premium, startups tech et agences créatives. Mon approche : trouver
             l&rsquo;image juste, celle qui reste. Pas d&rsquo;effets pour les effets — seulement ce
             qui sert le propos.
