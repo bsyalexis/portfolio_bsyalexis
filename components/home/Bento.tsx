@@ -112,8 +112,6 @@ const styles: Record<string, React.CSSProperties> = {
     width: '100%',
     height: '100%',
     background: 'radial-gradient(ellipse at 28% 32%, rgba(255,255,255,0.22) 0%, transparent 52%), linear-gradient(155deg, #cec6ba 0%, #a89a8e 40%, #806c62 100%)',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
   },
   namePill: {
     position: 'absolute',
@@ -179,8 +177,6 @@ const styles: Record<string, React.CSSProperties> = {
   smallBg: {
     width: '100%',
     height: '100%',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
   },
   smallLabel: {
     position: 'absolute',
