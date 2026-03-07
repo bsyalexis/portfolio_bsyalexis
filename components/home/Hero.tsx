@@ -28,7 +28,7 @@ export default function Hero() {
         aria-hidden="true"
         style={styles.videoBg}
       >
-        <source src="/showreel.mp4" type="video/mp4" />
+        <source src="/showreel.mp4.mp4" type="video/mp4" />
       </video>
       <div style={styles.overlay} aria-hidden="true" />
 
