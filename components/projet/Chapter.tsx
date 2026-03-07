@@ -137,19 +137,23 @@ export default function Chapter({ chapter, meta }: Props) {
               {chapter.title}
             </h2>
 
-            <p
-              className="chapter-entry"
-              style={{
-                fontSize:   '1rem',
-                fontWeight: 300,
-                lineHeight: 1.85,
-                color:      c.text,
-                maxWidth:   '600px',
-                margin:     0,
-              }}
-            >
-              {chapter.text}
-            </p>
+            {chapter.text.split('\n').filter(Boolean).map((para, i) => (
+              <p
+                key={i}
+                className="chapter-entry"
+                style={{
+                  fontSize:     '1rem',
+                  fontWeight:   300,
+                  lineHeight:   1.85,
+                  color:        c.text,
+                  maxWidth:     '600px',
+                  margin:       0,
+                  marginTop:    i > 0 ? '1.2em' : 0,
+                }}
+              >
+                {para}
+              </p>
+            ))}
 
           </div>
         </div>
