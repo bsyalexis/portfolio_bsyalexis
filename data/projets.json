@@ -1,6 +1,6 @@
 [
   {
-    "slug": "innolive-brand-film",
+    "slug": "eva-challenger-league",
     "title": "EVA CHALLENGER LEAGUE - OFFICIAL TRAILER",
     "client": "EVA",
     "category": "video",
@@ -68,7 +68,7 @@
     "ratio": "9:16",
     "featured": true,
     "nextProject": "identite-visuelle-startup",
-    "prevProject": "innolive-brand-film",
+    "prevProject": "eva-challenger-league",
     "chapters": [
       {
         "number": "I",
@@ -190,7 +190,7 @@
     "cover": "/images/projets/motion-design-teaser/cover.jpg",
     "ratio": "9:16",
     "featured": true,
-    "nextProject": "innolive-brand-film",
+    "nextProject": "eva-challenger-league",
     "prevProject": "portrait-corporate-serie",
     "chapters": [
       {
