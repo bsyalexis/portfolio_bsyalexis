@@ -20,24 +20,11 @@ interface ChapterData {
   visuals?:        Visual[]
 }
 
-interface ProjetMeta {
-  client:   string
-  year:     string
-  category: string
-}
-
 interface Props {
   chapter: ChapterData
-  meta?:   ProjetMeta    // uniquement pour le chapitre I
 }
 
-const categoryLabels: Record<string, string> = {
-  video:  'Vidéo',
-  photo:  'Photographie',
-  autres: 'Autres',
-}
-
-export default function Chapter({ chapter, meta }: Props) {
+export default function Chapter({ chapter }: Props) {
   const ref  = useRef<HTMLElement>(null)
   const dark = chapter.darkBackground ?? false
 
@@ -57,11 +44,8 @@ export default function Chapter({ chapter, meta }: Props) {
 
   /* Couleurs selon le mode */
   const c = {
-    heading:    dark ? '#ffffff'                    : 'var(--text)',
-    text:       dark ? 'rgba(255,255,255,0.65)'     : 'var(--text-mid)',
-    border:     dark ? 'rgba(255,255,255,0.1)'      : 'var(--border)',
-    metaLabel:  dark ? 'rgba(255,255,255,0.35)'     : 'var(--text-dim)',
-    metaValue:  dark ? 'rgba(255,255,255,0.82)'     : 'var(--text)',
+    heading: dark ? '#ffffff'                : 'var(--text)',
+    text:    dark ? 'rgba(255,255,255,0.65)' : 'var(--text-mid)',
   }
 
   return (
