@@ -45,20 +45,11 @@ export default function ProjetPage({ params }: Props) {
       <ProjectHero projet={projet} />
 
       {/* Chapitres I / II / III */}
-      {projet.chapters.map((chapter, i) => (
+      {projet.chapters.map((chapter) => (
         <Chapter
           key={chapter.number}
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           chapter={chapter as any}
-          meta={
-            i === 0
-              ? {
-                  client:   projet.client,
-                  year:     projet.year,
-                  category: projet.category,
-                }
-              : undefined
-          }
         />
       ))}
 
