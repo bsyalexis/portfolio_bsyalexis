@@ -9,6 +9,7 @@ interface Projet {
   category: string
   year:     string
   cover?:   string
+  vimeoId?: string
 }
 
 interface Props {
@@ -59,6 +60,29 @@ export default function ProjectHero({ projet }: Props) {
         background: bg,
       }}
     >
+      {/* Vidéo Vimeo en fond */}
+      {projet.vimeoId && (
+        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }} aria-hidden="true">
+          <iframe
+            src={`https://player.vimeo.com/video/${projet.vimeoId}?background=1&autoplay=1&loop=1&muted=1`}
+            style={{
+              position:  'absolute',
+              top:       '50%',
+              left:      '50%',
+              width:     '100vw',
+              height:    '56.25vw',
+              minHeight: '100%',
+              minWidth:  '177.78vh',
+              transform: 'translate(-50%, -50%)',
+              border:    'none',
+              pointerEvents: 'none',
+            }}
+            allow="autoplay"
+            frameBorder="0"
+          />
+        </div>
+      )}
+
       {/* Gradient overlay bas */}
       <div
         style={{
