@@ -19,17 +19,15 @@ export default function Hero() {
   return (
     <section id="hero" ref={containerRef} style={styles.section}>
 
-      {/* Showreel en fond */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        aria-hidden="true"
-        style={styles.videoBg}
-      >
-        <source src="/showreel.mp4.mp4" type="video/mp4" />
-      </video>
+      {/* Showreel Vimeo en fond */}
+      <div style={styles.videoWrap} aria-hidden="true">
+        <iframe
+          src="https://player.vimeo.com/video/1170452214?background=1&autoplay=1&loop=1&muted=1"
+          style={styles.videoFrame}
+          allow="autoplay"
+          frameBorder="0"
+        />
+      </div>
       <div style={styles.overlay} aria-hidden="true" />
 
       {/* Contenu — bottom left */}
@@ -69,13 +67,23 @@ const styles: Record<string, React.CSSProperties> = {
     flexDirection: 'column',
     justifyContent: 'flex-end',
   },
-  videoBg: {
+  videoWrap: {
     position: 'absolute',
     inset: 0,
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover' as const,
+    overflow: 'hidden',
     opacity: 0.6,
+  },
+  videoFrame: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    width: '100vw',
+    height: '56.25vw',   /* ratio 16:9 */
+    minHeight: '100%',
+    minWidth: '177.78vh', /* ratio 16:9 inverse */
+    transform: 'translate(-50%, -50%)',
+    border: 'none',
+    pointerEvents: 'none',
   },
   overlay: {
     position: 'absolute',
