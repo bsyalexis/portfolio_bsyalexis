@@ -106,51 +106,53 @@ export default function VisualBlock({ visual }: Props) {
     )
   }
 
-  /* ── BENTO GALLERY (9 images + 2 vidéos) ── */
+  /* ── BENTO GALLERY (9 images + 2 vidéos 16:9) ── */
   if (layout === 'bento') {
-    const imgs = images          // [0..8] → 1.png..9.png
-    const vids = visual.videos ?? []  // [0]=TRANSFO, [1]=CONVERGENCE
+    const imgs = images
+    const vids = visual.videos ?? []
 
-    const cell = (
-      content: React.ReactNode,
-      col: string,
-      row: string,
-      key: string
-    ) => (
-      <div key={key} style={{ gridColumn: col, gridRow: row, overflow: 'hidden', position: 'relative' }}>
-        {content}
+    const imgCell = (idx: number, col: string, row: string, key: string) => (
+      <div key={key} style={{ gridColumn: col, gridRow: row, overflow: 'hidden' }}>
+        <ImgBlock src={imgs[idx] ?? ''} grad={GRAD[idx % GRAD.length]} />
+      </div>
+    )
+
+    const vidCell = (idx: number, col: string, row: string, key: string) => (
+      <div key={key} style={{ gridColumn: col, gridRow: row, overflow: 'hidden' }}>
+        <VidBlock src={vids[idx] ?? ''} />
       </div>
     )
 
     return (
       <div
         style={{
-          display:               'grid',
-          gridTemplateColumns:   '1fr 1fr 1fr',
-          gridTemplateRows:      '320px 280px 300px 300px 240px',
-          gap:                   '3px',
+          display:             'grid',
+          gridTemplateColumns: '1fr 1fr 1fr',
+          /* row 2 & 4 : 2 cols wide ≈ 724px → 16:9 ≈ 407px */
+          gridTemplateRows:    '380px 407px 300px 407px 260px',
+          gap:                 '3px',
         }}
       >
-        {/* Row 1 : img1 large (2 cols) + img2 */}
-        {cell(<ImgBlock src={imgs[0] ?? ''} grad={GRAD[0]} />, '1 / 3', '1', 'i0')}
-        {cell(<ImgBlock src={imgs[1] ?? ''} grad={GRAD[1]} />, '3',     '1', 'i1')}
+        {/* Row 1 : img1 large (2 cols) + img3 portrait */}
+        {imgCell(0, '1 / 3', '1', 'i0')}
+        {imgCell(2, '3',     '1', 'i2')}
 
-        {/* Row 2 : img3 + vidéo TRANSFO + img4 */}
-        {cell(<ImgBlock src={imgs[2] ?? ''} grad={GRAD[2]} />, '1', '2', 'i2')}
-        {cell(<VidBlock src={vids[0] ?? ''} />,                '2', '2', 'v0')}
-        {cell(<ImgBlock src={imgs[3] ?? ''} grad={GRAD[0]} />, '3', '2', 'i3')}
+        {/* Row 2 : TRANSFO.webm 16:9 (2 cols) + img4 BTS */}
+        {vidCell(0, '1 / 3', '2', 'v0')}
+        {imgCell(3, '3',     '2', 'i3')}
 
-        {/* Row 3 : img5 + img6 + img7 */}
-        {cell(<ImgBlock src={imgs[4] ?? ''} grad={GRAD[1]} />, '1', '3', 'i4')}
-        {cell(<ImgBlock src={imgs[5] ?? ''} grad={GRAD[2]} />, '2', '3', 'i5')}
-        {cell(<ImgBlock src={imgs[6] ?? ''} grad={GRAD[0]} />, '3', '3', 'i6')}
+        {/* Row 3 : 3 images égales */}
+        {imgCell(4, '1', '3', 'i4')}
+        {imgCell(5, '2', '3', 'i5')}
+        {imgCell(6, '3', '3', 'i6')}
 
-        {/* Row 4 : img8 large (2 cols) + vidéo CONVERGENCE */}
-        {cell(<ImgBlock src={imgs[7] ?? ''} grad={GRAD[1]} />, '1 / 3', '4', 'i7')}
-        {cell(<VidBlock src={vids[1] ?? ''} />,                '3',     '4', 'v1')}
+        {/* Row 4 : img2 + CONVERGENCE.webm 16:9 (2 cols) */}
+        {imgCell(1, '1',     '4', 'i1')}
+        {vidCell(1, '2 / 4', '4', 'v1')}
 
-        {/* Row 5 : img9 pleine largeur */}
-        {cell(<ImgBlock src={imgs[8] ?? ''} grad={GRAD[2]} />, '1 / 4', '5', 'i8')}
+        {/* Row 5 : img8 large (2 cols) + img9 */}
+        {imgCell(7, '1 / 3', '5', 'i7')}
+        {imgCell(8, '3',     '5', 'i8')}
       </div>
     )
   }
