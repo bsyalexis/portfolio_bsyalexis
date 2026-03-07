@@ -1,6 +1,7 @@
 interface Visual {
-  layout: string
-  images: string[]
+  layout:   string
+  images:   string[]
+  vimeoId?: string
 }
 
 interface Props {
@@ -34,6 +35,18 @@ export default function VisualBlock({ visual }: Props) {
 
   /* ── FULL ──────────────────────────── */
   if (layout === 'full') {
+    if (visual.vimeoId) {
+      return (
+        <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000' }}>
+          <iframe
+            src={`https://player.vimeo.com/video/${visual.vimeoId}?autoplay=0&title=0&byline=0&portrait=0`}
+            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+            allow="fullscreen; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      )
+    }
     return (
       <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden' }}>
         <ImgBlock src={images[0] ?? ''} grad={GRAD[0]} />

@@ -36,7 +36,7 @@
         "text": "Un trailer pensé image d'abord, le texte à l'écran réduit au strict minimum. Le format 16:9 a été privilégié pour sa polyvalence : diffusion en live, écrans scène, réseaux.\nLa communauté a répondu. Pas pour ce que le trailer annonçait, pour ce qu'il était.\nUn cap franchi aussi pour EVA : pour la première fois, de vraies scènes tournées au cœur d'un trailer de compétition.",
         "darkBackground": false,
         "visuals": [
-          { "layout": "full", "images": ["/images/projets/innolive-brand-film/04.jpg"] }
+          { "layout": "full", "images": [], "vimeoId": "1171104425" }
         ]
       }
     ]
