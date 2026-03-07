@@ -151,38 +151,6 @@ export default function Chapter({ chapter, meta }: Props) {
               {chapter.text}
             </p>
 
-            {/* Metadata — chapitre I uniquement */}
-            {meta && (
-              <div
-                className="chapter-entry"
-                style={{
-                  display:    'flex',
-                  gap:        '40px',
-                  marginTop:  '40px',
-                  paddingTop: '32px',
-                  borderTop:  `1px solid ${c.border}`,
-                  flexWrap:   'wrap',
-                }}
-              >
-                {[
-                  { label: 'Client', value: meta.client },
-                  { label: 'Année',  value: meta.year   },
-                  { label: 'Type',   value: categoryLabels[meta.category] ?? meta.category },
-                ].map((item) => (
-                  <div key={item.label}>
-                    <p
-                      className="label"
-                      style={{ color: c.metaLabel, marginBottom: '6px' }}
-                    >
-                      {item.label}
-                    </p>
-                    <p style={{ fontSize: '0.85rem', fontWeight: 500, color: c.metaValue }}>
-                      {item.value}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         </div>
       </div>
