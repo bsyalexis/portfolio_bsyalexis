@@ -122,52 +122,6 @@ export default function ProjectHero({ projet }: Props) {
         </h1>
       </div>
 
-      {/* Scroll indicator — bas droite */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom:   '64px',
-          right:    '56px',
-          zIndex:   2,
-          width:    '88px',
-          height:   '88px',
-        }}
-      >
-        {/* SVG circulaire rotatif */}
-        <svg
-          className="circular-text"
-          viewBox="0 0 120 120"
-          width="88"
-          height="88"
-          style={{ position: 'absolute', inset: 0 }}
-          aria-hidden="true"
-        >
-          <path
-            id="proj-scroll-path"
-            d="M 60,60 m -42,0 a 42,42 0 1,1 84,0 a 42,42 0 1,1 -84,0"
-            fill="none"
-          />
-          <text style={{ fontSize: '10px', fill: 'rgba(255,255,255,0.55)', fontWeight: 500, letterSpacing: '0.14em' }}>
-            <textPath href="#proj-scroll-path">
-              {'SCROLL · SCROLL · SCROLL · '}
-            </textPath>
-          </text>
-        </svg>
-        {/* Flèche centrale */}
-        <div
-          style={{
-            position:        'absolute',
-            inset:           0,
-            display:         'flex',
-            alignItems:      'center',
-            justifyContent:  'center',
-            color:           'rgba(255,255,255,0.65)',
-            fontSize:        '1.25rem',
-          }}
-        >
-          ↓
-        </div>
-      </div>
     </div>
   )
 }
