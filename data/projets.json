@@ -5,7 +5,7 @@
     "client": "EVA",
     "category": "video",
     "year": "2026",
-    "cover": "/images/projets/innolive-brand-film/cover.jpg",
+    "cover": "/images/projets/eva-cl/cover.jpg",
     "vimeoId": "1171104425",
     "ratio": "16:9",
     "featured": true,
@@ -18,7 +18,7 @@
         "text": "EVA lançait sa Challenger League : 16 équipes, 25 000€ de cash prize, deux conférences distinctes à annoncer. Il fallait un trailer qui marque un cap — visuellement et émotionnellement — en rompant avec les formats factuels précédents.",
         "darkBackground": false,
         "visuals": [
-          { "layout": "full", "images": ["/images/projets/innolive-brand-film/01.jpg"] }
+          { "layout": "full", "images": ["/images/projets/eva-cl/01.jpg"] }
         ]
       },
       {
@@ -27,7 +27,7 @@
         "text": "Tout part d'une conviction : un trailer d'esport ne devrait pas ressembler à une annonce. Il devrait ressembler à un film.\nLe fil narratif suit une logique de transformation. Un joueur se prépare, comme un athlète. Il enfile son équipement, entre dans l'arène, et bascule. Ce n'est plus un joueur, c'est un Trooper.\nDe là, le trailer déroule en deux temps parallèles : deux conférences, seize équipes, une même ambition. Chacune est introduite dans son propre univers visuel, différenciée par la lumière, jamais opposée. Le récit ne choisit pas de camp, il construit un territoire commun.\nLes séquences de gameplay et les moments de public viennent ancrer l'émotion dans le réel : une compétition qui existe déjà, des actions qui restent. Jusqu'au plan final, où les deux conférences convergent en une seule compétition, séparée en deux, mais animée par la même intensité.",
         "darkBackground": true,
         "visuals": [
-          { "layout": "split-equal", "images": ["/images/projets/innolive-brand-film/02.jpg", "/images/projets/innolive-brand-film/03.jpg"] }
+          { "layout": "split-equal", "images": ["/images/projets/eva-cl/02.jpg", "/images/projets/eva-cl/03.jpg"] }
         ]
       },
       {
