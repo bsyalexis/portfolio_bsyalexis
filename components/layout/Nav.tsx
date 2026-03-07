@@ -25,59 +25,144 @@ export default function Nav() {
     return () => window.removeEventListener('resize', onResize)
   }, [])
 
+  /* Bloquer le scroll body quand menu ouvert */
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
+
   return (
-    <header
-      ref={navRef}
-      className={clsx('nav', { 'nav--scrolled': scrolled })}
-      style={styles.nav}
-    >
-      <nav style={styles.inner}>
-        {/* Logo / nom */}
-        <Link href="/" style={styles.logo}>
-          Alexis Bossy
-        </Link>
-
-        {/* Liens desktop */}
-        <div style={styles.desktopLinks} className="nav-desktop-links">
-          <Link href="/travaux" style={styles.navLink} className="nav-link">
-            Travaux
+    <>
+      <header
+        ref={navRef}
+        className={clsx('nav', { 'nav--scrolled': scrolled })}
+        style={{ ...styles.nav, zIndex: mobileOpen ? 201 : 100 }}
+      >
+        <nav style={styles.inner}>
+          {/* Logo / nom */}
+          <Link href="/" style={styles.logo}>
+            Alexis Bossy
           </Link>
-          <Link href="/#contact" style={styles.navLink} className="nav-link">
-            Contact
-          </Link>
-        </div>
 
-        {/* Hamburger mobile */}
-        <button
-          onClick={() => setMobileOpen((v) => !v)}
-          style={styles.hamburger}
-          className="nav-hamburger"
-          aria-label={mobileOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
-          aria-expanded={mobileOpen}
-        >
-          <span style={{ ...styles.bar, ...(mobileOpen ? styles.barTopOpen : {}) }} />
-          <span style={{ ...styles.bar, ...(mobileOpen ? styles.barMidOpen : {}) }} />
-          <span style={{ ...styles.bar, ...(mobileOpen ? styles.barBotOpen : {}) }} />
-        </button>
-      </nav>
+          {/* Liens desktop */}
+          <div style={styles.desktopLinks} className="nav-desktop-links">
+            <Link href="/travaux" style={styles.navLink} className="nav-link">
+              Travaux
+            </Link>
+            <Link href="/#contact" style={styles.navLink} className="nav-link">
+              Contact
+            </Link>
+          </div>
 
-      {/* Menu mobile déroulant */}
+          {/* Hamburger mobile */}
+          <button
+            onClick={() => setMobileOpen((v) => !v)}
+            style={styles.hamburger}
+            className="nav-hamburger"
+            aria-label={mobileOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            aria-expanded={mobileOpen}
+          >
+            <span style={{ ...styles.bar, ...(mobileOpen ? styles.barTopOpen : {}) }} />
+            <span style={{ ...styles.bar, ...(mobileOpen ? styles.barMidOpen : {}) }} />
+            <span style={{ ...styles.bar, ...(mobileOpen ? styles.barBotOpen : {}) }} />
+          </button>
+        </nav>
+      </header>
+
+      {/* Overlay plein écran mobile — hors du header pour éviter le stacking context */}
       <div
         style={{
-          ...styles.mobileMenu,
-          ...(mobileOpen ? styles.mobileMenuOpen : {}),
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 200,
+          background: 'var(--bg)',
+          display: 'flex',
+          flexDirection: 'column',
+          paddingTop: '80px',
+          paddingLeft: '32px',
+          paddingRight: '32px',
+          paddingBottom: '48px',
+          transform: mobileOpen ? 'translateY(0)' : 'translateY(-100%)',
+          transition: 'transform 0.55s cubic-bezier(0.77, 0, 0.175, 1)',
+          pointerEvents: mobileOpen ? 'all' : 'none',
         }}
         aria-hidden={!mobileOpen}
       >
-        <Link href="/travaux" style={styles.mobileLink} onClick={() => setMobileOpen(false)}>
-          Travaux
-        </Link>
-        <Link href="/#contact" style={styles.mobileLink} onClick={() => setMobileOpen(false)}>
-          Contact
-        </Link>
-      </div>
+        {/* Ligne accent en haut */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '2px',
+          background: 'var(--accent)',
+          opacity: mobileOpen ? 1 : 0,
+          transition: 'opacity 0.3s 0.35s ease',
+        }} />
 
-    </header>
+        {/* Liens */}
+        <nav style={{ display: 'flex', flexDirection: 'column', marginTop: '32px' }}>
+          <Link
+            href="/travaux"
+            onClick={() => setMobileOpen(false)}
+            style={{
+              display: 'flex',
+              alignItems: 'baseline',
+              gap: '12px',
+              padding: '22px 0',
+              borderBottom: '1px solid var(--border)',
+              fontSize: 'clamp(2rem, 11vw, 3rem)',
+              fontWeight: 300,
+              letterSpacing: '-0.03em',
+              color: 'var(--text)',
+              opacity: mobileOpen ? 1 : 0,
+              transform: mobileOpen ? 'translateY(0)' : 'translateY(18px)',
+              transition: 'opacity 0.45s 0.28s ease, transform 0.45s 0.28s ease',
+            }}
+          >
+            <span style={{ fontSize: '0.6rem', fontWeight: 600, color: 'var(--accent)', letterSpacing: '0.12em', alignSelf: 'flex-start', paddingTop: '10px' }}>01</span>
+            Travaux
+          </Link>
+          <Link
+            href="/#contact"
+            onClick={() => setMobileOpen(false)}
+            style={{
+              display: 'flex',
+              alignItems: 'baseline',
+              gap: '12px',
+              padding: '22px 0',
+              borderBottom: '1px solid var(--border)',
+              fontSize: 'clamp(2rem, 11vw, 3rem)',
+              fontWeight: 300,
+              letterSpacing: '-0.03em',
+              color: 'var(--text)',
+              opacity: mobileOpen ? 1 : 0,
+              transform: mobileOpen ? 'translateY(0)' : 'translateY(18px)',
+              transition: 'opacity 0.45s 0.38s ease, transform 0.45s 0.38s ease',
+            }}
+          >
+            <span style={{ fontSize: '0.6rem', fontWeight: 600, color: 'var(--accent)', letterSpacing: '0.12em', alignSelf: 'flex-start', paddingTop: '10px' }}>02</span>
+            Contact
+          </Link>
+        </nav>
+
+        {/* Email en bas */}
+        <div style={{
+          marginTop: 'auto',
+          opacity: mobileOpen ? 1 : 0,
+          transform: mobileOpen ? 'translateY(0)' : 'translateY(12px)',
+          transition: 'opacity 0.45s 0.48s ease, transform 0.45s 0.48s ease',
+        }}>
+          <span style={{ display: 'block', fontSize: '0.6rem', fontWeight: 600, color: 'var(--text-mid)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '8px' }}>Email</span>
+          <a href="mailto:bsy.alexis@gmail.com" style={{ fontSize: '0.9rem', color: 'var(--text)', fontWeight: 400 }}>
+            bsy.alexis@gmail.com
+          </a>
+        </div>
+      </div>
+    </>
   )
 }
 
@@ -166,26 +251,4 @@ const styles: Record<string, React.CSSProperties> = {
   barTopOpen: { transform: 'rotate(45deg) translate(4.5px, 4.5px)' },
   barMidOpen: { opacity: 0 },
   barBotOpen: { transform: 'rotate(-45deg) translate(4.5px, -4.5px)' },
-  mobileMenu: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '4px',
-    padding: '0 20px',
-    overflow: 'hidden',
-    maxHeight: '0',
-    opacity: 0,
-    transition: 'max-height 0.35s ease, opacity 0.3s ease, padding 0.3s ease',
-  },
-  mobileMenuOpen: {
-    maxHeight: '300px',
-    opacity: 1,
-    padding: '16px 20px 20px',
-  },
-  mobileLink: {
-    fontSize: '1.1rem',
-    fontWeight: 400,
-    color: 'var(--text)',
-    padding: '10px 0',
-    borderBottom: '1px solid var(--border)',
-  },
 }
