@@ -14,6 +14,7 @@ interface Projet {
   year: string
   ratio?: string
   cover?: string
+  coverVideo?: string
 }
 
 interface Props {
@@ -87,6 +88,11 @@ export default function ProjectsGrid({ projets }: Props) {
                 flex: i === 0 ? '0 0 45%' : '1',
               }}
             >
+              {p.coverVideo && (
+                <video autoPlay loop muted playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}>
+                  <source src={p.coverVideo} type="video/webm" />
+                </video>
+              )}
               <div className="masonry-hover-info">
                 <span style={styles.cardName}>{p.title}</span>
                 <span className="masonry-arrow">&#8599;</span>
@@ -108,6 +114,11 @@ export default function ProjectsGrid({ projets }: Props) {
                 background: placeholders[projets.indexOf(p)] ?? placeholders[1],
               }}
             >
+              {p.coverVideo && (
+                <video autoPlay loop muted playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}>
+                  <source src={p.coverVideo} type="video/webm" />
+                </video>
+              )}
               <div className="masonry-hover-info">
                 <span style={styles.cardName}>{p.title}</span>
                 <span className="masonry-arrow">&#8599;</span>
@@ -129,6 +140,11 @@ export default function ProjectsGrid({ projets }: Props) {
                 flex: i === 0 ? '1' : '0 0 40%',
               }}
             >
+              {p.coverVideo && (
+                <video autoPlay loop muted playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}>
+                  <source src={p.coverVideo} type="video/webm" />
+                </video>
+              )}
               <div className="masonry-hover-info">
                 <span style={styles.cardName}>{p.title}</span>
                 <span className="masonry-arrow">&#8599;</span>

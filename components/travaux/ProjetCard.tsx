@@ -8,6 +8,7 @@ interface Projet {
   year: string
   ratio?: string
   cover?: string
+  coverVideo?: string
 }
 
 const gradients: Record<string, string> = {
@@ -30,14 +31,24 @@ export default function ProjetCard({ projet }: { projet: Projet }) {
 
       {/* Visuel */}
       <div className="card-img-wrap">
-        <div
-          className="card-img"
-          style={{
-            background: projet.cover
-              ? `url(${projet.cover}) center/cover no-repeat, ${bg}`
-              : bg,
-          }}
-        />
+        {projet.coverVideo ? (
+          <video
+            autoPlay loop muted playsInline
+            className="card-img"
+            style={{ objectFit: 'cover' }}
+          >
+            <source src={projet.coverVideo} type="video/webm" />
+          </video>
+        ) : (
+          <div
+            className="card-img"
+            style={{
+              background: projet.cover
+                ? `url(${projet.cover}) center/cover no-repeat, ${bg}`
+                : bg,
+            }}
+          />
+        )}
         {projet.category === 'video' && (
           <div className="video-badge">&#9654;&nbsp;Vidéo</div>
         )}
