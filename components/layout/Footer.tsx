@@ -57,17 +57,13 @@ export default function Footer() {
             <a href="mailto:bsy.alexis@gmail.com" style={styles.link}>bsy.alexis@gmail.com</a>
           </div>
 
-          <div style={styles.logoCol}>
-            <span style={styles.bigLogo}>Alexis Bossy</span>
-          </div>
-
         </div>
       </div>
 
       {/* ── Barre © ── */}
       <div style={styles.bottom}>
         <div style={styles.bottomInner} className="footer-bottom-inner">
-          <span style={styles.copy}>Site confectionné par mes soins — {new Date().getFullYear()}</span>
+          <span style={styles.copy}>Site par Bossy Alexis — {new Date().getFullYear()}</span>
         </div>
       </div>
 
@@ -132,18 +128,19 @@ const styles: Record<string, React.CSSProperties> = {
     paddingBottom: '24px',
   },
   linksInner: {
-    maxWidth:             '1100px',
-    margin:               '0 auto',
-    paddingInline:        '56px',
-    display:              'grid',
-    gridTemplateColumns:  '1fr 1fr 1fr 1.5fr',
-    gap:                  '32px',
-    alignItems:           'end',
+    maxWidth:        '1100px',
+    margin:          '0 auto',
+    paddingInline:   '56px',
+    display:         'flex',
+    justifyContent:  'center',
+    gap:             '80px',
+    alignItems:      'start',
   },
   col: {
     display:       'flex',
     flexDirection: 'column',
     gap:           '10px',
+    alignItems:    'center',
   },
   colLabel: {
     color:        'rgba(255,255,255,0.25)',
@@ -157,23 +154,9 @@ const styles: Record<string, React.CSSProperties> = {
     textDecoration: 'none',
     transition:     'color 0.2s',
   },
-  logoCol: {
-    display:        'flex',
-    alignItems:     'flex-end',
-    justifyContent: 'flex-end',
-  },
-  bigLogo: {
-    fontSize:      'clamp(1.5rem, 2.6vw, 2.2rem)',
-    fontWeight:    700,
-    color:         'rgba(255,255,255,0.1)',
-    letterSpacing: '-0.02em',
-    lineHeight:    1,
-  },
-
   /* Bottom */
   bottom: {
     background:   '#111010',
-    borderTop:    '1px solid rgba(255,255,255,0.06)',
     paddingBlock: '18px',
   },
   bottomInner: {

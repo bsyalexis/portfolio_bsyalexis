@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -77,12 +76,6 @@ export default function Bento({ projets }: Props) {
 
       </div>
 
-      {/* Arrow ↗ — bottom right du bloc */}
-      <div style={styles.arrowWrap}>
-        <Link href="/travaux" style={styles.arrowLink}>
-          <span style={styles.arrowCircle}>&#8599;</span>
-        </Link>
-      </div>
     </section>
   )
 }
@@ -183,25 +176,5 @@ const styles: Record<string, React.CSSProperties> = {
     bottom: '12px',
     left: '14px',
     color: 'rgba(255,255,255,0.7)',
-  },
-  arrowWrap: {
-    position: 'absolute',
-    bottom: '64px',
-    right: '72px',
-  },
-  arrowLink: {
-    textDecoration: 'none',
-    display: 'block',
-  },
-  arrowCircle: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '48px',
-    height: '48px',
-    borderRadius: '50%',
-    background: 'var(--text)',
-    color: '#fff',
-    fontSize: '1.15rem',
   },
 }

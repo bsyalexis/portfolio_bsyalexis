@@ -19,8 +19,17 @@ export default function Hero() {
   return (
     <section id="hero" ref={containerRef} style={styles.section}>
 
-      {/* Fond cinématographique */}
-      <div style={styles.bg} aria-hidden="true" />
+      {/* Showreel en fond */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+        style={styles.videoBg}
+      >
+        <source src="/showreel.mp4" type="video/mp4" />
+      </video>
       <div style={styles.overlay} aria-hidden="true" />
 
       {/* Contenu — bottom left */}
@@ -60,12 +69,13 @@ const styles: Record<string, React.CSSProperties> = {
     flexDirection: 'column',
     justifyContent: 'flex-end',
   },
-  bg: {
+  videoBg: {
     position: 'absolute',
     inset: 0,
-    background: 'linear-gradient(160deg, #c8c2ba 0%, #a09890 35%, #7a706a 70%, #4a4240 100%)',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover' as const,
+    opacity: 0.6,
   },
   overlay: {
     position: 'absolute',
@@ -77,7 +87,8 @@ const styles: Record<string, React.CSSProperties> = {
     zIndex: 2,
     padding: '0 56px 56px',
     width: '100%',
-    maxWidth: '1100px',
+    maxWidth: '1200px',
+    margin: '0 auto',
   },
   eyebrow: {
     color: 'rgba(255,255,255,0.5)',

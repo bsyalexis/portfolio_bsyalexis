@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Tag from '@/components/ui/Tag'
@@ -38,8 +39,13 @@ export default function About() {
 
         {/* Portrait */}
         <div className="about-portrait" style={styles.portraitWrap}>
-          <div style={styles.portrait} />
-          <div style={styles.portraitAccent} />
+          <Image
+            src="/portrait.jpg.png"
+            alt="Alexis Bossy"
+            fill
+            style={{ objectFit: 'cover', objectPosition: 'center top' }}
+            className="portrait-img"
+          />
         </div>
 
         {/* Texte */}
@@ -88,21 +94,9 @@ const styles: Record<string, React.CSSProperties> = {
   },
   portraitWrap: {
     position: 'relative',
-  },
-  portrait: {
-    width: '100%',
-    aspectRatio: '3/4',
-    background: 'linear-gradient(160deg, #ddd9d3 0%, #c8c3bc 100%)',
     borderRadius: '12px',
-  },
-  portraitAccent: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    width: '48px',
-    height: '3px',
-    background: 'var(--accent)',
-    borderRadius: '2px',
+    overflow: 'hidden',
+    aspectRatio: '3/4',
   },
   textCol: {
     display: 'flex',
