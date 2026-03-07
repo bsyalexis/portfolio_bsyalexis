@@ -128,31 +128,35 @@ export default function VisualBlock({ visual }: Props) {
         style={{
           display:             'grid',
           gridTemplateColumns: '1fr 1fr 1fr',
-          /* row 2 & 4 : 2 cols wide ≈ 724px → 16:9 ≈ 407px */
-          gridTemplateRows:    '380px 407px 300px 407px 260px',
-          gap:                 '3px',
+          /*
+            1 col  ≈ 360px → 16:9 = 202px
+            2 cols ≈ 724px → 16:9 = 407px
+            3 cols ≈ 1088px→ 16:9 = 612px
+          */
+          gridTemplateRows: '407px 202px 407px 202px 612px',
+          gap: '3px',
         }}
       >
-        {/* Row 1 : img1 large (2 cols) + img3 portrait */}
-        {imgCell(0, '1 / 3', '1', 'i0')}
-        {imgCell(2, '3',     '1', 'i2')}
+        {/* Row 1 (407px) : TRANSFO.webm 16:9 (2 cols) + img1 */}
+        {vidCell(0, '1 / 3', '1', 'v0')}
+        {imgCell(0, '3',     '1', 'i0')}
 
-        {/* Row 2 : TRANSFO.webm 16:9 (2 cols) + img4 BTS */}
-        {vidCell(0, '1 / 3', '2', 'v0')}
-        {imgCell(3, '3',     '2', 'i3')}
+        {/* Row 2 (202px) : 3 images 16:9 */}
+        {imgCell(2, '1', '2', 'i2')}
+        {imgCell(3, '2', '2', 'i3')}
+        {imgCell(4, '3', '2', 'i4')}
 
-        {/* Row 3 : 3 images égales */}
-        {imgCell(4, '1', '3', 'i4')}
-        {imgCell(5, '2', '3', 'i5')}
-        {imgCell(6, '3', '3', 'i6')}
+        {/* Row 3 (407px) : img2 + CONVERGENCE.webm 16:9 (2 cols) */}
+        {imgCell(1, '1',     '3', 'i1')}
+        {vidCell(1, '2 / 4', '3', 'v1')}
 
-        {/* Row 4 : img2 + CONVERGENCE.webm 16:9 (2 cols) */}
-        {imgCell(1, '1',     '4', 'i1')}
-        {vidCell(1, '2 / 4', '4', 'v1')}
+        {/* Row 4 (202px) : 3 images 16:9 */}
+        {imgCell(5, '1', '4', 'i5')}
+        {imgCell(6, '2', '4', 'i6')}
+        {imgCell(7, '3', '4', 'i7')}
 
-        {/* Row 5 : img8 large (2 cols) + img9 */}
-        {imgCell(7, '1 / 3', '5', 'i7')}
-        {imgCell(8, '3',     '5', 'i8')}
+        {/* Row 5 (612px) : img9 pleine largeur 16:9 */}
+        {imgCell(8, '1 / 4', '5', 'i8')}
       </div>
     )
   }
