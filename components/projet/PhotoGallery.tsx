@@ -76,6 +76,11 @@ export default function PhotoGallery({
       <div style={{ ...styles.cell, gridColumn: '1',     gridRow: '4', ...img(6) }} />
       <div style={{ ...styles.cell, gridColumn: '2 / 4', gridRow: '4', ...img(7) }} />
 
+      {/* ── Ligne 5 : 3 photos égales ── */}
+      <div style={{ ...styles.cell, gridColumn: '1', gridRow: '5', ...img(8)  }} />
+      <div style={{ ...styles.cell, gridColumn: '2', gridRow: '5', ...img(9)  }} />
+      <div style={{ ...styles.cell, gridColumn: '3', gridRow: '5', ...img(10) }} />
+
     </div>
   )
 }
@@ -84,7 +89,7 @@ const styles: Record<string, React.CSSProperties> = {
   grid: {
     display:             'grid',
     gridTemplateColumns: 'repeat(3, 1fr)',
-    gridTemplateRows:    '520px 320px 440px 380px',
+    gridTemplateRows:    '520px 320px 440px 380px 320px',
     gap:                 '3px',
     width:               '100%',
   },
