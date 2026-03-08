@@ -4,12 +4,13 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 
 interface Projet {
-  title:    string
-  client:   string
-  category: string
-  year:     string
-  cover?:   string
-  vimeoId?: string
+  title:       string
+  client:      string
+  category:    string
+  year:        string
+  cover?:      string
+  heroImage?:  string   // image de fond hero (si différente du cover carte)
+  vimeoId?:    string
 }
 
 interface Props {
@@ -45,8 +46,9 @@ export default function ProjectHero({ projet }: Props) {
     return () => ctx.revert()
   }, [])
 
-  const bg = projet.cover
-    ? `url(${projet.cover}) center/cover no-repeat, ${gradients[projet.category] ?? gradients.photo}`
+  const heroSrc = projet.heroImage ?? projet.cover
+  const bg = heroSrc
+    ? `url(${heroSrc}) center/cover no-repeat, ${gradients[projet.category] ?? gradients.photo}`
     : (gradients[projet.category] ?? gradients.photo)
 
   return (
