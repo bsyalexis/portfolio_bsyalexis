@@ -19,12 +19,12 @@ export default function Hero() {
   return (
     <section id="hero" ref={containerRef} style={styles.section}>
 
-      {/* Showreel Vimeo en fond */}
+      {/* Showreel YouTube en fond */}
       <div style={styles.videoWrap} aria-hidden="true">
         <iframe
-          src="https://player.vimeo.com/video/1170452214?background=1&autoplay=1&loop=1&muted=1"
+          src="https://www.youtube.com/embed/DAUCaCJ1fBM?autoplay=1&mute=1&loop=1&playlist=DAUCaCJ1fBM&controls=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&playsinline=1"
           style={styles.videoFrame}
-          allow="autoplay"
+          allow="autoplay; encrypted-media"
           frameBorder="0"
         />
       </div>
