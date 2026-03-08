@@ -10,7 +10,7 @@
     "vimeoId": "1171104425",
     "ratio": "16:9",
     "featured": true,
-    "nextProject": "campagne-produit-cosmetique",
+    "nextProject": "bouillon-de-famille",
     "prevProject": "motion-design-teaser",
     "chapters": [
       {
@@ -60,45 +60,20 @@
     ]
   },
   {
-    "slug": "campagne-produit-cosmetique",
-    "title": "Campagne Cosmétique",
-    "client": "Studio Éclat",
+    "slug": "bouillon-de-famille",
+    "title": "Bouillon de famille",
+    "client": "Bouillon de Famille",
     "category": "photo",
-    "year": "2024",
-    "cover": "/images/projets/campagne-produit-cosmetique/cover.jpg",
-    "ratio": "9:16",
+    "year": "2026",
+    "cover": "/images/projets/bouillon-de-famille/cover.jpg",
+    "layout": "photo-gallery",
+    "galleryText": "À compléter.",
+    "galleryImages": [],
+    "ratio": "4:3",
     "featured": true,
     "nextProject": "identite-visuelle-startup",
     "prevProject": "eva-challenger-league",
-    "chapters": [
-      {
-        "number": "I",
-        "title": "Le contexte",
-        "text": "Lancement d'une nouvelle gamme de soins naturels nécessitant une identité photographique cohérente pour le packaging et le digital.",
-        "darkBackground": false,
-        "visuals": [
-          { "layout": "full", "images": ["/images/projets/campagne-produit-cosmetique/01.jpg"] }
-        ]
-      },
-      {
-        "number": "II",
-        "title": "La démarche",
-        "text": "Direction artistique épurée, fond minéral texturé, lumière naturelle diffuse — pour évoquer la pureté et l'authenticité des ingrédients.",
-        "darkBackground": true,
-        "visuals": [
-          { "layout": "split-asymmetric", "images": ["/images/projets/campagne-produit-cosmetique/02.jpg", "/images/projets/campagne-produit-cosmetique/03.jpg"] }
-        ]
-      },
-      {
-        "number": "III",
-        "title": "Le résultat",
-        "text": "40 visuels déclinés sur packaging, site e-commerce et réseaux sociaux. Identité cohérente et différenciante dans un marché saturé.",
-        "darkBackground": false,
-        "visuals": [
-          { "layout": "full", "images": ["/images/projets/campagne-produit-cosmetique/04.jpg"] }
-        ]
-      }
-    ]
+    "chapters": []
   },
   {
     "slug": "identite-visuelle-startup",
@@ -110,7 +85,7 @@
     "ratio": "16:9",
     "featured": true,
     "nextProject": "portrait-corporate-serie",
-    "prevProject": "campagne-produit-cosmetique",
+    "prevProject": "bouillon-de-famille",
     "chapters": [
       {
         "number": "I",

@@ -2,10 +2,11 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import projets      from '@/data/projets.json'
 
-import ProjectHero from '@/components/projet/ProjectHero'
-import Chapter     from '@/components/projet/Chapter'
-import ProjectNav  from '@/components/projet/ProjectNav'
-import NextProject from '@/components/projet/NextProject'
+import ProjectHero  from '@/components/projet/ProjectHero'
+import Chapter      from '@/components/projet/Chapter'
+import PhotoGallery from '@/components/projet/PhotoGallery'
+import ProjectNav   from '@/components/projet/ProjectNav'
+import NextProject  from '@/components/projet/NextProject'
 
 interface Props {
   params: { slug: string }
@@ -44,14 +45,25 @@ export default function ProjetPage({ params }: Props) {
       {/* Hero plein écran */}
       <ProjectHero projet={projet} />
 
-      {/* Chapitres I / II / III */}
-      {projet.chapters.map((chapter) => (
-        <Chapter
-          key={chapter.number}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          chapter={chapter as any}
+      {/* Layout photo-gallery ou chapitres standard */}
+      {(projet as any).layout === 'photo-gallery' ? (
+        <PhotoGallery
+          title={projet.title}
+          client={projet.client}
+          year={projet.year}
+          category={projet.category}
+          galleryText={(projet as any).galleryText}
+          galleryImages={(projet as any).galleryImages}
         />
-      ))}
+      ) : (
+        projet.chapters.map((chapter) => (
+          <Chapter
+            key={chapter.number}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            chapter={chapter as any}
+          />
+        ))
+      )}
 
       {/* Navigation prev / next */}
       <ProjectNav currentSlug={projet.slug} />
