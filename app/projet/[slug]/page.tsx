@@ -46,14 +46,17 @@ export default function ProjetPage({ params }: Props) {
       <ProjectHero projet={projet} />
 
       {/* Layout photo-gallery ou chapitres standard */}
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       {(projet as any).layout === 'photo-gallery' ? (
         <PhotoGallery
           title={projet.title}
           client={projet.client}
           year={projet.year}
           category={projet.category}
+          /* eslint-disable @typescript-eslint/no-explicit-any */
           galleryText={(projet as any).galleryText}
           galleryImages={(projet as any).galleryImages}
+          /* eslint-enable @typescript-eslint/no-explicit-any */
         />
       ) : (
         projet.chapters.map((chapter) => (
