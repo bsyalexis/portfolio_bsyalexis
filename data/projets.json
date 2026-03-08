@@ -11,7 +11,7 @@
     "ratio": "16:9",
     "featured": true,
     "nextProject": "bouillon-de-famille",
-    "prevProject": "motion-design-teaser",
+    "prevProject": "astral-esport",
     "chapters": [
       {
         "number": "I",
@@ -83,50 +83,25 @@
     ],
     "ratio": "4:3",
     "featured": true,
-    "nextProject": "identite-visuelle-startup",
+    "nextProject": "fc-saint-joseph",
     "prevProject": "eva-challenger-league",
     "chapters": []
   },
   {
-    "slug": "identite-visuelle-startup",
-    "title": "Identité Visuelle Startup",
-    "client": "Arca Tech",
-    "category": "autres",
-    "year": "2023",
-    "cover": "/images/projets/identite-visuelle-startup/cover.jpg",
-    "ratio": "16:9",
+    "slug": "fc-saint-joseph",
+    "title": "FC Saint-Joseph",
+    "client": "FC Saint-Joseph",
+    "category": "photo",
+    "year": "2026",
+    "cover": "/images/projets/fc-saint-joseph/cover.jpg",
+    "layout": "photo-gallery",
+    "galleryText": "À compléter.",
+    "galleryImages": [],
+    "ratio": "4:3",
     "featured": true,
     "nextProject": "portrait-corporate-serie",
     "prevProject": "bouillon-de-famille",
-    "chapters": [
-      {
-        "number": "I",
-        "title": "Le contexte",
-        "text": "Arca Tech, startup SaaS B2B, cherchait à se repositionner avec une identité visuelle reflétant ambition et fiabilité pour convaincre les grands comptes.",
-        "darkBackground": false,
-        "visuals": [
-          { "layout": "full", "images": ["/images/projets/identite-visuelle-startup/01.jpg"] }
-        ]
-      },
-      {
-        "number": "II",
-        "title": "La démarche",
-        "text": "Audit concurrentiel, définition d'un système de design complet — logotype, palette, typographie, grille — et création des templates clés.",
-        "darkBackground": false,
-        "visuals": [
-          { "layout": "split-equal", "images": ["/images/projets/identite-visuelle-startup/02.jpg", "/images/projets/identite-visuelle-startup/03.jpg"] }
-        ]
-      },
-      {
-        "number": "III",
-        "title": "Le résultat",
-        "text": "Système de design documenté (Figma), déployé sur site web, app et supports commerciaux. Levée de fonds réussie 3 mois après le lancement.",
-        "darkBackground": true,
-        "visuals": [
-          { "layout": "full", "images": ["/images/projets/identite-visuelle-startup/04.jpg"] }
-        ]
-      }
-    ]
+    "chapters": []
   },
   {
     "slug": "portrait-corporate-serie",
@@ -137,8 +112,8 @@
     "cover": "/images/projets/portrait-corporate-serie/cover.jpg",
     "ratio": "4:3",
     "featured": true,
-    "nextProject": "motion-design-teaser",
-    "prevProject": "identite-visuelle-startup",
+    "nextProject": "astral-esport",
+    "prevProject": "fc-saint-joseph",
     "chapters": [
       {
         "number": "I",
@@ -170,13 +145,13 @@
     ]
   },
   {
-    "slug": "motion-design-teaser",
-    "title": "Motion Design Teaser",
-    "client": "Maison Dorée",
-    "category": "video",
-    "year": "2024",
-    "cover": "/images/projets/motion-design-teaser/cover.jpg",
-    "ratio": "9:16",
+    "slug": "astral-esport",
+    "title": "Astral",
+    "client": "Astral",
+    "category": "autres",
+    "year": "2026",
+    "cover": "/images/projets/astral-esport/cover.jpg",
+    "ratio": "16:9",
     "featured": true,
     "nextProject": "eva-challenger-league",
     "prevProject": "portrait-corporate-serie",
@@ -184,29 +159,23 @@
       {
         "number": "I",
         "title": "Le contexte",
-        "text": "Création d'un teaser motion design pour le lancement d'une collection capsule de luxe accessible.",
+        "text": "À compléter.",
         "darkBackground": false,
-        "visuals": [
-          { "layout": "full", "images": ["/images/projets/motion-design-teaser/01.jpg"] }
-        ]
+        "visuals": []
       },
       {
         "number": "II",
         "title": "La démarche",
-        "text": "Animation typographique cinétique, palette restreinte noir/or, rythme calqué sur la musique choisie par le client.",
+        "text": "À compléter.",
         "darkBackground": true,
-        "visuals": [
-          { "layout": "split-asymmetric", "images": ["/images/projets/motion-design-teaser/02.jpg", "/images/projets/motion-design-teaser/02b.jpg"] }
-        ]
+        "visuals": []
       },
       {
         "number": "III",
         "title": "Le résultat",
-        "text": "Teaser de 30s diffusé sur Stories Instagram et LinkedIn. 2,4M impressions en 7 jours.",
+        "text": "À compléter.",
         "darkBackground": false,
-        "visuals": [
-          { "layout": "full", "images": ["/images/projets/motion-design-teaser/03.jpg"] }
-        ]
+        "visuals": []
       }
     ]
   }
