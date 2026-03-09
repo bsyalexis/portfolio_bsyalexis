@@ -112,50 +112,9 @@
     ],
     "ratio": "4:3",
     "featured": true,
-    "nextProject": "portrait-corporate-serie",
+    "nextProject": "astral-esport",
     "prevProject": "bouillon-de-famille",
     "chapters": []
-  },
-  {
-    "slug": "portrait-corporate-serie",
-    "title": "Portraits Corporate",
-    "client": "Cabinet Novaris",
-    "category": "photo",
-    "year": "2023",
-    "cover": "/images/projets/portrait-corporate-serie/cover.jpg",
-    "ratio": "4:3",
-    "featured": true,
-    "nextProject": "astral-esport",
-    "prevProject": "fc-saint-joseph",
-    "chapters": [
-      {
-        "number": "I",
-        "title": "Le contexte",
-        "text": "Refonte du site web d'un cabinet de conseil nécessitant une série de portraits professionnels unifiés pour 24 associés et consultants.",
-        "darkBackground": false,
-        "visuals": [
-          { "layout": "full", "images": ["/images/projets/portrait-corporate-serie/01.jpg"] }
-        ]
-      },
-      {
-        "number": "II",
-        "title": "La démarche",
-        "text": "Session photo sur deux jours en studio modulable, lumière cinématographique, post-traitement cohérent pour garantir l'unité visuelle de la série.",
-        "darkBackground": true,
-        "visuals": [
-          { "layout": "split-equal", "images": ["/images/projets/portrait-corporate-serie/02.jpg", "/images/projets/portrait-corporate-serie/03.jpg"] }
-        ]
-      },
-      {
-        "number": "III",
-        "title": "Le résultat",
-        "text": "96 portraits livrés (4 variantes par personne), intégrés au nouveau site. Délai tenu, budget respecté, client fidélisé.",
-        "darkBackground": false,
-        "visuals": [
-          { "layout": "full", "images": ["/images/projets/portrait-corporate-serie/04.jpg"] }
-        ]
-      }
-    ]
   },
   {
     "slug": "astral-esport",
@@ -168,7 +127,7 @@
     "ratio": "16:9",
     "featured": true,
     "nextProject": "eva-challenger-league",
-    "prevProject": "portrait-corporate-serie",
+    "prevProject": "fc-saint-joseph",
     "chapters": [
       {
         "number": "I",
