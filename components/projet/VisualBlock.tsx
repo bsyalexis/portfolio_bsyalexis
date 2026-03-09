@@ -161,5 +161,58 @@ export default function VisualBlock({ visual }: Props) {
     )
   }
 
+  /* ── SPLIT 3 colonnes égales ────────── */
+  if (layout === 'split-3') {
+    return (
+      <div
+        style={{
+          display:             'grid',
+          gridTemplateColumns: '1fr 1fr 1fr',
+          gap:                 '3px',
+          height:              '55vh',
+          minHeight:           '300px',
+          overflow:            'hidden',
+        }}
+      >
+        {[0, 1, 2].map((i) => (
+          <ImgBlock key={i} src={images[i] ?? ''} grad={GRAD[i % GRAD.length]} />
+        ))}
+      </div>
+    )
+  }
+
+  /* ── GRID 3 colonnes — n images ─────── */
+  if (layout === 'grid-3col') {
+    const rows = Math.ceil(images.length / 3)
+    const lastIsAlone = images.length % 3 === 1
+
+    return (
+      <div
+        style={{
+          display:             'grid',
+          gridTemplateColumns: '1fr 1fr 1fr',
+          gap:                 '3px',
+          overflow:            'hidden',
+        }}
+      >
+        {images.map((src, i) => {
+          const isLast  = i === images.length - 1
+          const colspan = isLast && lastIsAlone ? '1 / 4' : undefined
+          const height  = isLast && lastIsAlone ? '480px' : '360px'
+          return (
+            <div
+              key={i}
+              style={{ gridColumn: colspan, height, overflow: 'hidden' }}
+            >
+              <ImgBlock src={src} grad={GRAD[i % GRAD.length]} />
+            </div>
+          )
+        })}
+        {/* padding pour compléter la dernière rangée si nécessaire */}
+        {rows > 0 && images.length % 3 === 2 && <div />}
+      </div>
+    )
+  }
+
   return null
 }

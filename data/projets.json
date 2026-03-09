@@ -159,11 +159,12 @@
   },
   {
     "slug": "astral-esport",
-    "title": "Astral",
+    "title": "Astral - EVA Esport",
     "client": "Astral",
     "category": "autres",
     "year": "2026",
-    "cover": "/images/projets/astral-esport/cover.jpg",
+    "cover": "/images/projets/astral-esport/MISE%20EN%20AVANT.png",
+    "heroImage": "/images/projets/astral-esport/A7405160.jpg",
     "ratio": "16:9",
     "featured": true,
     "nextProject": "eva-challenger-league",
@@ -172,23 +173,63 @@
       {
         "number": "I",
         "title": "Le contexte",
-        "text": "À compléter.",
+        "text": "Astral est une équipe e-sport accompagnée sur l'ensemble de son identité visuelle. La mission : construire une image de marque forte et cohérente — des maillots aux contenus réseaux, en passant par le shooting de présentation.\n\nIdentité conçue avec TeamPulse pour les tenues officielles, direction artistique pour les sessions photo posing et en action, puis production de visuels adaptés aux codes des réseaux sociaux e-sport.",
         "darkBackground": false,
         "visuals": []
       },
       {
         "number": "II",
-        "title": "La démarche",
-        "text": "À compléter.",
-        "darkBackground": true,
-        "visuals": []
+        "title": "Les maillots",
+        "text": "Conception des tenues officielles en partenariat avec TeamPulse. Deux maillots, un univers visuel commun.",
+        "darkBackground": false,
+        "visuals": [
+          {
+            "layout": "split-equal",
+            "images": [
+              "/images/projets/astral-esport/MAILLOT1.png",
+              "/images/projets/astral-esport/MAILLOT2.png"
+            ]
+          }
+        ]
       },
       {
         "number": "III",
-        "title": "Le résultat",
-        "text": "À compléter.",
+        "title": "Le shooting",
+        "text": "Deux sessions photo pour nourrir la communication de l'équipe : une session posing et une session en action. Des images pensées pour incarner l'identité visuelle d'Astral.",
+        "darkBackground": true,
+        "visuals": [
+          {
+            "layout": "grid-3col",
+            "images": [
+              "/images/projets/astral-esport/A7405038.jpg",
+              "/images/projets/astral-esport/A7405045.jpg",
+              "/images/projets/astral-esport/A7405230.jpg",
+              "/images/projets/astral-esport/A7405292.jpg",
+              "/images/projets/astral-esport/A7405372.jpg",
+              "/images/projets/astral-esport/A7405473.jpg",
+              "/images/projets/astral-esport/A7405514.jpg",
+              "/images/projets/astral-esport/22.png",
+              "/images/projets/astral-esport/23.png",
+              "/images/projets/astral-esport/39.png"
+            ]
+          }
+        ]
+      },
+      {
+        "number": "IV",
+        "title": "Les visuels réseaux",
+        "text": "À partir des photos et de l'identité de marque, création de visuels formatés pour les réseaux sociaux.",
         "darkBackground": false,
-        "visuals": []
+        "visuals": [
+          {
+            "layout": "split-3",
+            "images": [
+              "/images/projets/astral-esport/VISU1.jpg",
+              "/images/projets/astral-esport/VISU2.png",
+              "/images/projets/astral-esport/VISU3.jpg"
+            ]
+          }
+        ]
       }
     ]
   }
