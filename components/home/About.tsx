@@ -8,7 +8,7 @@ import Tag from '@/components/ui/Tag'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const tags = ['Direction Artistique', 'Vidéo', 'Photographie', 'Branding', 'Webdesign', 'After Effects', 'Figma']
+const tags = ['Direction Artistique', 'Vidéo', 'Photographie', 'Branding', 'Webdesign', 'Motion Design', 'Drone', 'Gestion réseaux sociaux']
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -40,7 +40,7 @@ export default function About() {
         {/* Portrait */}
         <div className="about-portrait" style={styles.portraitWrap}>
           <Image
-            src="/portrait.jpg.png"
+            src="/portrait.jpg.webp"
             alt="Alexis Bossy"
             fill
             style={{ objectFit: 'cover', objectPosition: 'center top' }}
@@ -57,14 +57,10 @@ export default function About() {
             <span style={styles.nameStrong}>Bossy</span>
           </h2>
           <p style={styles.bio}>
-            Directeur Artistique, je travaille sur des missions freelance
-            pour des marques premium, startups tech et agences créatives. Mon approche : trouver
-            l&rsquo;image juste, celle qui reste. Pas d&rsquo;effets pour les effets — seulement ce
-            qui sert le propos.
+            Vidéaste, photographe et D.A avec une passion pour les belles images. 5 ans en agence à tourner, monter, faire du motion design et gérer des réseaux sociaux.
           </p>
           <p style={{ ...styles.bio, marginTop: '16px' }}>
-            5 ans d&rsquo;expérience, des projets dans la cosmétique, la tech, l&rsquo;industrie et
-            la culture. Disponible pour de nouvelles missions dès maintenant.
+            Des clients comme BMW ou Le Petit Futé, des univers variés, toujours le même objectif : que ça soit bien fait.
           </p>
           <div style={styles.tags}>
             {tags.map((t) => (

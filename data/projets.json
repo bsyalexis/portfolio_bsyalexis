@@ -5,7 +5,7 @@
     "client": "EVA",
     "category": "video",
     "year": "2026",
-    "cover": "/images/projets/eva-cl/3.png",
+    "cover": "/images/projets/eva-cl/3.webp",
     "coverVideo": "/images/projets/eva-cl/TRANSFO.webm",
     "vimeoId": "1171104425",
     "ratio": "16:9",
@@ -19,7 +19,7 @@
         "text": "EVA lançait sa Challenger League : 16 équipes, 25 000€ de cash prize, deux conférences distinctes à annoncer. Il fallait un trailer qui marque un cap — visuellement et émotionnellement — en rompant avec les formats factuels précédents.",
         "darkBackground": false,
         "visuals": [
-          { "layout": "full", "images": ["/images/projets/eva-cl/OUTRO.png"] }
+          { "layout": "full", "images": ["/images/projets/eva-cl/OUTRO.webp"] }
         ]
       },
       {
@@ -31,15 +31,15 @@
           {
             "layout": "bento",
             "images": [
-              "/images/projets/eva-cl/1.png",
-              "/images/projets/eva-cl/2.png",
-              "/images/projets/eva-cl/3.png",
-              "/images/projets/eva-cl/4.png",
-              "/images/projets/eva-cl/5.png",
-              "/images/projets/eva-cl/6.png",
-              "/images/projets/eva-cl/7.png",
-              "/images/projets/eva-cl/8.png",
-              "/images/projets/eva-cl/9.png"
+              "/images/projets/eva-cl/1.webp",
+              "/images/projets/eva-cl/2.webp",
+              "/images/projets/eva-cl/3.webp",
+              "/images/projets/eva-cl/4.webp",
+              "/images/projets/eva-cl/5.webp",
+              "/images/projets/eva-cl/6.webp",
+              "/images/projets/eva-cl/7.webp",
+              "/images/projets/eva-cl/8.webp",
+              "/images/projets/eva-cl/9.webp"
             ],
             "videos": [
               "/images/projets/eva-cl/TRANSFO.webm",
@@ -65,21 +65,21 @@
     "client": "Bouillon de Famille",
     "category": "photo",
     "year": "2026",
-    "cover": "/images/projets/bouillon-de-famille/HERO.jpg",
+    "cover": "/images/projets/bouillon-de-famille/HERO.webp",
     "layout": "photo-gallery",
     "galleryText": "À compléter.",
     "galleryImages": [
-      "/images/projets/bouillon-de-famille/A7406771.jpg",
-      "/images/projets/bouillon-de-famille/A7406802.jpg",
-      "/images/projets/bouillon-de-famille/A7406978.jpg",
-      "/images/projets/bouillon-de-famille/A7407183.jpg",
-      "/images/projets/bouillon-de-famille/A7407365.jpg",
-      "/images/projets/bouillon-de-famille/A7407390.jpg",
-      "/images/projets/bouillon-de-famille/A7407456.jpg",
-      "/images/projets/bouillon-de-famille/A7407462.jpg",
-      "/images/projets/bouillon-de-famille/A7407541.jpg",
-      "/images/projets/bouillon-de-famille/A7407638.jpg",
-      "/images/projets/bouillon-de-famille/A7407727.jpg"
+      "/images/projets/bouillon-de-famille/A7406771.webp",
+      "/images/projets/bouillon-de-famille/A7406802.webp",
+      "/images/projets/bouillon-de-famille/A7406978.webp",
+      "/images/projets/bouillon-de-famille/A7407183.webp",
+      "/images/projets/bouillon-de-famille/A7407365.webp",
+      "/images/projets/bouillon-de-famille/A7407390.webp",
+      "/images/projets/bouillon-de-famille/A7407456.webp",
+      "/images/projets/bouillon-de-famille/A7407462.webp",
+      "/images/projets/bouillon-de-famille/A7407541.webp",
+      "/images/projets/bouillon-de-famille/A7407638.webp",
+      "/images/projets/bouillon-de-famille/A7407727.webp"
     ],
     "ratio": "4:3",
     "featured": true,
@@ -93,22 +93,22 @@
     "client": "FC Saint-Joseph",
     "category": "photo",
     "year": "2026",
-    "cover": "/images/projets/fc-saint-joseph/HERO.jpg",
-    "heroImage": "/images/projets/fc-saint-joseph/HERO.jpg",
+    "cover": "/images/projets/fc-saint-joseph/HERO.webp",
+    "heroImage": "/images/projets/fc-saint-joseph/HERO.webp",
     "layout": "photo-gallery",
     "galleryText": "À compléter.",
     "galleryImages": [
-      "/images/projets/fc-saint-joseph/A7402376.jpg",
-      "/images/projets/fc-saint-joseph/A7402682.jpg",
-      "/images/projets/fc-saint-joseph/A7403206.jpg",
-      "/images/projets/fc-saint-joseph/A7406115.jpg",
-      "/images/projets/fc-saint-joseph/A7406150.jpg",
-      "/images/projets/fc-saint-joseph/A7406276.jpg",
-      "/images/projets/fc-saint-joseph/A7406538.jpg",
-      "/images/projets/fc-saint-joseph/A7406568.jpg",
-      "/images/projets/fc-saint-joseph/A7406590.jpg",
-      "/images/projets/fc-saint-joseph/A7408078.jpg",
-      "/images/projets/fc-saint-joseph/A7402743.jpg"
+      "/images/projets/fc-saint-joseph/A7402376.webp",
+      "/images/projets/fc-saint-joseph/A7402682.webp",
+      "/images/projets/fc-saint-joseph/A7403206.webp",
+      "/images/projets/fc-saint-joseph/A7406115.webp",
+      "/images/projets/fc-saint-joseph/A7406150.webp",
+      "/images/projets/fc-saint-joseph/A7406276.webp",
+      "/images/projets/fc-saint-joseph/A7406538.webp",
+      "/images/projets/fc-saint-joseph/A7406568.webp",
+      "/images/projets/fc-saint-joseph/A7406590.webp",
+      "/images/projets/fc-saint-joseph/A7408078.webp",
+      "/images/projets/fc-saint-joseph/A7402743.webp"
     ],
     "ratio": "4:3",
     "featured": true,
@@ -122,8 +122,8 @@
     "client": "Astral",
     "category": "autres",
     "year": "2026",
-    "cover": "/images/projets/astral-esport/MISE%20EN%20AVANT.png",
-    "heroImage": "/images/projets/astral-esport/A7405160.jpg",
+    "cover": "/images/projets/astral-esport/MISE%20EN%20AVANT.webp",
+    "heroImage": "/images/projets/astral-esport/A7405160.webp",
     "ratio": "16:9",
     "featured": true,
     "nextProject": "eva-challenger-league",
@@ -145,8 +145,8 @@
           {
             "layout": "split-equal",
             "images": [
-              "/images/projets/astral-esport/MAILLOT1.png",
-              "/images/projets/astral-esport/MAILLOT2.png"
+              "/images/projets/astral-esport/MAILLOT1.webp",
+              "/images/projets/astral-esport/MAILLOT2.webp"
             ]
           }
         ]
@@ -160,16 +160,16 @@
           {
             "layout": "grid-3col",
             "images": [
-              "/images/projets/astral-esport/A7405038.jpg",
-              "/images/projets/astral-esport/A7405045.jpg",
-              "/images/projets/astral-esport/A7405230.jpg",
-              "/images/projets/astral-esport/A7405292.jpg",
-              "/images/projets/astral-esport/A7405372.jpg",
-              "/images/projets/astral-esport/A7405473.jpg",
-              "/images/projets/astral-esport/A7405514.jpg",
-              "/images/projets/astral-esport/22.png",
-              "/images/projets/astral-esport/23.png",
-              "/images/projets/astral-esport/39.png"
+              "/images/projets/astral-esport/A7405038.webp",
+              "/images/projets/astral-esport/A7405045.webp",
+              "/images/projets/astral-esport/A7405230.webp",
+              "/images/projets/astral-esport/A7405292.webp",
+              "/images/projets/astral-esport/A7405372.webp",
+              "/images/projets/astral-esport/A7405473.webp",
+              "/images/projets/astral-esport/A7405514.webp",
+              "/images/projets/astral-esport/22.webp",
+              "/images/projets/astral-esport/23.webp",
+              "/images/projets/astral-esport/39.webp"
             ]
           }
         ]
@@ -183,9 +183,9 @@
           {
             "layout": "split-3",
             "images": [
-              "/images/projets/astral-esport/VISU1.jpg",
-              "/images/projets/astral-esport/VISU2.png",
-              "/images/projets/astral-esport/VISU3.jpg"
+              "/images/projets/astral-esport/VISU1.webp",
+              "/images/projets/astral-esport/VISU2.webp",
+              "/images/projets/astral-esport/VISU3.webp"
             ]
           }
         ]
