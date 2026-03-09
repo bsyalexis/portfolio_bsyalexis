@@ -173,14 +173,14 @@
       {
         "number": "I",
         "title": "Le contexte",
-        "text": "Astral est une équipe e-sport accompagnée sur l'ensemble de son identité visuelle. La mission : construire une image de marque forte et cohérente — des maillots aux contenus réseaux, en passant par le shooting de présentation.\n\nIdentité conçue avec TeamPulse pour les tenues officielles, direction artistique pour les sessions photo posing et en action, puis production de visuels adaptés aux codes des réseaux sociaux e-sport.",
+        "text": "Astral est une équipe e-sport accompagnée sur l'ensemble de son identité visuelle. La mission : construire une image de marque forte et cohérente — des maillots aux contenus réseaux, en passant par le shooting de présentation.\n\nIdentité conçue avec TeamPulse pour les tenues officielles, direction artistique pour les sessions photo posing et en action, puis production de visuels adaptés aux codes des réseaux sociaux e-sport.\n\nConception des tenues officielles en partenariat avec TeamPulse. Deux maillots, un univers visuel commun.\n\nDeux sessions photo pour nourrir la communication de l'équipe : une session posing et une session en action. Des images pensées pour incarner l'identité visuelle d'Astral.\n\nÀ partir des photos et de l'identité de marque, création de visuels formatés pour les réseaux sociaux.",
         "darkBackground": false,
         "visuals": []
       },
       {
         "number": "II",
         "title": "Les maillots",
-        "text": "Conception des tenues officielles en partenariat avec TeamPulse. Deux maillots, un univers visuel commun.",
+        "text": "",
         "darkBackground": false,
         "visuals": [
           {
@@ -195,7 +195,7 @@
       {
         "number": "III",
         "title": "Le shooting",
-        "text": "Deux sessions photo pour nourrir la communication de l'équipe : une session posing et une session en action. Des images pensées pour incarner l'identité visuelle d'Astral.",
+        "text": "",
         "darkBackground": true,
         "visuals": [
           {
@@ -218,7 +218,7 @@
       {
         "number": "IV",
         "title": "Les visuels réseaux",
-        "text": "À partir des photos et de l'identité de marque, création de visuels formatés pour les réseaux sociaux.",
+        "text": "",
         "darkBackground": false,
         "visuals": [
           {
