@@ -15,12 +15,8 @@ export default function Footer() {
               Contact
             </p>
             <h2 style={styles.engageHeading}>
-              Engageons la<br />conversation.
+              Discutons ensemble.
             </h2>
-            <p style={styles.engageDesc}>
-              Disponible pour des missions de vidéo, photographie,
-              direction artistique et webdesign.
-            </p>
             <a href="mailto:bsy.alexis@gmail.com" style={styles.engageCta}>
               bsy.alexis@gmail.com
             </a>

@@ -9,9 +9,8 @@ export default function Hero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.hero-eyebrow', { opacity: 0, y: 20, duration: 0.7, delay: 0.3 })
-      gsap.from('.hero-line',    { opacity: 0, y: 40, duration: 0.9, stagger: 0.15, delay: 0.5, ease: 'power3.out' })
-      gsap.from('.hero-cta',     { opacity: 0, y: 20, duration: 0.6, delay: 1.1 })
+      gsap.from('.hero-line',    { opacity: 0, y: 40, duration: 0.9, stagger: 0.18, delay: 0.3, ease: 'power3.out' })
+      gsap.from('.hero-cta',     { opacity: 0, y: 20, duration: 0.6, delay: 0.9 })
     }, containerRef)
     return () => ctx.revert()
   }, [])
@@ -32,16 +31,12 @@ export default function Hero() {
 
       {/* Contenu — bottom left */}
       <div style={styles.content} className="hero-content-inner">
-        <p className="label hero-eyebrow" style={styles.eyebrow}>
-          Vidéaste&nbsp;&middot;&nbsp;Photographe&nbsp;&middot;&nbsp;DA
-        </p>
-
         <h1 style={styles.title}>
-          <span className="hero-line" style={styles.lineLight}>Créer des</span>
+          <span className="hero-line" style={styles.lineLight}>Vidéaste</span>
           <br />
-          <span className="hero-line" style={styles.lineLight}>images qui</span>
+          <span className="hero-line" style={styles.lineMid}>Photographe</span>
           <br />
-          <span className="hero-line" style={styles.lineStrong}>restent.</span>
+          <span className="hero-line" style={styles.lineStrong}>D.A</span>
         </h1>
 
         <div className="hero-cta" style={styles.ctaWrap}>
@@ -98,21 +93,20 @@ const styles: Record<string, React.CSSProperties> = {
     maxWidth: '1200px',
     margin: '0 auto',
   },
-  eyebrow: {
-    color: 'rgba(255,255,255,0.5)',
-    marginBottom: '20px',
-    display: 'block',
-    letterSpacing: '0.14em',
-  },
   title: {
-    fontSize: 'clamp(2.8rem, 6vw, 5.5rem)',
+    fontSize: 'clamp(1.6rem, 3vw, 2.8rem)',
     lineHeight: 1.0,
-    letterSpacing: '-0.035em',
-    marginBottom: '32px',
+    letterSpacing: '-0.04em',
+    marginBottom: '40px',
   },
   lineLight: {
     fontWeight: 300,
-    color: 'rgba(255,255,255,0.6)',
+    color: 'rgba(255,255,255,0.55)',
+    display: 'inline',
+  },
+  lineMid: {
+    fontWeight: 300,
+    color: 'rgba(255,255,255,0.8)',
     display: 'inline',
   },
   lineStrong: {

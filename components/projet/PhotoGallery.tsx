@@ -1,6 +1,7 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useCallback } from 'react'
+import Lightbox from './Lightbox'
 
 interface Props {
   title:         string
@@ -31,6 +32,12 @@ const categoryLabel: Record<string, string> = {
 export default function PhotoGallery({
   title, client, year, category, galleryText = '', galleryImages = [],
 }: Props) {
+  const [lbIndex, setLbIndex] = useState<number | null>(null)
+
+  const openLb = useCallback((i: number) => setLbIndex(i), [])
+  const closeLb = useCallback(() => setLbIndex(null), [])
+  const prevLb = useCallback(() => setLbIndex((i) => i !== null ? (i - 1 + galleryImages.length) % galleryImages.length : null), [galleryImages.length])
+  const nextLb = useCallback(() => setLbIndex((i) => i !== null ? (i + 1) % galleryImages.length : null), [galleryImages.length])
 
   const img = (i: number): React.CSSProperties => ({
     backgroundImage:    galleryImages[i] ? `url(${galleryImages[i]})` : 'none',
@@ -41,47 +48,57 @@ export default function PhotoGallery({
     backgroundPosition: 'center',
   })
 
+  const clickableCell = (i: number, extraStyle: React.CSSProperties) => (
+    <div
+      className="gallery-clickable"
+      onClick={() => openLb(i)}
+      style={{ ...styles.cell, ...extraStyle, ...img(i) }}
+    />
+  )
+
   return (
-    <div style={styles.grid}>
+    <>
+      <div style={styles.grid}>
 
-      {/* ── Ligne 1 : encart texte + grande photo ── */}
-      <div style={styles.textCard}>
-        {/* Trait cerise */}
-        <div style={styles.accentLine} />
-
-        <div style={styles.textTop}>
-          <span style={styles.pill}>{categoryLabel[category] ?? category}&ensp;·&ensp;{year}</span>
-          <h2 style={styles.title}>{title}</h2>
-          {galleryText && (
-            <p style={styles.body}>{galleryText}</p>
-          )}
+        {/* ── Ligne 1 : encart texte + grande photo ── */}
+        <div style={styles.textCard}>
+          <div style={styles.accentLine} />
+          <div style={styles.textTop}>
+            <span style={styles.pill}>{categoryLabel[category] ?? category}&ensp;·&ensp;{year}</span>
+            <h2 style={styles.title}>{title}</h2>
+            {galleryText && (
+              <p style={styles.body}>{galleryText}</p>
+            )}
+          </div>
+          <p style={styles.clientLabel}>{client}</p>
         </div>
 
-        <p style={styles.clientLabel}>{client}</p>
+        {clickableCell(0, { gridColumn: '2 / 4', gridRow: '1' })}
+
+        {/* ── Ligne 2 : 3 photos égales ── */}
+        {clickableCell(1, { gridColumn: '1', gridRow: '2' })}
+        {clickableCell(2, { gridColumn: '2', gridRow: '2' })}
+        {clickableCell(3, { gridColumn: '3', gridRow: '2' })}
+
+        {/* ── Ligne 3 : 2 cols + 1 col ── */}
+        {clickableCell(4, { gridColumn: '1 / 3', gridRow: '3' })}
+        {clickableCell(5, { gridColumn: '3',     gridRow: '3' })}
+
+        {/* ── Ligne 4 : 1 col + 2 cols ── */}
+        {clickableCell(6, { gridColumn: '1',     gridRow: '4' })}
+        {clickableCell(7, { gridColumn: '2 / 4', gridRow: '4' })}
+
+        {/* ── Ligne 5 : 3 photos égales ── */}
+        {clickableCell(8,  { gridColumn: '1', gridRow: '5' })}
+        {clickableCell(9,  { gridColumn: '2', gridRow: '5' })}
+        {clickableCell(10, { gridColumn: '3', gridRow: '5' })}
+
       </div>
 
-      {/* Grande photo (cols 2-3) */}
-      <div style={{ ...styles.cell, gridColumn: '2 / 4', gridRow: '1', ...img(0) }} />
-
-      {/* ── Ligne 2 : 3 photos égales ── */}
-      <div style={{ ...styles.cell, gridColumn: '1', gridRow: '2', ...img(1) }} />
-      <div style={{ ...styles.cell, gridColumn: '2', gridRow: '2', ...img(2) }} />
-      <div style={{ ...styles.cell, gridColumn: '3', gridRow: '2', ...img(3) }} />
-
-      {/* ── Ligne 3 : 2 cols + 1 col ── */}
-      <div style={{ ...styles.cell, gridColumn: '1 / 3', gridRow: '3', ...img(4) }} />
-      <div style={{ ...styles.cell, gridColumn: '3',     gridRow: '3', ...img(5) }} />
-
-      {/* ── Ligne 4 : 1 col + 2 cols ── */}
-      <div style={{ ...styles.cell, gridColumn: '1',     gridRow: '4', ...img(6) }} />
-      <div style={{ ...styles.cell, gridColumn: '2 / 4', gridRow: '4', ...img(7) }} />
-
-      {/* ── Ligne 5 : 3 photos égales ── */}
-      <div style={{ ...styles.cell, gridColumn: '1', gridRow: '5', ...img(8)  }} />
-      <div style={{ ...styles.cell, gridColumn: '2', gridRow: '5', ...img(9)  }} />
-      <div style={{ ...styles.cell, gridColumn: '3', gridRow: '5', ...img(10) }} />
-
-    </div>
+      {lbIndex !== null && galleryImages.length > 0 && (
+        <Lightbox images={galleryImages} index={lbIndex} onClose={closeLb} onPrev={prevLb} onNext={nextLb} />
+      )}
+    </>
   )
 }
 

@@ -6,7 +6,7 @@ import ProjectHero  from '@/components/projet/ProjectHero'
 import Chapter      from '@/components/projet/Chapter'
 import PhotoGallery from '@/components/projet/PhotoGallery'
 import ProjectNav   from '@/components/projet/ProjectNav'
-import NextProject  from '@/components/projet/NextProject'
+import Footer       from '@/components/layout/Footer'
 
 interface Props {
   params: { slug: string }
@@ -71,8 +71,7 @@ export default function ProjetPage({ params }: Props) {
       {/* Navigation prev / next */}
       <ProjectNav currentSlug={projet.slug} />
 
-      {/* Section "Projet suivant" */}
-      <NextProject currentSlug={projet.slug} />
+      <Footer />
     </main>
   )
 }

@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
-      <Bento projets={featured.slice(0, 3)} />
+      <Bento />
       <ProjectsGrid projets={featured} />
       <About />
       <Footer />

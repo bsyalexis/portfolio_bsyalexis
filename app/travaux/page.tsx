@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import projets        from '@/data/projets.json'
 import TravauxContent from '@/components/travaux/TravauxContent'
-import TravauxCTA     from '@/components/travaux/TravauxCTA'
+import Footer         from '@/components/layout/Footer'
 
 export const metadata: Metadata = {
   title:       'Travaux — Alexis Bossy',
@@ -12,7 +12,7 @@ export default function TravauxPage() {
   return (
     <main style={{ background: 'var(--bg)' }}>
       <TravauxContent projets={projets} />
-      <TravauxCTA />
+      <Footer />
     </main>
   )
 }
