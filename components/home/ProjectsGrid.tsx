@@ -69,7 +69,7 @@ export default function ProjectsGrid({ projets }: Props) {
         </h2>
         <div style={styles.headerRight}>
           <p style={styles.headerDesc}>
-            Projets sélectionnés en vidéo, photographie et direction artistique.
+            Projets sélectionnés en vidéo, photographie et autres.
           </p>
           <Link href="/travaux" style={styles.seeAll}>
             Voir tout &rsaquo;
