@@ -12,6 +12,7 @@ interface Projet {
   category: string
   year: string
   cover?: string
+  coverVideo?: string
 }
 
 interface Props {
@@ -20,7 +21,7 @@ interface Props {
 
 export default function Bento({ projets }: Props) {
   const sectionRef = useRef<HTMLElement>(null)
-  const [, p1, p2] = projets
+  const [p0, p1, p2] = projets
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -42,7 +43,23 @@ export default function Bento({ projets }: Props) {
 
         {/* Grande image — gauche */}
         <div className="bento-main" style={styles.mainWrap}>
-          <div style={styles.mainBg} />
+          {p0?.coverVideo ? (
+            <video
+              autoPlay loop muted playsInline
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            >
+              <source src={p0.coverVideo} type="video/webm" />
+            </video>
+          ) : (
+            <div
+              style={{
+                ...styles.mainBg,
+                background: p0?.cover
+                  ? `url(${p0.cover}) center/cover no-repeat`
+                  : styles.mainBg.background as string,
+              }}
+            />
+          )}
           {/* Pill nom en bas à gauche */}
           <span style={styles.namePill}>Alexis Bossy</span>
         </div>
@@ -63,11 +80,21 @@ export default function Bento({ projets }: Props) {
           {/* Deux petites images */}
           <div className="bento-small-row" style={styles.smallRow}>
             <div className="bento-item" style={styles.smallCard}>
-              <div style={{ ...styles.smallBg, background: 'radial-gradient(ellipse at 60% 30%, rgba(255,255,255,0.18) 0%, transparent 50%), linear-gradient(155deg, #cac2b8 0%, #9c9488 100%)' }} />
+              <div style={{
+                ...styles.smallBg,
+                background: p1?.cover
+                  ? `url(${p1.cover}) center/cover no-repeat`
+                  : 'radial-gradient(ellipse at 60% 30%, rgba(255,255,255,0.18) 0%, transparent 50%), linear-gradient(155deg, #cac2b8 0%, #9c9488 100%)',
+              }} />
               {p1 && <span className="label" style={styles.smallLabel}>{p1.title}</span>}
             </div>
             <div className="bento-item" style={styles.smallCard}>
-              <div style={{ ...styles.smallBg, background: 'radial-gradient(ellipse at 35% 65%, rgba(255,255,255,0.14) 0%, transparent 50%), linear-gradient(155deg, #b8b0a4 0%, #908880 100%)' }} />
+              <div style={{
+                ...styles.smallBg,
+                background: p2?.cover
+                  ? `url(${p2.cover}) center/cover no-repeat`
+                  : 'radial-gradient(ellipse at 35% 65%, rgba(255,255,255,0.14) 0%, transparent 50%), linear-gradient(155deg, #b8b0a4 0%, #908880 100%)',
+              }} />
               {p2 && <span className="label" style={styles.smallLabel}>{p2.title}</span>}
             </div>
           </div>
