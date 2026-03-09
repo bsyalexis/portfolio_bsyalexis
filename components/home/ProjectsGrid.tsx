@@ -47,6 +47,11 @@ export default function ProjectsGrid({ projets }: Props) {
     return () => ctx.revert()
   }, [])
 
+  const cardBg = (p: Projet, idx: number) =>
+    p.cover
+      ? `url(${p.cover}) center/cover no-repeat`
+      : (placeholders[idx] ?? placeholders[0])
+
   /* Distribution masonry : col1=[0,3], col2=[1], col3=[2,4] */
   const col1 = [projets[0], projets[3]].filter(Boolean)
   const col2 = [projets[1]].filter(Boolean)
@@ -84,7 +89,7 @@ export default function ProjectsGrid({ projets }: Props) {
               className="masonry-card project-card"
               style={{
                 ...styles.card,
-                background: placeholders[projets.indexOf(p)] ?? placeholders[0],
+                background: cardBg(p, projets.indexOf(p)),
                 flex: i === 0 ? '0 0 45%' : '1',
               }}
             >
@@ -111,7 +116,7 @@ export default function ProjectsGrid({ projets }: Props) {
               style={{
                 ...styles.card,
                 flex: 1,
-                background: placeholders[projets.indexOf(p)] ?? placeholders[1],
+                background: cardBg(p, projets.indexOf(p)),
               }}
             >
               {p.coverVideo && (
@@ -136,7 +141,7 @@ export default function ProjectsGrid({ projets }: Props) {
               className="masonry-card project-card"
               style={{
                 ...styles.card,
-                background: placeholders[projets.indexOf(p)] ?? placeholders[2],
+                background: cardBg(p, projets.indexOf(p)),
                 flex: i === 0 ? '1' : '0 0 40%',
               }}
             >
