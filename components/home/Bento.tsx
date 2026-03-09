@@ -69,11 +69,10 @@ export default function Bento({ projets }: Props) {
 
           {/* Card texte */}
           <div className="bento-item" style={styles.textCard}>
-            <span style={styles.pill}>&bull; Esthétique &middot; Cinéma</span>
             <p style={styles.cardHeading}>
               <span style={styles.headLight}>Des images qui parlent</span>
               <br />
-              <span style={styles.headStrong}>pour votre marque.</span>
+              <span style={styles.headStrong}>pour vous.</span>
             </p>
           </div>
 
