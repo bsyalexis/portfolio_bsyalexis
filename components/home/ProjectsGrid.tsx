@@ -48,9 +48,7 @@ export default function ProjectsGrid({ projets }: Props) {
   }, [])
 
   const cardBg = (p: Projet, idx: number) =>
-    p.cover
-      ? `url(${p.cover}) center/cover no-repeat`
-      : (placeholders[idx] ?? placeholders[0])
+    p.cover ? undefined : (placeholders[idx] ?? placeholders[0])
 
   /* Distribution masonry : col1=[0,3], col2=[1], col3=[2,4] */
   const col1 = [projets[0], projets[3]].filter(Boolean)
@@ -93,6 +91,9 @@ export default function ProjectsGrid({ projets }: Props) {
                 flex: i === 0 ? '0 0 45%' : '1',
               }}
             >
+              {p.cover && !p.coverVideo && (
+                <img src={p.cover} alt="" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              )}
               {p.coverVideo && (
                 <video autoPlay loop muted playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}>
                   <source src={p.coverVideo} type="video/webm" />
@@ -119,6 +120,9 @@ export default function ProjectsGrid({ projets }: Props) {
                 background: cardBg(p, projets.indexOf(p)),
               }}
             >
+              {p.cover && !p.coverVideo && (
+                <img src={p.cover} alt="" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              )}
               {p.coverVideo && (
                 <video autoPlay loop muted playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}>
                   <source src={p.coverVideo} type="video/webm" />
@@ -145,6 +149,9 @@ export default function ProjectsGrid({ projets }: Props) {
                 flex: i === 0 ? '1' : '0 0 40%',
               }}
             >
+              {p.cover && !p.coverVideo && (
+                <img src={p.cover} alt="" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              )}
               {p.coverVideo && (
                 <video autoPlay loop muted playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}>
                   <source src={p.coverVideo} type="video/webm" />

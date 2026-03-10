@@ -27,14 +27,18 @@ function ImgBlock({ src, grad, onClick }: { src: string; grad: string; onClick?:
     <div
       className={onClick ? 'gallery-clickable' : undefined}
       onClick={onClick}
-      style={{
-        width:                '100%',
-        height:               '100%',
-        background:           `url(${src}) center/cover no-repeat, ${grad}`,
-        backgroundSize:       'cover',
-        backgroundPosition:   'center',
-      }}
-    />
+      style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden', background: grad }}
+    >
+      {src && (
+        <img
+          src={src}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      )}
+    </div>
   )
 }
 

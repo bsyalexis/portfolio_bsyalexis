@@ -36,7 +36,9 @@ export default function Bento() {
 
         {/* Grande image — gauche */}
         <div className="bento-main" style={styles.mainWrap}>
-          <div style={{ ...styles.imgFill, background: `url(${IMGS[0]}) center/cover no-repeat` }} />
+          <div style={styles.imgFill}>
+            <img src={IMGS[0]} alt="" loading="eager" decoding="async" style={styles.imgTag} />
+          </div>
           <div style={styles.mainOverlay}>
             <p style={styles.tagline}>
               <span style={styles.tagLight}>Des images qui parlent</span>
@@ -51,16 +53,22 @@ export default function Bento() {
 
           {/* Image haute */}
           <div className="bento-item" style={{ ...styles.imgCell, flex: 1 }}>
-            <div style={{ ...styles.imgFill, background: `url(${IMGS[1]}) center/cover no-repeat` }} />
+            <div style={styles.imgFill}>
+              <img src={IMGS[1]} alt="" loading="lazy" decoding="async" style={styles.imgTag} />
+            </div>
           </div>
 
           {/* Deux petites images */}
           <div className="bento-small-row" style={styles.smallRow}>
             <div className="bento-item" style={styles.smallCard}>
-              <div style={{ ...styles.imgFill, background: `url(${IMGS[2]}) center/cover no-repeat` }} />
+              <div style={styles.imgFill}>
+                <img src={IMGS[2]} alt="" loading="lazy" decoding="async" style={styles.imgTag} />
+              </div>
             </div>
             <div className="bento-item" style={styles.smallCard}>
-              <div style={{ ...styles.imgFill, background: `url(${IMGS[3]}) center/cover no-repeat` }} />
+              <div style={styles.imgFill}>
+                <img src={IMGS[3]} alt="" loading="lazy" decoding="async" style={styles.imgTag} />
+              </div>
             </div>
           </div>
 
@@ -96,7 +104,16 @@ const styles: Record<string, React.CSSProperties> = {
   imgFill: {
     width: '100%',
     height: '100%',
+    position: 'relative',
+    overflow: 'hidden',
   },
+  imgTag: {
+    position: 'absolute',
+    inset: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+  } as React.CSSProperties,
   mainOverlay: {
     position: 'absolute',
     bottom: '20px',

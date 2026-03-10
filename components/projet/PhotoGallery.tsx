@@ -39,21 +39,28 @@ export default function PhotoGallery({
   const prevLb = useCallback(() => setLbIndex((i) => i !== null ? (i - 1 + galleryImages.length) % galleryImages.length : null), [galleryImages.length])
   const nextLb = useCallback(() => setLbIndex((i) => i !== null ? (i + 1) % galleryImages.length : null), [galleryImages.length])
 
-  const img = (i: number): React.CSSProperties => ({
-    backgroundImage:    galleryImages[i] ? `url(${galleryImages[i]})` : 'none',
-    background:         galleryImages[i]
-      ? `url(${galleryImages[i]}) center/cover no-repeat`
-      : placeholders[i % placeholders.length],
-    backgroundSize:     'cover',
-    backgroundPosition: 'center',
-  })
-
   const clickableCell = (i: number, extraStyle: React.CSSProperties) => (
     <div
       className="gallery-clickable"
       onClick={() => openLb(i)}
-      style={{ ...styles.cell, ...extraStyle, ...img(i) }}
-    />
+      style={{
+        ...styles.cell,
+        ...extraStyle,
+        position: 'relative',
+        overflow: 'hidden',
+        background: galleryImages[i] ? undefined : placeholders[i % placeholders.length],
+      }}
+    >
+      {galleryImages[i] && (
+        <img
+          src={galleryImages[i]}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      )}
+    </div>
   )
 
   return (
