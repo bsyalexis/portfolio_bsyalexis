@@ -1,11 +1,60 @@
 [
   {
+    "slug": "studio-lens",
+    "title": "Studio Len's - Barber",
+    "client": "Studio Len's",
+    "category": "video-photo",
+    "year": "2026",
+    "cover": "/images/projets/studio-lens/HERO.webp",
+    "heroImage": "/images/projets/studio-lens/HERO.webp",
+    "ratio": "9:16",
+    "featured": true,
+    "nextProject": "eva-challenger-league",
+    "prevProject": "astral-esport",
+    "chapters": [
+      {
+        "number": "I",
+        "title": "Le reel",
+        "text": "À compléter.",
+        "darkBackground": true,
+        "visuals": [
+          {
+            "layout": "full",
+            "images": [],
+            "vimeoId": "1189888905"
+          }
+        ]
+      },
+      {
+        "number": "II",
+        "title": "Le shooting",
+        "text": "À compléter.",
+        "darkBackground": false,
+        "visuals": [
+          {
+            "layout": "grid-3col",
+            "images": [
+              "/images/projets/studio-lens/1.webp",
+              "/images/projets/studio-lens/3.webp",
+              "/images/projets/studio-lens/2.webp",
+              "/images/projets/studio-lens/4.webp",
+              "/images/projets/studio-lens/5.webp",
+              "/images/projets/studio-lens/6.webp",
+              "/images/projets/studio-lens/7.webp",
+              "/images/projets/studio-lens/9.webp",
+              "/images/projets/studio-lens/8.webp"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "slug": "eva-challenger-league",
     "title": "EVA CHALLENGER LEAGUE - OFFICIAL TRAILER",
     "client": "EVA",
     "category": "video",
     "year": "2026",
-    "date": "2026-01",
     "cover": "/images/projets/eva-cl/3.webp",
     "coverVideo": "/images/projets/eva-cl/TRANSFO.webm",
     "vimeoId": "1171104425",
@@ -66,7 +115,6 @@
     "client": "Bouillon de Famille",
     "category": "photo",
     "year": "2026",
-    "date": "2026-01",
     "cover": "/images/projets/bouillon-de-famille/HERO.webp",
     "layout": "photo-gallery",
     "galleryText": "À compléter.",
@@ -95,7 +143,6 @@
     "client": "FC Saint-Joseph",
     "category": "photo",
     "year": "2026",
-    "date": "2026-01",
     "cover": "/images/projets/fc-saint-joseph/HERO.webp",
     "heroImage": "/images/projets/fc-saint-joseph/HERO.webp",
     "layout": "photo-gallery",
@@ -125,7 +172,6 @@
     "client": "Astral",
     "category": "autres",
     "year": "2026",
-    "date": "2026-01",
     "cover": "/images/projets/astral-esport/MISE%20EN%20AVANT.webp",
     "heroImage": "/images/projets/astral-esport/A7405160.webp",
     "ratio": "16:9",
@@ -190,57 +236,6 @@
               "/images/projets/astral-esport/VISU1.webp",
               "/images/projets/astral-esport/VISU2.webp",
               "/images/projets/astral-esport/VISU3.webp"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "slug": "studio-lens",
-    "title": "Studio Len's - Barber",
-    "client": "Studio Len's",
-    "category": "video-photo",
-    "year": "2026",
-    "date": "2026-03",
-    "cover": "/images/projets/studio-lens/HERO.webp",
-    "heroImage": "/images/projets/studio-lens/HERO.webp",
-    "ratio": "9:16",
-    "featured": true,
-    "nextProject": "eva-challenger-league",
-    "prevProject": "astral-esport",
-    "chapters": [
-      {
-        "number": "I",
-        "title": "Le reel",
-        "text": "À compléter.",
-        "darkBackground": true,
-        "visuals": [
-          {
-            "layout": "full",
-            "images": [],
-            "vimeoId": "1189888905"
-          }
-        ]
-      },
-      {
-        "number": "II",
-        "title": "Le shooting",
-        "text": "À compléter.",
-        "darkBackground": false,
-        "visuals": [
-          {
-            "layout": "grid-3col",
-            "images": [
-              "/images/projets/studio-lens/1.webp",
-              "/images/projets/studio-lens/3.webp",
-              "/images/projets/studio-lens/2.webp",
-              "/images/projets/studio-lens/4.webp",
-              "/images/projets/studio-lens/5.webp",
-              "/images/projets/studio-lens/6.webp",
-              "/images/projets/studio-lens/7.webp",
-              "/images/projets/studio-lens/9.webp",
-              "/images/projets/studio-lens/8.webp"
             ]
           }
         ]
