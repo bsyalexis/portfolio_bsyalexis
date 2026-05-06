@@ -194,7 +194,7 @@
   },
   {
     "slug": "studio-lens",
-    "title": "Studio Len's — Reel & Shooting",
+    "title": "Studio Len's - Barber",
     "client": "Studio Len's",
     "category": "autres",
     "year": "2025",
@@ -207,18 +207,6 @@
     "chapters": [
       {
         "number": "I",
-        "title": "Le contexte",
-        "text": "À compléter.",
-        "darkBackground": false,
-        "visuals": [
-          {
-            "layout": "full",
-            "images": ["/images/projets/studio-lens/CONTEXTE.webp"]
-          }
-        ]
-      },
-      {
-        "number": "II",
         "title": "Le reel",
         "text": "À compléter.",
         "darkBackground": true,
@@ -231,7 +219,7 @@
         ]
       },
       {
-        "number": "III",
+        "number": "II",
         "title": "Le shooting",
         "text": "À compléter.",
         "darkBackground": false,
@@ -244,7 +232,9 @@
               "/images/projets/studio-lens/3.webp",
               "/images/projets/studio-lens/4.webp",
               "/images/projets/studio-lens/5.webp",
-              "/images/projets/studio-lens/6.webp"
+              "/images/projets/studio-lens/6.webp",
+              "/images/projets/studio-lens/7.webp",
+              "/images/projets/studio-lens/8.webp"
             ]
           }
         ]
