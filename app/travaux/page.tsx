@@ -8,10 +8,12 @@ export const metadata: Metadata = {
   description: 'Tous les projets de vidéo, photographie et direction artistique.',
 }
 
+const projetsTries = [...projets].sort((a, b) => Number(b.year) - Number(a.year))
+
 export default function TravauxPage() {
   return (
     <main style={{ background: 'var(--bg)' }}>
-      <TravauxContent projets={projets} />
+      <TravauxContent projets={projetsTries} />
       <Footer />
     </main>
   )
