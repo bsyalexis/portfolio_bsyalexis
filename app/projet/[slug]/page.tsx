@@ -23,11 +23,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!projet) return {}
 
   const typeLabel =
-    projet.category === 'video'
-      ? 'Vidéo'
-      : projet.category === 'photo'
-      ? 'Photographie'
-      : 'Direction Artistique'
+    projet.category === 'video'       ? 'Vidéo'
+    : projet.category === 'photo'     ? 'Photographie'
+    : projet.category === 'video-photo' ? 'Vidéo & Photographie'
+    : 'Direction Artistique'
 
   return {
     title:       `${projet.title} — Alexis Bossy`,

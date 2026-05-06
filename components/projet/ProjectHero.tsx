@@ -18,15 +18,17 @@ interface Props {
 }
 
 const gradients: Record<string, string> = {
-  video:  'radial-gradient(ellipse at 30% 35%, rgba(255,255,255,0.12) 0%, transparent 50%), linear-gradient(155deg, #302c2a 0%, #5e5a56 40%, #3a3634 100%)',
-  photo:  'radial-gradient(ellipse at 35% 30%, rgba(255,255,255,0.2) 0%, transparent 55%), linear-gradient(155deg, #cec8c0 0%, #a8a098 40%, #888078 100%)',
-  autres: 'radial-gradient(ellipse at 60% 35%, rgba(255,255,255,0.15) 0%, transparent 50%), linear-gradient(155deg, #b8bcbf 0%, #909498 40%, #6c7074 100%)',
+  video:       'radial-gradient(ellipse at 30% 35%, rgba(255,255,255,0.12) 0%, transparent 50%), linear-gradient(155deg, #302c2a 0%, #5e5a56 40%, #3a3634 100%)',
+  photo:       'radial-gradient(ellipse at 35% 30%, rgba(255,255,255,0.2) 0%, transparent 55%), linear-gradient(155deg, #cec8c0 0%, #a8a098 40%, #888078 100%)',
+  autres:      'radial-gradient(ellipse at 60% 35%, rgba(255,255,255,0.15) 0%, transparent 50%), linear-gradient(155deg, #b8bcbf 0%, #909498 40%, #6c7074 100%)',
+  'video-photo': 'radial-gradient(ellipse at 40% 32%, rgba(255,255,255,0.14) 0%, transparent 52%), linear-gradient(155deg, #2e2c30 0%, #6a6068 40%, #4a4850 100%)',
 }
 
 const categoryLabels: Record<string, string> = {
-  video:  'Vidéo',
-  photo:  'Photographie',
-  autres: 'Autres',
+  video:       'Vidéo',
+  photo:       'Photographie',
+  autres:      'Autres',
+  'video-photo': 'Vidéo & Photographie',
 }
 
 export default function ProjectHero({ projet }: Props) {
