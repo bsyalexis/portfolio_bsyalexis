@@ -31,7 +31,9 @@ function TravauxInner({ projets }: Props) {
   const filtered =
     activeFilter === 'all'
       ? projets
-      : projets.filter((p) => p.category === activeFilter)
+      : projets.filter((p) =>
+          p.category === activeFilter || p.category.split('-').includes(activeFilter)
+        )
 
   function handleFilter(f: string) {
     const params = new URLSearchParams(searchParams.toString())
