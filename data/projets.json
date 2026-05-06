@@ -11,7 +11,7 @@
     "ratio": "16:9",
     "featured": true,
     "nextProject": "bouillon-de-famille",
-    "prevProject": "astral-esport",
+    "prevProject": "studio-lens",
     "chapters": [
       {
         "number": "I",
@@ -126,7 +126,7 @@
     "heroImage": "/images/projets/astral-esport/A7405160.webp",
     "ratio": "16:9",
     "featured": true,
-    "nextProject": "eva-challenger-league",
+    "nextProject": "studio-lens",
     "prevProject": "fc-saint-joseph",
     "chapters": [
       {
@@ -186,6 +186,65 @@
               "/images/projets/astral-esport/VISU1.webp",
               "/images/projets/astral-esport/VISU2.webp",
               "/images/projets/astral-esport/VISU3.webp"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "studio-lens",
+    "title": "Studio Len's — Reel & Shooting",
+    "client": "Studio Len's",
+    "category": "autres",
+    "year": "2025",
+    "cover": "/images/projets/studio-lens/HERO.webp",
+    "heroImage": "/images/projets/studio-lens/HERO.webp",
+    "ratio": "9:16",
+    "featured": true,
+    "nextProject": "eva-challenger-league",
+    "prevProject": "astral-esport",
+    "chapters": [
+      {
+        "number": "I",
+        "title": "Le contexte",
+        "text": "À compléter.",
+        "darkBackground": false,
+        "visuals": [
+          {
+            "layout": "full",
+            "images": ["/images/projets/studio-lens/CONTEXTE.webp"]
+          }
+        ]
+      },
+      {
+        "number": "II",
+        "title": "Le reel",
+        "text": "À compléter.",
+        "darkBackground": true,
+        "visuals": [
+          {
+            "layout": "full",
+            "images": [],
+            "vimeoId": ""
+          }
+        ]
+      },
+      {
+        "number": "III",
+        "title": "Le shooting",
+        "text": "À compléter.",
+        "darkBackground": false,
+        "visuals": [
+          {
+            "layout": "grid-3col",
+            "images": [
+              "/images/projets/studio-lens/1.webp",
+              "/images/projets/studio-lens/2.webp",
+              "/images/projets/studio-lens/3.webp",
+              "/images/projets/studio-lens/4.webp",
+              "/images/projets/studio-lens/5.webp",
+              "/images/projets/studio-lens/6.webp"
             ]
           }
         ]
