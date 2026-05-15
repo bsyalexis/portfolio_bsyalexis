@@ -5,6 +5,7 @@
     "client": "Studio Len's",
     "category": "video-photo",
     "year": "2026",
+    "metaDescription": "Vidéo & Photographie · Studio Len's · 2026 — Reel Instagram et shooting photo pour mettre en valeur le savoir-faire d'un barbershop à Saint-Étienne.",
     "cover": "/images/projets/studio-lens/HERO.webp",
     "heroImage": "/images/projets/studio-lens/HERO.webp",
     "ratio": "9:16",
@@ -15,7 +16,7 @@
       {
         "number": "I",
         "title": "Le reel",
-        "text": "À compléter.",
+        "text": "Studio Len's avait le savoir-faire. Il manquait le contenu pour le montrer. L'objectif : sortir des codes habituels du barbershop et créer un Reel Instagram qui valorise vraiment le geste — plus soigné, plus direct, plus engageant.",
         "darkBackground": true,
         "visuals": [
           {
@@ -28,7 +29,7 @@
       {
         "number": "II",
         "title": "Le shooting",
-        "text": "À compléter.",
+        "text": "Une série de photos pensées pour alimenter les réseaux sur la durée. Ambiance, détails, portraits — du contenu cohérent qui reflète l'identité du salon.",
         "darkBackground": false,
         "visuals": [
           {
@@ -115,9 +116,10 @@
     "client": "Bouillon de Famille",
     "category": "photo",
     "year": "2026",
+    "metaDescription": "Photographie · Bouillon de Famille · 2026 — Shooting culinaire, ambiance et intérieur pour un restaurant de style bouillon à Saint-Étienne.",
     "cover": "/images/projets/bouillon-de-famille/HERO.webp",
     "layout": "photo-gallery",
-    "galleryText": "À compléter.",
+    "galleryText": "Un restaurant avec une identité forte mérite des photos à la hauteur. Pour Bouillon de Famille à Saint-Étienne, l'objectif était simple : des images qui donnent envie avant même d'entrer. Shooting complet autour des plats, de l'ambiance et du lieu — un contenu pensé pour les réseaux sociaux et le site web, cohérent et appétissant.",
     "galleryImages": [
       "/images/projets/bouillon-de-famille/A7406771.webp",
       "/images/projets/bouillon-de-famille/A7406802.webp",
@@ -143,10 +145,11 @@
     "client": "FC Saint-Joseph",
     "category": "photo",
     "year": "2026",
+    "metaDescription": "Photographie · FC Saint-Joseph · 2026 — Reportage photo de match et création de visuels réseaux sociaux pour le FC Saint-Joseph à Saint-Étienne.",
     "cover": "/images/projets/fc-saint-joseph/HERO.webp",
     "heroImage": "/images/projets/fc-saint-joseph/HERO.webp",
     "layout": "photo-gallery",
-    "galleryText": "À compléter.",
+    "galleryText": "Deux divisions, une même exigence. Sur la saison 2025-2026, j'ai suivi le FC Saint-Joseph en D3 et D5 pour couvrir leurs matchs en photo — actions, duels, moments de jeu — et produire des visuels formatés pour les réseaux du club. L'objectif : que les supporters qui n'étaient pas là ressentent quand même l'intensité du match.",
     "galleryImages": [
       "/images/projets/fc-saint-joseph/A7402376.webp",
       "/images/projets/fc-saint-joseph/A7402682.webp",
@@ -172,6 +175,7 @@
     "client": "Astral",
     "category": "autres",
     "year": "2026",
+    "metaDescription": "Direction Artistique · Astral · 2026 — Identité visuelle, design maillots, shooting photo et création de contenus réseaux pour l'équipe Astral EVA Esport, ligue stéphanoise.",
     "cover": "/images/projets/astral-esport/MISE%20EN%20AVANT.webp",
     "heroImage": "/images/projets/astral-esport/A7405160.webp",
     "ratio": "16:9",

@@ -28,9 +28,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     : projet.category === 'video-photo' ? 'Vidéo & Photographie'
     : 'Direction Artistique'
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const description = (projet as any).metaDescription ?? `${typeLabel} · ${projet.client} · ${projet.year}`
+
   return {
     title:       `${projet.title} — Alexis Bossy`,
-    description: `${typeLabel} · ${projet.client} · ${projet.year}`,
+    description,
   }
 }
 

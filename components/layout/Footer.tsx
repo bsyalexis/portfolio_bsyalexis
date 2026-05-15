@@ -43,8 +43,8 @@ export default function Footer() {
 
           <div style={styles.col}>
             <span className="label" style={styles.colLabel}>Réseaux</span>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={styles.link}>Instagram</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={styles.link}>LinkedIn</a>
+            <a href="https://www.instagram.com/alexbsy_/" target="_blank" rel="noopener noreferrer" style={styles.link}>Instagram</a>
+            <a href="https://www.linkedin.com/in/alexis-bossy-aa3198196/" target="_blank" rel="noopener noreferrer" style={styles.link}>LinkedIn</a>
             <a href="https://behance.net" target="_blank" rel="noopener noreferrer" style={styles.link}>Behance</a>
           </div>
 
