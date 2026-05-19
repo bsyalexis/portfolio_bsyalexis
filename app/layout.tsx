@@ -14,16 +14,16 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Alexis Bossy — Directeur Artistique',
+    default: 'Alexis Bossy — Photographe & Vidéaste',
     template: '%s — Alexis Bossy',
   },
   description:
-    'Directeur Artistique, Vidéaste & Photographe freelance. Films de marque, photographie corporate, design — basé en France.',
-  keywords: ['directeur artistique', 'vidéaste', 'photographe', 'freelance', 'portfolio'],
+    'Photographe & Vidéaste freelance. Films de marque, photographie corporate — basé en France.',
+  keywords: ['photographe', 'vidéaste', 'freelance', 'portfolio', 'films de marque'],
   authors: [{ name: 'Alexis Bossy' }],
   openGraph: {
-    title: 'Alexis Bossy — Directeur Artistique',
-    description: 'Films de marque, photographie corporate, design.',
+    title: 'Alexis Bossy — Photographe & Vidéaste',
+    description: 'Films de marque et photographie corporate.',
     type: 'website',
     locale: 'fr_FR',
   },

@@ -10,7 +10,7 @@ const stats = [
   { value: '5+',   label: 'Années\nd\'expérience' },
   { value: '60+',  label: 'Projets\nlivrés' },
   { value: '30+',  label: 'Clients\nsatisfaits' },
-  { value: '1er',  label: 'Poste DA\nchez Innolive' },
+  { value: '1er',  label: 'Premier poste\nchez Innolive' },
 ]
 
 export default function StatsBar() {

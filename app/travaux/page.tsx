@@ -5,7 +5,7 @@ import Footer         from '@/components/layout/Footer'
 
 export const metadata: Metadata = {
   title:       'Travaux — Alexis Bossy',
-  description: 'Tous les projets de vidéo, photographie et direction artistique.',
+  description: 'Tous les projets de photographie et vidéo.',
 }
 
 export default function TravauxPage() {

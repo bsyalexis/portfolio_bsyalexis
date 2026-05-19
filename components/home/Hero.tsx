@@ -32,11 +32,9 @@ export default function Hero() {
       {/* Contenu — bottom left */}
       <div style={styles.content} className="hero-content-inner">
         <h1 style={styles.title}>
-          <span className="hero-line" style={styles.lineLight}>Vidéaste</span>
+          <span className="hero-line" style={styles.lineMid}>Vidéaste</span>
           <br />
-          <span className="hero-line" style={styles.lineMid}>Photographe</span>
-          <br />
-          <span className="hero-line" style={styles.lineStrong}>D.A</span>
+          <span className="hero-line" style={styles.lineStrong}>Photographe</span>
         </h1>
 
         <div className="hero-cta" style={styles.ctaWrap}>

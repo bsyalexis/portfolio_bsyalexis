@@ -8,7 +8,7 @@ import Tag from '@/components/ui/Tag'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const tags = ['Direction Artistique', 'Vidéo', 'Photographie', 'Branding', 'Webdesign', 'Motion Design', 'Drone', 'Gestion réseaux sociaux']
+const tags = ['Photographie', 'Vidéo', 'Drone', 'Motion Design', 'Branding', 'Webdesign', 'Gestion réseaux sociaux']
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -57,7 +57,7 @@ export default function About() {
             <span style={styles.nameStrong}>Bossy</span>
           </h2>
           <p style={styles.bio}>
-            Vidéaste, photographe et D.A avec une passion pour les belles images. 5 ans en agence à tourner, monter, faire du motion design et gérer des réseaux sociaux.
+            Vidéaste et photographe avec une passion pour les belles images. 5 ans en agence à tourner, monter, faire du motion design et gérer des réseaux sociaux.
           </p>
           <p style={{ ...styles.bio, marginTop: '16px' }}>
             Des clients comme BMW ou Le Petit Futé, des univers variés, toujours le même objectif : que ça soit bien fait.
