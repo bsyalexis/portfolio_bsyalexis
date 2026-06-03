@@ -1,5 +1,44 @@
 [
   {
+    "slug": "fc-saint-chamond",
+    "title": "FC Saint-Chamond",
+    "client": "FC Saint-Chamond",
+    "category": "photo",
+    "year": "2026",
+    "metaDescription": "Photographie · FC Saint-Chamond · 2026 — Galerie photo du FC Saint-Chamond : portraits, duels et émotions captés au fil des matchs.",
+    "cover": "/images/projets/fc-saint-chamond/A7409762.jpg",
+    "heroImage": "/images/projets/fc-saint-chamond/A7409762.jpg",
+    "layout": "photo-gallery",
+    "galleryText": "Portraits, duels, émotions — un premier match suivi pour le FC Saint-Chamond. La galerie s'enrichira au fil de la saison.",
+    "galleryImages": [
+      "/images/projets/fc-saint-chamond/A7409762.jpg",
+      "/images/projets/fc-saint-chamond/A7409606.jpg",
+      "/images/projets/fc-saint-chamond/A7400850.jpg",
+      "/images/projets/fc-saint-chamond/A7409637.jpg",
+      "/images/projets/fc-saint-chamond/A7409721.jpg",
+      "/images/projets/fc-saint-chamond/A7400032.jpg",
+      "/images/projets/fc-saint-chamond/A7409686.jpg",
+      "/images/projets/fc-saint-chamond/A7400552.jpg",
+      "/images/projets/fc-saint-chamond/A7400477.jpg",
+      "/images/projets/fc-saint-chamond/A7409560.jpg",
+      "/images/projets/fc-saint-chamond/A7400705.jpg",
+      "/images/projets/fc-saint-chamond/A7400021.jpg",
+      "/images/projets/fc-saint-chamond/A7400097.jpg",
+      "/images/projets/fc-saint-chamond/A7409654.jpg",
+      "/images/projets/fc-saint-chamond/A7400497.jpg",
+      "/images/projets/fc-saint-chamond/A7400335.jpg",
+      "/images/projets/fc-saint-chamond/A7409880.jpg",
+      "/images/projets/fc-saint-chamond/A7400599.jpg",
+      "/images/projets/fc-saint-chamond/A7409891.jpg",
+      "/images/projets/fc-saint-chamond/A7409931.jpg"
+    ],
+    "ratio": "4:5",
+    "featured": true,
+    "nextProject": "studio-lens",
+    "prevProject": "astral-esport",
+    "chapters": []
+  },
+  {
     "slug": "studio-lens",
     "title": "Studio Len's - Barber",
     "client": "Studio Len's",
@@ -11,7 +50,7 @@
     "ratio": "9:16",
     "featured": true,
     "nextProject": "eva-challenger-league",
-    "prevProject": "astral-esport",
+    "prevProject": "fc-saint-chamond",
     "chapters": [
       {
         "number": "I",
@@ -70,7 +109,12 @@
         "text": "EVA lançait sa Challenger League : 16 équipes, 25 000€ de cash prize, deux conférences distinctes à annoncer. Il fallait un trailer qui marque un cap — visuellement et émotionnellement — en rompant avec les formats factuels précédents.",
         "darkBackground": false,
         "visuals": [
-          { "layout": "full", "images": ["/images/projets/eva-cl/OUTRO.webp"] }
+          {
+            "layout": "full",
+            "images": [
+              "/images/projets/eva-cl/OUTRO.webp"
+            ]
+          }
         ]
       },
       {
@@ -105,7 +149,11 @@
         "text": "Un trailer pensé image d'abord, le texte à l'écran réduit au strict minimum. Le format 16:9 a été privilégié pour sa polyvalence : diffusion en live, écrans scène, réseaux.\nLa communauté a répondu. Pas pour ce que le trailer annonçait, pour ce qu'il était.\nUn cap franchi aussi pour EVA : pour la première fois, de vraies scènes tournées au cœur d'un trailer de compétition.",
         "darkBackground": false,
         "visuals": [
-          { "layout": "full", "images": [], "vimeoId": "1171104425" }
+          {
+            "layout": "full",
+            "images": [],
+            "vimeoId": "1171104425"
+          }
         ]
       }
     ]
@@ -180,7 +228,7 @@
     "heroImage": "/images/projets/astral-esport/A7405160.webp",
     "ratio": "16:9",
     "featured": true,
-    "nextProject": "studio-lens",
+    "nextProject": "fc-saint-chamond",
     "prevProject": "fc-saint-joseph",
     "chapters": [
       {
@@ -240,55 +288,6 @@
               "/images/projets/astral-esport/VISU1.webp",
               "/images/projets/astral-esport/VISU2.webp",
               "/images/projets/astral-esport/VISU3.webp"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "slug": "fc-saint-chamond",
-    "title": "FC Saint-Chamond",
-    "client": "FC Saint-Chamond",
-    "category": "photo",
-    "year": "2026",
-    "metaDescription": "Photographie · FC Saint-Chamond · 2026 — Galerie photo du FC Saint-Chamond : portraits, duels et émotions captés au fil des matchs.",
-    "cover": "/images/projets/fc-saint-chamond/A7409762.jpg",
-    "heroImage": "/images/projets/fc-saint-chamond/A7409762.jpg",
-    "ratio": "4:5",
-    "featured": false,
-    "nextProject": "studio-lens",
-    "prevProject": "astral-esport",
-    "chapters": [
-      {
-        "number": "I",
-        "title": "Galerie",
-        "text": "",
-        "darkBackground": false,
-        "visuals": [
-          {
-            "layout": "grid-3col",
-            "images": [
-              "/images/projets/fc-saint-chamond/A7409762.jpg",
-              "/images/projets/fc-saint-chamond/A7409606.jpg",
-              "/images/projets/fc-saint-chamond/A7400850.jpg",
-              "/images/projets/fc-saint-chamond/A7409637.jpg",
-              "/images/projets/fc-saint-chamond/A7409721.jpg",
-              "/images/projets/fc-saint-chamond/A7400032.jpg",
-              "/images/projets/fc-saint-chamond/A7409686.jpg",
-              "/images/projets/fc-saint-chamond/A7400552.jpg",
-              "/images/projets/fc-saint-chamond/A7400477.jpg",
-              "/images/projets/fc-saint-chamond/A7409560.jpg",
-              "/images/projets/fc-saint-chamond/A7400705.jpg",
-              "/images/projets/fc-saint-chamond/A7400021.jpg",
-              "/images/projets/fc-saint-chamond/A7400097.jpg",
-              "/images/projets/fc-saint-chamond/A7409654.jpg",
-              "/images/projets/fc-saint-chamond/A7400497.jpg",
-              "/images/projets/fc-saint-chamond/A7400335.jpg",
-              "/images/projets/fc-saint-chamond/A7409880.jpg",
-              "/images/projets/fc-saint-chamond/A7400599.jpg",
-              "/images/projets/fc-saint-chamond/A7409891.jpg",
-              "/images/projets/fc-saint-chamond/A7409931.jpg"
             ]
           }
         ]
