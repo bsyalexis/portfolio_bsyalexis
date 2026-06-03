@@ -245,5 +245,54 @@
         ]
       }
     ]
+  },
+  {
+    "slug": "fc-saint-chamond",
+    "title": "FC Saint-Chamond",
+    "client": "FC Saint-Chamond",
+    "category": "photo",
+    "year": "2026",
+    "metaDescription": "Photographie · FC Saint-Chamond · 2026 — Galerie photo du FC Saint-Chamond : portraits, duels et émotions captés au fil des matchs.",
+    "cover": "/images/projets/fc-saint-chamond/A7409762.jpg",
+    "heroImage": "/images/projets/fc-saint-chamond/A7409762.jpg",
+    "ratio": "4:5",
+    "featured": false,
+    "nextProject": "studio-lens",
+    "prevProject": "astral-esport",
+    "chapters": [
+      {
+        "number": "I",
+        "title": "Galerie",
+        "text": "",
+        "darkBackground": false,
+        "visuals": [
+          {
+            "layout": "grid-3col",
+            "images": [
+              "/images/projets/fc-saint-chamond/A7409762.jpg",
+              "/images/projets/fc-saint-chamond/A7409606.jpg",
+              "/images/projets/fc-saint-chamond/A7400850.jpg",
+              "/images/projets/fc-saint-chamond/A7409637.jpg",
+              "/images/projets/fc-saint-chamond/A7409721.jpg",
+              "/images/projets/fc-saint-chamond/A7400032.jpg",
+              "/images/projets/fc-saint-chamond/A7409686.jpg",
+              "/images/projets/fc-saint-chamond/A7400552.jpg",
+              "/images/projets/fc-saint-chamond/A7400477.jpg",
+              "/images/projets/fc-saint-chamond/A7409560.jpg",
+              "/images/projets/fc-saint-chamond/A7400705.jpg",
+              "/images/projets/fc-saint-chamond/A7400021.jpg",
+              "/images/projets/fc-saint-chamond/A7400097.jpg",
+              "/images/projets/fc-saint-chamond/A7409654.jpg",
+              "/images/projets/fc-saint-chamond/A7400497.jpg",
+              "/images/projets/fc-saint-chamond/A7400335.jpg",
+              "/images/projets/fc-saint-chamond/A7409880.jpg",
+              "/images/projets/fc-saint-chamond/A7400599.jpg",
+              "/images/projets/fc-saint-chamond/A7409891.jpg",
+              "/images/projets/fc-saint-chamond/A7409931.jpg"
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]
