@@ -591,8 +591,8 @@ export default function TarifsPage() {
         <div className="cards">
           <div className="card">
             <div className="card-left">
-              <div className="card-name">Shooting personal branding</div>
-              <div className="card-livrable">1h · 30 photos · portrait + action · adaptées réseaux</div>
+              <div className="card-name">Shooting photo</div>
+              <div className="card-livrable">Couverture match/entraînement (≈1h30) · 30 photos · adaptées réseaux</div>
               <div className="card-tags"><span className="tag tag-photo">Photo</span></div>
             </div>
             <div className="card-right">
