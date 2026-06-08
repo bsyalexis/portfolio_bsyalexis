@@ -117,7 +117,6 @@ export default function PhotoGallery({
 
       {/* ── Dynamic rows for remaining images ── */}
       {rows.map((row, rowIdx) => {
-        const startIdx = 1 + rowIdx * 0 // computed below
         // compute actual global start index for this row
         let globalStart = 1
         for (let r = 0; r < rowIdx; r++) {
