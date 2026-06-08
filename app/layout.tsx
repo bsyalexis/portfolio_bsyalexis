@@ -18,12 +18,12 @@ export const metadata: Metadata = {
     template: '%s — Alexis Bossy',
   },
   description:
-    'Photographe & Vidéaste freelance. Films de marque, photographie corporate — basé en France.',
-  keywords: ['photographe', 'vidéaste', 'freelance', 'portfolio', 'films de marque'],
+    'Photographe & Vidéaste — Je crée du contenu photo et vidéo pour les clubs, les sportifs et les indépendants locaux qui reflète vraiment ce qu\'ils font.',
+  keywords: ['photographe', 'vidéaste', 'freelance', 'portfolio', 'sport', 'clubs', 'Saint-Étienne', 'Lyon'],
   authors: [{ name: 'Alexis Bossy' }],
   openGraph: {
     title: 'Alexis Bossy — Photographe & Vidéaste',
-    description: 'Films de marque et photographie corporate.',
+    description: 'Je crée du contenu photo et vidéo pour les clubs, les sportifs et les indépendants locaux qui reflète vraiment ce qu\'ils font.',
     type: 'website',
     locale: 'fr_FR',
   },
