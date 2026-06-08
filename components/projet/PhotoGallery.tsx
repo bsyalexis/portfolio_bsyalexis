@@ -29,6 +29,25 @@ const categoryLabel: Record<string, string> = {
   autres: 'Direction Artistique',
 }
 
+// Row pattern that repeats: 3-equal, wide-left(2+1), wide-right(1+2), 3-equal
+type RowType = 'THREE' | 'WIDE_LEFT' | 'WIDE_RIGHT'
+const ROW_CYCLE: RowType[] = ['THREE', 'WIDE_LEFT', 'WIDE_RIGHT', 'THREE']
+const ROW_HEIGHTS: Record<RowType, number> = { THREE: 320, WIDE_LEFT: 440, WIDE_RIGHT: 380 }
+
+function buildRows(images: string[]): Array<{ type: RowType; imgs: string[] }> {
+  const rows: Array<{ type: RowType; imgs: string[] }> = []
+  let i = 0
+  let cycleIdx = 0
+  while (i < images.length) {
+    const type = ROW_CYCLE[cycleIdx % ROW_CYCLE.length]
+    const size = type === 'THREE' ? 3 : 2
+    rows.push({ type, imgs: images.slice(i, i + size) })
+    i += size
+    cycleIdx++
+  }
+  return rows
+}
+
 export default function PhotoGallery({
   title, client, year, category, galleryText = '', galleryImages = [],
 }: Props) {
@@ -39,21 +58,22 @@ export default function PhotoGallery({
   const prevLb = useCallback(() => setLbIndex((i) => i !== null ? (i - 1 + galleryImages.length) % galleryImages.length : null), [galleryImages.length])
   const nextLb = useCallback(() => setLbIndex((i) => i !== null ? (i + 1) % galleryImages.length : null), [galleryImages.length])
 
-  const clickableCell = (i: number, extraStyle: React.CSSProperties) => (
+  const cell = (globalIdx: number, style: React.CSSProperties) => (
     <div
+      key={globalIdx}
       className="gallery-clickable"
-      onClick={() => openLb(i)}
+      onClick={() => openLb(globalIdx)}
       style={{
-        ...styles.cell,
-        ...extraStyle,
+        ...style,
         position: 'relative',
         overflow: 'hidden',
-        background: galleryImages[i] ? undefined : placeholders[i % placeholders.length],
+        cursor: 'pointer',
+        background: galleryImages[globalIdx] ? undefined : placeholders[globalIdx % placeholders.length],
       }}
     >
-      {galleryImages[i] && (
+      {galleryImages[globalIdx] && (
         <img
-          src={galleryImages[i]}
+          src={galleryImages[globalIdx]}
           alt=""
           loading="lazy"
           decoding="async"
@@ -63,44 +83,77 @@ export default function PhotoGallery({
     </div>
   )
 
+  // First image goes in the hero row (with text card)
+  const heroImg = galleryImages[0]
+  const rest = galleryImages.slice(1)
+  const rows = buildRows(rest)
+
   return (
     <>
-      <div style={styles.grid}>
-
-        {/* ── Ligne 1 : encart texte + grande photo ── */}
+      {/* ── Hero row : text card + first image ── */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '3px', width: '100%', height: '520px' }}>
+        {/* Text card */}
         <div style={styles.textCard}>
           <div style={styles.accentLine} />
           <div style={styles.textTop}>
             <span style={styles.pill}>{categoryLabel[category] ?? category}&ensp;·&ensp;{year}</span>
             <h2 style={styles.title}>{title}</h2>
-            {galleryText && (
-              <p style={styles.body}>{galleryText}</p>
-            )}
+            {galleryText && <p style={styles.body}>{galleryText}</p>}
           </div>
           <p style={styles.clientLabel}>{client}</p>
         </div>
-
-        {clickableCell(0, { gridColumn: '2 / 4', gridRow: '1' })}
-
-        {/* ── Ligne 2 : 3 photos égales ── */}
-        {clickableCell(1, { gridColumn: '1', gridRow: '2' })}
-        {clickableCell(2, { gridColumn: '2', gridRow: '2' })}
-        {clickableCell(3, { gridColumn: '3', gridRow: '2' })}
-
-        {/* ── Ligne 3 : 2 cols + 1 col ── */}
-        {clickableCell(4, { gridColumn: '1 / 3', gridRow: '3' })}
-        {clickableCell(5, { gridColumn: '3',     gridRow: '3' })}
-
-        {/* ── Ligne 4 : 1 col + 2 cols ── */}
-        {clickableCell(6, { gridColumn: '1',     gridRow: '4' })}
-        {clickableCell(7, { gridColumn: '2 / 4', gridRow: '4' })}
-
-        {/* ── Ligne 5 : 3 photos égales ── */}
-        {clickableCell(8,  { gridColumn: '1', gridRow: '5' })}
-        {clickableCell(9,  { gridColumn: '2', gridRow: '5' })}
-        {clickableCell(10, { gridColumn: '3', gridRow: '5' })}
-
+        {/* First image — spans 2 cols */}
+        <div
+          className="gallery-clickable"
+          onClick={() => openLb(0)}
+          style={{ gridColumn: '2 / 4', position: 'relative', overflow: 'hidden', cursor: 'pointer', background: heroImg ? undefined : placeholders[0] }}
+        >
+          {heroImg && (
+            <img src={heroImg} alt="" loading="lazy" decoding="async"
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+          )}
+        </div>
       </div>
+
+      {/* ── Dynamic rows for remaining images ── */}
+      {rows.map((row, rowIdx) => {
+        const startIdx = 1 + rowIdx * 0 // computed below
+        // compute actual global start index for this row
+        let globalStart = 1
+        for (let r = 0; r < rowIdx; r++) {
+          globalStart += rows[r].imgs.length
+        }
+        const h = ROW_HEIGHTS[row.type]
+
+        if (row.type === 'THREE') {
+          return (
+            <div key={rowIdx} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '3px', width: '100%', height: `${h}px`, marginTop: '3px' }}>
+              {row.imgs.map((_, j) => cell(globalStart + j, { height: '100%' }))}
+              {/* fill empty slots if less than 3 */}
+              {row.imgs.length < 3 && Array.from({ length: 3 - row.imgs.length }).map((_, j) => (
+                <div key={`empty-${j}`} style={{ background: 'var(--bg)', height: '100%' }} />
+              ))}
+            </div>
+          )
+        }
+
+        if (row.type === 'WIDE_LEFT') {
+          return (
+            <div key={rowIdx} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '3px', width: '100%', height: `${h}px`, marginTop: '3px' }}>
+              {cell(globalStart, { gridColumn: '1 / 3', height: '100%' })}
+              {row.imgs[1] !== undefined ? cell(globalStart + 1, { gridColumn: '3', height: '100%' }) : <div style={{ background: 'var(--bg)' }} />}
+            </div>
+          )
+        }
+
+        // WIDE_RIGHT
+        return (
+          <div key={rowIdx} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '3px', width: '100%', height: `${h}px`, marginTop: '3px' }}>
+            {cell(globalStart, { gridColumn: '1', height: '100%' })}
+            {row.imgs[1] !== undefined ? cell(globalStart + 1, { gridColumn: '2 / 4', height: '100%' }) : <div style={{ background: 'var(--bg)' }} />}
+          </div>
+        )
+      })}
 
       {lbIndex !== null && galleryImages.length > 0 && (
         <Lightbox images={galleryImages} index={lbIndex} onClose={closeLb} onPrev={prevLb} onNext={nextLb} />
@@ -110,16 +163,6 @@ export default function PhotoGallery({
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  grid: {
-    display:             'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gridTemplateRows:    '520px 320px 440px 380px 320px',
-    gap:                 '3px',
-    width:               '100%',
-  },
-  cell: {
-    overflow: 'hidden',
-  },
   textCard: {
     gridColumn:     '1',
     gridRow:        '1',
@@ -130,6 +173,7 @@ const styles: Record<string, React.CSSProperties> = {
     justifyContent: 'space-between',
     position:       'relative',
     overflow:       'hidden',
+    height:         '100%',
   },
   accentLine: {
     position:   'absolute',
