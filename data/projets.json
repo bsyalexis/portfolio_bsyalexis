@@ -1,5 +1,50 @@
 [
   {
+    "slug": "st-ferre-coupe-haute-loire",
+    "title": "Finale Régis Fay — Coupe de Haute-Loire",
+    "client": "A.S Saint-Ferréol",
+    "category": "photo",
+    "year": "2026",
+    "metaDescription": "Photographie · A.S Saint-Ferréol · 2026 — Reportage photo de la Finale Régis Fay de Haute-Loire 2026 : AS Saint-Ferréol contre Aiguilhe FC.",
+    "cover": "/images/projets/st-ferre-coupe-haute-loire/A7402062.jpg",
+    "heroImage": "/images/projets/st-ferre-coupe-haute-loire/A7402062.jpg",
+    "layout": "photo-gallery",
+    "galleryText": "Une finale de coupe, c'est une journée entière — les trophées sur le podium avant le coup d'envoi, les tribunes qui débordent, les duels, les émotions à fleur de peau. J'y étais pour l'AS Saint-Ferréol, face à Aiguilhe FC.",
+    "galleryImages": [
+      "/images/projets/st-ferre-coupe-haute-loire/A7400868.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401042.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401099-2.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401144.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401338.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401264.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401459.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401545.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401655.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401665.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401700.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401729.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401875.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401889.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401967.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7402010.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7402061.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7402062.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7402103.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7402131.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7402148.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7402157.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7402236.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7402245.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7402247.jpg",
+      "/images/projets/st-ferre-coupe-haute-loire/A7401374.jpg"
+    ],
+    "ratio": "4:5",
+    "featured": true,
+    "chapters": [],
+    "nextProject": "fc-saint-chamond",
+    "prevProject": "astral-esport"
+  },
+  {
     "slug": "fc-saint-chamond",
     "title": "FC Saint-Chamond",
     "client": "FC Saint-Chamond",
@@ -35,7 +80,7 @@
     "ratio": "4:5",
     "featured": true,
     "nextProject": "studio-lens",
-    "prevProject": "astral-esport",
+    "prevProject": "st-ferre-coupe-haute-loire",
     "chapters": []
   },
   {
@@ -228,7 +273,7 @@
     "heroImage": "/images/projets/astral-esport/A7405160.webp",
     "ratio": "16:9",
     "featured": true,
-    "nextProject": "fc-saint-chamond",
+    "nextProject": "st-ferre-coupe-haute-loire",
     "prevProject": "fc-saint-joseph",
     "chapters": [
       {
