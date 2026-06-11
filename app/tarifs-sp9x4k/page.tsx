@@ -47,10 +47,12 @@ export default function TarifsPage() {
         /* ── COVER ── */
         .cover {
           min-height: 100vh;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
           position: relative;
           overflow: hidden;
+          padding: 64px 56px;
         }
 
         .cover-accent {
@@ -61,35 +63,35 @@ export default function TarifsPage() {
           z-index: 10;
         }
 
-        .cover-left {
-          padding: 64px 56px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          position: relative;
-          z-index: 2;
-          border-right: 1px solid var(--border);
-        }
-
-        .cover-right {
-          padding: 64px 56px;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          position: relative;
-          z-index: 2;
-        }
-
-        .cover-right::before {
+        .cover::after {
           content: '';
           position: absolute;
-          top: -20%;
-          right: -20%;
+          top: -10%;
+          right: -10%;
           width: 600px;
           height: 600px;
-          background: radial-gradient(circle, rgba(229,149,107,0.14) 0%, rgba(215,83,72,0.08) 50%, transparent 70%);
+          background: radial-gradient(circle, rgba(229,149,107,0.12) 0%, rgba(215,83,72,0.06) 50%, transparent 70%);
           pointer-events: none;
+          z-index: 0;
         }
+
+        .cover-top {
+          position: relative;
+          z-index: 2;
+        }
+
+        .cover-bottom {
+          position: relative;
+          z-index: 2;
+        }
+
+        .cover-top > * { animation: fadeUp 0.7s ease both; }
+        .cover-top > *:nth-child(1) { animation-delay: 0.0s; }
+        .cover-top > *:nth-child(2) { animation-delay: 0.1s; }
+        .cover-bottom > * { animation: fadeUp 0.7s ease both; }
+        .cover-bottom > *:nth-child(1) { animation-delay: 0.2s; }
+        .cover-bottom > *:nth-child(2) { animation-delay: 0.3s; }
+        .cover-bottom > *:nth-child(3) { animation-delay: 0.4s; }
 
         .logotype {
           font-size: clamp(52px, 8vw, 112px);
@@ -455,14 +457,6 @@ export default function TarifsPage() {
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        .cover-left > * { animation: fadeUp 0.7s ease both; }
-        .cover-left > *:nth-child(1) { animation-delay: 0.0s; }
-        .cover-left > *:nth-child(2) { animation-delay: 0.15s; }
-        .cover-right > * { animation: fadeUp 0.7s ease both; }
-        .cover-right > *:nth-child(1) { animation-delay: 0.25s; }
-        .cover-right > *:nth-child(2) { animation-delay: 0.35s; }
-        .cover-right > *:nth-child(3) { animation-delay: 0.45s; }
-
         .cards .card { animation: fadeUp 0.5s ease both; }
         .cards .card:nth-child(1) { animation-delay: 0.05s; }
         .cards .card:nth-child(2) { animation-delay: 0.1s; }
@@ -471,23 +465,7 @@ export default function TarifsPage() {
 
         /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
-          .cover {
-            grid-template-columns: 1fr;
-            min-height: auto;
-          }
-
-          .cover-left {
-            padding: 48px 28px 40px;
-            border-right: none;
-            border-bottom: 1px solid var(--border);
-          }
-
-          .cover-right {
-            padding: 40px 28px 48px;
-            justify-content: flex-start;
-          }
-
-          .cover-right::before { display: none; }
+          .cover { padding: 40px 24px; }
 
           .page {
             padding: 48px 24px;
@@ -527,8 +505,7 @@ export default function TarifsPage() {
         }
 
         @media (max-width: 480px) {
-          .cover-left { padding: 36px 20px 32px; }
-          .cover-right { padding: 32px 20px 40px; }
+          .cover { padding: 28px 20px; }
           .page { padding: 40px 20px; }
 
           .section-title {
@@ -553,19 +530,14 @@ export default function TarifsPage() {
       <div className="cover">
         <div className="cover-accent"></div>
         <div className="cover-grid"></div>
-        <div className="cover-left">
-          <div>
-            <div className="logotype">
-              <span className="prenom">Alexis</span>
-              <span className="nom">Bossy</span>
-            </div>
-            <div className="logo-sub">Vidéaste · Photographe</div>
+        <div className="cover-top">
+          <div className="logotype">
+            <span className="prenom">Alexis</span>
+            <span className="nom">Bossy</span>
           </div>
-          <div className="cover-contact">
-            bsy.alexis@gmail.com &nbsp;·&nbsp; @alexbsy_ &nbsp;·&nbsp; alexbsy.com &nbsp;·&nbsp; Saint-Étienne / Lyon
-          </div>
+          <div className="logo-sub">Vidéaste · Photographe</div>
         </div>
-        <div className="cover-right">
+        <div className="cover-bottom">
           <div className="cover-label">
             <div className="cover-label-line"></div>
             <span>Document commercial · Juin 2026</span>
@@ -573,6 +545,9 @@ export default function TarifsPage() {
           <div className="cover-title">Grille<br /><em>Tarifaire</em></div>
           <div className="cover-meta">
             <div className="cover-meta-item">Photo · Vidéo</div>
+          </div>
+          <div className="cover-contact">
+            bsy.alexis@gmail.com &nbsp;·&nbsp; @alexbsy_ &nbsp;·&nbsp; alexbsy.com &nbsp;·&nbsp; Saint-Étienne / Lyon
           </div>
         </div>
       </div>
