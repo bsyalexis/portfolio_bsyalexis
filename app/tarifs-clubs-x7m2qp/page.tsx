@@ -510,7 +510,7 @@ export default function TarifsClubsPage() {
           <div className="card">
             <div className="card-left">
               <div className="card-name">Couverture match</div>
-              <div className="card-livrable">2h sur site · 30 photos retouchées · livraison 48h</div>
+              <div className="card-livrable">2h sur site · 30 photos retouchées · livraison 24h</div>
               <div className="card-tags"><span className="tag tag-photo">Photo</span></div>
             </div>
             <div className="card-right">
@@ -618,7 +618,7 @@ export default function TarifsClubsPage() {
             </div>
           </div>
         </div>
-        <div className="note">Le Reel reste une option à vendre en supplément sur tous les packs (+120 €)</div>
+
         <div className="page-num">3 / 4</div>
       </div>
 
@@ -679,9 +679,7 @@ export default function TarifsClubsPage() {
                 <div className="conditions-item">
                   Déplacements inclus dans un rayon de 30 km autour de Saint-Étienne / Lyon · Au-delà : 0,35 €/km
                 </div>
-                <div className="conditions-item">
-                  30 photos minimum livrées · Surplus offert si davantage de bonnes photos retouchées
-                </div>
+
                 <div className="conditions-item">
                   bsy.alexis@gmail.com · @alexbsy_
                 </div>

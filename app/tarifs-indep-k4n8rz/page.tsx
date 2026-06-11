@@ -510,8 +510,8 @@ export default function TarifsIndepPage() {
         <div className="cards">
           <div className="card">
             <div className="card-left">
-              <div className="card-name">Shooting découverte</div>
-              <div className="card-livrable">1h · 30 photos · ambiance, portrait, produit</div>
+              <div className="card-name">Shooting photo</div>
+              <div className="card-livrable">≈1h30 · 30 photos · ambiance, portrait, produit</div>
               <div className="card-tags"><span className="tag tag-photo">Photo</span></div>
             </div>
             <div className="card-right">
@@ -522,7 +522,7 @@ export default function TarifsIndepPage() {
 
           <div className="card">
             <div className="card-left">
-              <div className="card-name">Reel présentation activité</div>
+              <div className="card-name">Reel à l&apos;unité</div>
               <div className="card-livrable">Tournage + montage · format Reel/TikTok</div>
               <div className="card-tags"><span className="tag tag-video">Vidéo</span></div>
             </div>
@@ -627,9 +627,7 @@ export default function TarifsIndepPage() {
                 <div className="conditions-item">
                   Déplacements inclus dans un rayon de 30 km autour de Saint-Étienne / Lyon · Au-delà : 0,35 €/km
                 </div>
-                <div className="conditions-item">
-                  30 photos minimum livrées · Surplus offert si davantage de bonnes photos retouchées
-                </div>
+
                 <div className="conditions-item">
                   bsy.alexis@gmail.com · @alexbsy_
                 </div>

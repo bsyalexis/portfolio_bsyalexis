@@ -578,7 +578,7 @@ export default function TarifsPage() {
 
           <div className="card">
             <div className="card-left">
-              <div className="card-name">Reel highlight</div>
+              <div className="card-name">Reel à l&apos;unité</div>
               <div className="card-livrable">Captation + montage · highlights entraînement ou compétition</div>
               <div className="card-tags"><span className="tag tag-video">Vidéo</span></div>
             </div>
@@ -683,9 +683,7 @@ export default function TarifsPage() {
                 <div className="conditions-item">
                   Déplacements inclus dans un rayon de 30 km autour de Saint-Étienne / Lyon · Au-delà : 0,35 €/km
                 </div>
-                <div className="conditions-item">
-                  30 photos minimum livrées · Surplus offert si davantage de bonnes photos retouchées
-                </div>
+
                 <div className="conditions-item">
                   bsy.alexis@gmail.com · @alexbsy_
                 </div>
