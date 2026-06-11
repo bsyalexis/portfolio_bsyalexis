@@ -83,6 +83,8 @@ export default function TarifsPage() {
         .cover-bottom {
           position: relative;
           z-index: 2;
+          align-self: flex-end;
+          text-align: right;
         }
 
         .cover-top > * { animation: fadeUp 0.7s ease both; }

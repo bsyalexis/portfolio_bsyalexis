@@ -75,7 +75,7 @@ export default function TarifsClubsPage() {
         }
 
         .cover-top { position: relative; z-index: 2; }
-        .cover-bottom { position: relative; z-index: 2; }
+        .cover-bottom { position: relative; z-index: 2; align-self: flex-end; text-align: right; }
 
         .logotype {
           font-size: clamp(52px, 8vw, 112px);
