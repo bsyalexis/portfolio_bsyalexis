@@ -13,6 +13,10 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
+  icons: {
+    icon: '/avatar.png',
+    apple: '/avatar.png',
+  },
   title: {
     default: 'Alexis Bossy — Photographe & Vidéaste',
     template: '%s — Alexis Bossy',
