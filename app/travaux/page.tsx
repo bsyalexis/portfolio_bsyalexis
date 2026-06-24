@@ -4,7 +4,7 @@ import TravauxContent from '@/components/travaux/TravauxContent'
 import Footer         from '@/components/layout/Footer'
 
 export const metadata: Metadata = {
-  title:       'Travaux — Alexis Bossy',
+  title:       'Travaux ı Alexis Bossy',
   description: 'Tous les projets de photographie et vidéo.',
 }
 

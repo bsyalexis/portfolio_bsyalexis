@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = (projet as any).metaDescription ?? `${typeLabel} · ${projet.client} · ${projet.year}`
 
   return {
-    title:       `${projet.title} — Alexis Bossy`,
+    title:       `${projet.title} ı Alexis Bossy`,
     description,
   }
 }

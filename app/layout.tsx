@@ -18,15 +18,15 @@ export const metadata: Metadata = {
     apple: '/avatar.png',
   },
   title: {
-    default: 'Alexis Bossy — Photographe & Vidéaste',
-    template: '%s — Alexis Bossy',
+    default: 'Alexis Bossy ı Photographe & Vidéaste',
+    template: '%s ı Alexis Bossy',
   },
   description:
-    'Photographe & Vidéaste — Je crée du contenu photo et vidéo pour les clubs, les sportifs et les indépendants locaux qui reflète vraiment ce qu\'ils font.',
+    'Photographe & Vidéaste ı Je crée du contenu photo et vidéo pour les clubs, les sportifs et les indépendants locaux qui reflète vraiment ce qu\'ils font.',
   keywords: ['photographe', 'vidéaste', 'freelance', 'portfolio', 'sport', 'clubs', 'Saint-Étienne', 'Lyon'],
   authors: [{ name: 'Alexis Bossy' }],
   openGraph: {
-    title: 'Alexis Bossy — Photographe & Vidéaste',
+    title: 'Alexis Bossy ı Photographe & Vidéaste',
     description: 'Je crée du contenu photo et vidéo pour les clubs, les sportifs et les indépendants locaux qui reflète vraiment ce qu\'ils font.',
     type: 'website',
     locale: 'fr_FR',

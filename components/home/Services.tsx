@@ -73,7 +73,7 @@ export default function Services() {
             </span>
           ))}
 
-          <span style={{ color: 'var(--border)', fontSize: '1.2rem', fontWeight: 300 }}>—</span>
+          <span style={{ color: 'var(--border)', fontSize: '1.2rem', fontWeight: 300 }}>ı</span>
 
           {services.filter(s => !s.big).map((s, i, arr) => (
             <span key={s.title} style={{ display: 'inline-flex', alignItems: 'baseline', gap: '20px' }}>

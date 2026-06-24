@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Tarifs Clubs — Alexis Bossy',
+  title: 'Tarifs Clubs ı Alexis Bossy',
   robots: {
     index: false,
     follow: false,

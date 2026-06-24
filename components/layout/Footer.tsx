@@ -59,7 +59,7 @@ export default function Footer() {
       {/* ── Barre © ── */}
       <div style={styles.bottom}>
         <div style={styles.bottomInner} className="footer-bottom-inner">
-          <span style={styles.copy}>Site par Bossy Alexis — {new Date().getFullYear()}</span>
+          <span style={styles.copy}>Site par Bossy Alexis ı {new Date().getFullYear()}</span>
         </div>
       </div>
 
