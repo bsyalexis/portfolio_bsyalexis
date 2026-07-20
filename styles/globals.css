@@ -27,7 +27,7 @@
   --shadow-h:  0 4px 32px rgba(0, 0, 0, 0.10);
 
   /* Layout */
-  --nav-h:             65px;   /* 64px de contenu + 1px de bordure */
+  --nav-h:             68px;   /* --bar-h + 2 x --bar-top */
   --container-width:   1100px;
   --grid-width:        1200px;
   --px-desktop:        56px;
@@ -171,58 +171,140 @@ a {
 }
 
 /* ─────────────────────────────────────────────
-   NAV
+   NAV — logo, pilule centrale, CTA
    ───────────────────────────────────────────── */
+
+/* Géométrie partagée avec la barre du panneau (voir « Menu en panneau
+   flottant »). Les deux doivent coïncider au pixel : c'est tout l'effet. */
+:root {
+  --bar-top: 14px;
+  --bar-h:   40px;
+}
+
 .nav {
   position: sticky;
   top: 0;
-  z-index: 100;
   width: 100%;
-  background: rgba(248, 246, 242, 0.88);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-  transition: box-shadow 0.3s ease;
+  height: var(--nav-h);
+  /* Grille en trois colonnes plutôt que flex + pilule en absolute : Magnetic
+     applique un transform à son conteneur, et un ancêtre transformé devient
+     le bloc de référence des descendants absolus. La pilule se calait donc
+     sur ce conteneur au lieu du header, et partait vers la gauche. */
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding-inline: var(--px-desktop);
+  /* Transparent en permanence : le hero passe dessous, et sur fond clair le
+     contenu de la page défile derrière sans que la barre ait à le masquer. */
+  background: transparent;
+  pointer-events: none;
+}
+.nav > * { pointer-events: auto; }
+
+.nav__logo {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  transition: color 0.25s ease;
 }
 
-.nav--scrolled {
-  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.06);
+/* ── Pilule centrale ── */
+.nav__pill {
+  height: var(--bar-h);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 6px 0 16px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: #0d0d0d;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
+/* Menu ouvert : la pilule s'efface là où la barre du panneau apparaît. */
+.nav__pill.is-hidden { opacity: 0; pointer-events: none; }
 
-/* Au-dessus d'un hero sombre : nav transparent, contenu en clair. */
-.nav--over a,
-.nav--over button { color: #fff !important; }
-.nav--over .nav-link::after { background: #fff; }
-.nav--over svg { color: rgba(255, 255, 255, 0.8); }
-.nav--over .nav-hamburger span { background: #fff !important; }
-
-/* Lien hover — trait cerise scaleX */
-.nav-link {
-  position: relative;
+.nav__burger {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 18px;
 }
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
+.nav__burger span {
+  display: block;
+  height: 1.5px;
   width: 100%;
-  height: 1px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease;
-}
-.nav-link:hover::after {
-  transform: scaleX(1);
+  background: #fff;
+  border-radius: 2px;
 }
 
-/* Dot pulsant */
-.nav-dot {
-  animation: pulse-dot 2.4s ease-in-out infinite;
+.nav__pct,
+.menu__pct {
+  min-width: 50px;
+  padding: 7px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.13);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Plus de bascule desktop/mobile ici : la navigation passe entièrement par
-   le menu plein écran, identique à toutes les tailles. */
+/* ── Bloc de droite ── */
+.nav__right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+.nav__socials {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-mid);
+  transition: color 0.25s ease;
+}
+.nav__socials a { display: flex; }
+
+.nav__cta {
+  display: inline-flex;
+  align-items: center;
+  height: var(--bar-h);
+  padding-inline: 20px;
+  border-radius: var(--radius-pill);
+  background: var(--text);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.nav__cta:hover { background: var(--accent); }
+
+/* ── Au-dessus du hero sombre ── */
+.nav--over .nav__logo   { color: #fff; }
+.nav--over .nav__socials { color: rgba(255, 255, 255, 0.75); }
+.nav--over .nav__cta    { background: #fff; color: #0d0d0d; }
+.nav--over .nav__cta:hover { background: var(--accent); color: #fff; }
+
+@media (max-width: 767px) {
+  /* Le CTA et les réseaux sortent : à 375px ils écraseraient la pilule, qui
+     est la seule commande réellement indispensable ici. */
+  .nav__right { display: none; }
+  /* Et la pilule cesse d'être centrée : à cette largeur, le centrage la
+     faisait chevaucher le logo. Deux colonnes, chacune son bord. */
+  .nav {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    padding-inline: 20px;
+  }
+  .nav__pill { font-size: 0.82rem; padding-left: 14px; gap: 10px; }
+}
 
 /* ─────────────────────────────────────────────
    PROJECT CARDS — hover barre cerise top
@@ -865,7 +947,9 @@ a {
 
 .menu__panel {
   position: absolute;
-  top: 14px;
+  /* 8px de moins que --bar-top : la marge interne de la barre replace
+     celle-ci exactement là où se trouvait la pilule du nav. */
+  top: calc(var(--bar-top) - 8px);
   left: 50%;
   width: min(340px, calc(100vw - 28px));
   max-height: calc(100svh - 28px);
@@ -889,7 +973,8 @@ a {
   justify-content: space-between;
   gap: 12px;
   margin: 8px;
-  padding: 6px 6px 6px 8px;
+  height: var(--bar-h);
+  padding: 0 6px 0 10px;
   background: #0d0d0d;
   border-radius: var(--radius-pill);
   flex-shrink: 0;
@@ -908,17 +993,7 @@ a {
   cursor: pointer;
 }
 .menu__close-icon { font-size: 0.9rem; opacity: 0.85; }
-.menu__pct {
-  min-width: 52px;
-  padding: 7px 12px;
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.13);
-  color: #fff;
-  font-size: 0.78rem;
-  font-weight: 600;
-  text-align: center;
-  font-variant-numeric: tabular-nums;
-}
+/* .menu__pct partage sa mise en forme avec .nav__pct — voir bloc NAV. */
 
 .menu__body {
   padding: 18px 22px 8px;
@@ -972,39 +1047,6 @@ a {
   font-size: 0.68rem;
   color: #9a9a97;
   flex-shrink: 0;
-}
-
-/* Bouton bascule du menu — deux barres qui se croisent. */
-.burger {
-  position: relative;
-  z-index: 201;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
-  width: 40px;
-  height: 40px;
-  padding: 8px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-.burger span {
-  display: block;
-  height: 1.5px;
-  width: 100%;
-  background: var(--text);
-  transition: transform 0.42s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.2s ease;
-}
-.nav--over .burger span { background: #fff; }
-/* Menu ouvert, le bouton s'efface : le panneau porte déjà son propre
-   « Fermer » dans la barre supérieure, et deux croix pour la même action se
-   disputaient l'attention. Le voile et la touche Échap restent disponibles. */
-.burger.is-open {
-  opacity: 0;
-  pointer-events: none;
-  transform: scale(0.8);
-  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 @media (max-width: 767px) {

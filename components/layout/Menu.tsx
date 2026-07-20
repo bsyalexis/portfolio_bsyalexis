@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 
 const LINKS = [
@@ -19,6 +19,9 @@ const SOCIALS = [
 interface Props {
   open: boolean
   onClose: () => void
+  /** Progression de lecture, calculée une seule fois dans Nav et partagée
+      avec la pilule fermée : les deux affichent forcément le même chiffre. */
+  pct: number
 }
 
 /**
@@ -29,24 +32,9 @@ interface Props {
  * navigation. La barre supérieure porte l'action de fermeture et la
  * progression de lecture.
  */
-export default function Menu({ open, onClose }: Props) {
+export default function Menu({ open, onClose, pct }: Props) {
   const panelRef = useRef<HTMLDivElement>(null)
   const firstRef = useRef<HTMLAnchorElement>(null)
-  const [pct, setPct] = useState(0)
-
-  /* Progression de lecture, affichée dans la barre du panneau. Calculée
-     seulement quand le menu est ouvert : inutile de suivre le scroll en
-     permanence pour un chiffre que personne ne regarde le reste du temps. */
-  useEffect(() => {
-    if (!open) return
-    const read = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight
-      setPct(max > 0 ? Math.round((window.scrollY / max) * 100) : 0)
-    }
-    read()
-    window.addEventListener('scroll', read, { passive: true })
-    return () => window.removeEventListener('scroll', read)
-  }, [open])
 
   /* Verrou de défilement + échappement + piège de focus. */
   useEffect(() => {
@@ -95,6 +83,9 @@ export default function Menu({ open, onClose }: Props) {
         aria-modal={open}
         aria-label="Menu principal"
       >
+        {/* Cette barre reprend au pixel près la géométrie de la pilule du
+            nav : c'est elle qui donne l'impression que la pilule s'est
+            dépliée, plutôt que de s'effacer au profit d'un autre élément. */}
         <div className="menu__bar">
           <button className="menu__close" onClick={onClose} tabIndex={open ? 0 : -1}>
             <span className="menu__close-icon" aria-hidden="true">✕</span>
