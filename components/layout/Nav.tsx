@@ -44,33 +44,32 @@ export default function Nav() {
         className={clsx('nav', { 'nav--over': overHero && !menuOpen })}
         style={{ zIndex: menuOpen ? 201 : 100 }}
       >
-        <Link href="/" className="nav__logo" onClick={closeMenu} data-cursor="ACCUEIL">
-          Alexis Bossy
-        </Link>
+        {/* Le nom et l'accès au menu forment un seul bloc, calé en haut à
+            gauche : ce sont les deux commandes d'identité et de navigation,
+            les séparer aux deux bouts du header les rendait moins évidentes. */}
+        <div className="nav__left">
+          <Link href="/" className="nav__logo" onClick={closeMenu} data-cursor="ACCUEIL">
+            Alexis Bossy
+          </Link>
 
-        {/* Pilule centrale. Elle occupe exactement la place que prendra la
-            barre du panneau une fois déplié : même position, même hauteur,
-            même rayon. L'ouverture se lit alors comme un dépliement de la
-            pilule, et non comme l'apparition d'un calque sans rapport. */}
-        <Magnetic strength={0.2}>
-          <button
-            onClick={() => setMenuOpen(true)}
-            className={clsx('nav__pill', { 'is-hidden': menuOpen })}
-            aria-label="Ouvrir le menu"
-            aria-expanded={menuOpen}
-            data-cursor="MENU"
-          >
-            <span className="nav__burger" aria-hidden="true">
-              <span />
-              <span />
-            </span>
-            Menu
-            <span className="nav__pct">{pct}%</span>
-          </button>
-        </Magnetic>
+          <Magnetic strength={0.2}>
+            <button
+              onClick={() => setMenuOpen(true)}
+              className={clsx('nav__pill', { 'is-hidden': menuOpen })}
+              aria-label="Ouvrir le menu"
+              aria-expanded={menuOpen}
+              data-cursor="MENU"
+            >
+              <span className="nav__burger" aria-hidden="true">
+                <span />
+                <span />
+              </span>
+              Menu
+            </button>
+          </Magnetic>
+        </div>
 
-        <div className="nav__right">
-          <div className="nav__socials">
+        <div className="nav__socials">
             <a href="https://www.instagram.com/alexbsy_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -83,8 +82,9 @@ export default function Nav() {
                 <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
               </svg>
             </a>
-          </div>
+        </div>
 
+        <div className="nav__right">
           <Magnetic strength={0.25}>
             <Link href="/#contact" className="nav__cta" onClick={closeMenu} data-cursor="ÉCRIRE">
               Me contacter
