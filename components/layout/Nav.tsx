@@ -29,8 +29,8 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  /* Le menu est plein écran à toutes les tailles : il n'a plus de raison de
-     se fermer au passage en desktop, contrairement à l'ancien panneau mobile. */
+  /* Le panneau est identique à toutes les tailles : il n'a plus de raison de
+     se fermer au passage en desktop, contrairement à l'ancien menu mobile. */
 
   return (
     <>
@@ -38,15 +38,17 @@ export default function Nav() {
         ref={navRef}
         className={clsx('nav', {
           'nav--scrolled': scrolled && !overHero && !menuOpen,
-          'nav--over': (overHero || menuOpen) && true,
+          /* Contenu en clair uniquement au-dessus du hero sombre. Le menu
+             ouvert affiche désormais un panneau clair sur voile clair : y
+             passer le nav en blanc le rendrait invisible. */
+          'nav--over': overHero && !menuOpen,
         })}
         style={{
           ...styles.nav,
           zIndex: menuOpen ? 201 : 100,
           /* Le fond est inline dans styles.nav, donc une classe CSS ne peut
-             pas le neutraliser — il faut le retirer ici. Menu ouvert, le nav
-             doit rester transparent au-dessus du rideau noir. */
-          /* borderBottom en entier, pas borderBottomColor : mélanger la
+             pas le neutraliser — il faut le retirer ici.
+             borderBottom en entier, pas borderBottomColor : mélanger la
              propriété raccourcie et sa déclinaison sur le même élément fait
              que React abandonne la seconde, et la bordure claire restait
              visible en travers du hero. */
@@ -77,8 +79,8 @@ export default function Nav() {
             </div>
           </div>
 
-          {/* Bascule du menu — désormais à toutes les tailles. Le menu plein
-              écran remplace les deux liens qui traînaient à droite. */}
+          {/* Bascule du menu — à toutes les tailles. Le panneau remplace les
+              deux liens qui traînaient à droite. */}
           <Magnetic strength={0.28}>
             <button
               onClick={() => setMenuOpen((v) => !v)}

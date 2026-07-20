@@ -1,12 +1,13 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 
 const LINKS = [
-  { href: '/',         label: 'Accueil', num: '01' },
-  { href: '/travaux',  label: 'Travaux', num: '02' },
-  { href: '/#contact', label: 'Contact', num: '03' },
+  { href: '/',         label: 'Accueil' },
+  { href: '/#travaux', label: 'Travaux' },
+  { href: '/#about',   label: 'À propos' },
+  { href: '/#contact', label: 'Contact' },
 ]
 
 const SOCIALS = [
@@ -21,15 +22,31 @@ interface Props {
 }
 
 /**
- * Menu plein écran.
+ * Menu en panneau flottant.
  *
- * Remplace le panneau mobile d'avant et sert désormais à toutes les tailles :
- * c'est le seul endroit du site où la navigation devient un moment à part
- * entière plutôt qu'une barre qu'on subit.
+ * Le rideau noir plein écran masquait complètement la page ; ce panneau
+ * centré la laisse visible autour de lui, ce qui garde le contexte de
+ * navigation. La barre supérieure porte l'action de fermeture et la
+ * progression de lecture.
  */
 export default function Menu({ open, onClose }: Props) {
   const panelRef = useRef<HTMLDivElement>(null)
   const firstRef = useRef<HTMLAnchorElement>(null)
+  const [pct, setPct] = useState(0)
+
+  /* Progression de lecture, affichée dans la barre du panneau. Calculée
+     seulement quand le menu est ouvert : inutile de suivre le scroll en
+     permanence pour un chiffre que personne ne regarde le reste du temps. */
+  useEffect(() => {
+    if (!open) return
+    const read = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      setPct(max > 0 ? Math.round((window.scrollY / max) * 100) : 0)
+    }
+    read()
+    window.addEventListener('scroll', read, { passive: true })
+    return () => window.removeEventListener('scroll', read)
+  }, [open])
 
   /* Verrou de défilement + échappement + piège de focus. */
   useEffect(() => {
@@ -44,18 +61,13 @@ export default function Menu({ open, onClose }: Props) {
       if (e.key !== 'Tab') return
 
       // Sans ce piège, la tabulation sort du menu ouvert et va parcourir la
-      // page derrière, que l'utilisateur ne voit pas.
-      const focusables = panelRef.current?.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled])',
-      )
-      if (!focusables?.length) return
-      const first = focusables[0]
-      const last  = focusables[focusables.length - 1]
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault(); last.focus()
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault(); first.focus()
-      }
+      // page derrière, que l'utilisateur ne peut pas atteindre.
+      const f = panelRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')
+      if (!f?.length) return
+      const first = f[0]
+      const last  = f[f.length - 1]
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
     }
 
     document.addEventListener('keydown', onKey)
@@ -66,61 +78,71 @@ export default function Menu({ open, onClose }: Props) {
   }, [open, onClose])
 
   return (
-    <div
-      ref={panelRef}
-      className={`menu${open ? ' is-open' : ''}`}
-      // inert n'est pas encore typé partout ; aria-hidden + le retrait du
-      // focus suffisent à sortir le menu fermé de l'ordre de tabulation.
-      aria-hidden={!open}
-      role="dialog"
-      aria-modal={open}
-      aria-label="Menu principal"
-    >
-      <div className="menu__bg" />
+    <div className={`menu${open ? ' is-open' : ''}`} aria-hidden={!open}>
+      {/* Voile cliquable. C'est un bouton et non une div : fermer au clic
+          extérieur doit aussi être atteignable au clavier et annoncé. */}
+      <button
+        className="menu__veil"
+        onClick={onClose}
+        tabIndex={open ? 0 : -1}
+        aria-label="Fermer le menu"
+      />
 
-      <nav className="menu__nav">
-        {LINKS.map((l, i) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            ref={i === 0 ? firstRef : undefined}
+      <div
+        ref={panelRef}
+        className="menu__panel"
+        role="dialog"
+        aria-modal={open}
+        aria-label="Menu principal"
+      >
+        <div className="menu__bar">
+          <button className="menu__close" onClick={onClose} tabIndex={open ? 0 : -1}>
+            <span className="menu__close-icon" aria-hidden="true">✕</span>
+            Fermer
+          </button>
+          <span className="menu__pct" aria-hidden="true">{pct}%</span>
+        </div>
+
+        <div className="menu__body">
+          <p className="menu__label">Menu</p>
+          <nav className="menu__nav">
+            {LINKS.map((l, i) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                ref={i === 0 ? firstRef : undefined}
+                tabIndex={open ? 0 : -1}
+                onClick={onClose}
+                className="menu__link"
+                style={{ ['--i' as string]: i }}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+
+          <hr className="menu__rule" />
+
+          <p className="menu__label">Contact</p>
+          <a
+            href="mailto:bsy.alexis@gmail.com"
             tabIndex={open ? 0 : -1}
-            onClick={onClose}
-            className="menu__link"
-            style={{ ['--i' as string]: i }}
-            data-cursor="ALLER"
+            className="menu__small"
           >
-            <span className="menu__num">{l.num}</span>
-            <span className="menu__mask">
-              <span className="menu__word">{l.label}</span>
-            </span>
-          </Link>
-        ))}
-      </nav>
-
-      <div className="menu__foot">
-        <div className="menu__col">
-          <span className="menu__label">Écrire</span>
-          <a href="mailto:bsy.alexis@gmail.com" tabIndex={open ? 0 : -1} className="menu__mail">
             bsy.alexis@gmail.com
           </a>
-        </div>
-        <div className="menu__col">
-          <span className="menu__label">Suivre</span>
+
+          <p className="menu__label menu__label--spaced">Réseaux</p>
           <div className="menu__socials">
             {SOCIALS.map((s) => (
-              <a
-                key={s.href}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                tabIndex={open ? 0 : -1}
-              >
+              <a key={s.href} href={s.href} target="_blank" rel="noopener noreferrer" tabIndex={open ? 0 : -1} className="menu__small">
                 {s.label}
               </a>
             ))}
           </div>
         </div>
+
+        <p className="menu__foot">©{new Date().getFullYear()} Alexis Bossy</p>
       </div>
     </div>
   )

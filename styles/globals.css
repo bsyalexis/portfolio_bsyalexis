@@ -837,104 +837,142 @@ a {
   to   { transform: translate3d(-50%, 0, 0); }
 }
 
-/* ── Menu plein écran ── */
+/* ── Menu en panneau flottant ── */
 .menu {
   position: fixed;
   inset: 0;
   z-index: 200;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 96px var(--px-desktop) 48px;
   pointer-events: none;
   visibility: hidden;
-  transition: visibility 0s linear 0.75s;
+  /* Le délai retarde la disparition jusqu'à la fin de la transition de
+     sortie ; sans lui le panneau s'escamote net au lieu de s'effacer. */
+  transition: visibility 0s linear 0.45s;
 }
-.menu.is-open {
-  pointer-events: auto;
-  visibility: visible;
-  transition: visibility 0s;
-}
+.menu.is-open { pointer-events: auto; visibility: visible; transition: visibility 0s; }
 
-/* Le fond est un calque distinct : il se déploie depuis le haut avant que les
-   liens n'apparaissent, ce qui donne le rideau plutôt qu'un simple fondu. */
-.menu__bg {
+.menu__veil {
   position: absolute;
   inset: 0;
-  background: #0d0d0d;
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 0.72s cubic-bezier(0.76, 0, 0.24, 1);
+  border: none;
+  cursor: pointer;
+  background: rgba(248, 246, 242, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.45s ease;
 }
-.menu.is-open .menu__bg { transform: scaleY(1); }
+.menu.is-open .menu__veil { opacity: 1; }
 
-.menu__nav {
-  position: relative;
+.menu__panel {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  width: min(340px, calc(100vw - 28px));
+  max-height: calc(100svh - 28px);
   display: flex;
   flex-direction: column;
-  margin-block: auto;
-}
-.menu__link {
-  display: flex;
-  align-items: baseline;
-  gap: 18px;
-  padding-block: 10px;
-  color: #fff;
-  text-decoration: none;
-}
-.menu__num {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  color: var(--accent);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  transition-delay: calc(0.34s + var(--i) * 0.07s);
-}
-.menu.is-open .menu__num { opacity: 1; }
-
-.menu__mask {
-  display: block;
+  background: #ececea;
+  border-radius: 26px;
   overflow: hidden;
-  padding-bottom: 0.08em;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.16);
+  transform: translate(-50%, -14px) scale(0.97);
+  opacity: 0;
+  transition:
+    transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.35s ease;
 }
-.menu__word {
+.menu.is-open .menu__panel { transform: translate(-50%, 0) scale(1); opacity: 1; }
+
+.menu__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 8px;
+  padding: 6px 6px 6px 8px;
+  background: #0d0d0d;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+.menu__close {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.menu__close-icon { font-size: 0.9rem; opacity: 0.85; }
+.menu__pct {
+  min-width: 52px;
+  padding: 7px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.13);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.menu__body {
+  padding: 18px 22px 8px;
+  overflow-y: auto;
+}
+.menu__label {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: #8b8b88;
+  margin-bottom: 10px;
+}
+.menu__label--spaced { margin-top: 22px; }
+
+.menu__nav { display: flex; flex-direction: column; }
+.menu__link {
+  font-size: 1.45rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #0d0d0d;
+  padding-block: 5px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+    color 0.2s ease;
+  transition-delay: calc(0.14s + var(--i) * 0.05s);
+}
+.menu.is-open .menu__link { opacity: 1; transform: none; }
+.menu__link:hover { color: var(--accent); }
+
+.menu__rule {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 22px 0 18px;
+}
+
+.menu__small {
   display: block;
-  font-size: clamp(2.6rem, 9vw, 6rem);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  transform: translateY(105%);
-  transition: transform 0.72s cubic-bezier(0.22, 0.61, 0.36, 1), color 0.3s ease;
-  transition-delay: calc(0.3s + var(--i) * 0.07s);
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: #3a3a38;
+  padding-block: 3px;
+  transition: color 0.2s ease;
 }
-.menu.is-open .menu__word { transform: none; }
-.menu__link:hover .menu__word { color: var(--accent); }
+.menu__small:hover { color: var(--accent); }
+.menu__socials { display: flex; flex-direction: column; }
 
 .menu__foot {
-  position: relative;
-  display: flex;
-  gap: 64px;
-  flex-wrap: wrap;
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.5s ease 0.58s, transform 0.5s ease 0.58s;
+  padding: 16px 22px 18px;
+  font-size: 0.68rem;
+  color: #9a9a97;
+  flex-shrink: 0;
 }
-.menu.is-open .menu__foot { opacity: 1; transform: none; }
-.menu__col { display: flex; flex-direction: column; gap: 8px; }
-.menu__label {
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.35);
-}
-.menu__mail { color: rgba(255, 255, 255, 0.85); font-size: 0.92rem; }
-.menu__mail:hover { color: var(--accent); }
-.menu__socials { display: flex; gap: 18px; }
-.menu__socials a { color: rgba(255, 255, 255, 0.7); font-size: 0.86rem; }
-.menu__socials a:hover { color: #fff; }
 
 /* Bouton bascule du menu — deux barres qui se croisent. */
 .burger {
@@ -959,9 +997,15 @@ a {
   transition: transform 0.42s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.2s ease;
 }
 .nav--over .burger span { background: #fff; }
-.burger.is-open span { background: #fff; }
-.burger.is-open span:first-child { transform: translateY(3.75px) rotate(45deg); }
-.burger.is-open span:last-child  { transform: translateY(-3.75px) rotate(-45deg); }
+/* Menu ouvert, le bouton s'efface : le panneau porte déjà son propre
+   « Fermer » dans la barre supérieure, et deux croix pour la même action se
+   disputaient l'attention. Le voile et la touche Échap restent disponibles. */
+.burger.is-open {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
 
 @media (max-width: 767px) {
   .menu { padding: 88px 24px 36px; }
@@ -977,10 +1021,9 @@ a {
     transition: none !important;
   }
   .mq__track { animation: none; }
-  .menu__bg,
-  .menu__word,
-  .menu__foot,
-  .menu__num { transition-duration: 0.15s; transition-delay: 0s; }
+  .menu__panel,
+  .menu__veil,
+  .menu__link { transition-duration: 0.15s; transition-delay: 0s; }
   .cursor { display: none; }
 }
 
@@ -1370,60 +1413,18 @@ a {
 }
 
 /* ═════════════════════════════════════════════
-   SHOWCASE — sélection de projets, piloté au scroll
+   WORKS — blocs éditoriaux par métier
    ═════════════════════════════════════════════ */
-.sc {
-  position: relative;
-  background: #0d0d0d;
-}
-/* Pas de justify-content ici : le centrage vertical du bloc de texte est fait
-   par le `margin-block: auto` de .sc__content. Cumuler les deux fait absorber
-   l'espace libre deux fois et pousse le rail de vignettes sous le pli, où
-   l'overflow: hidden le rend simplement invisible. */
-.sc__sticky {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  overflow: hidden;
+.works {
+  max-width: var(--grid-width);
+  margin-inline: auto;
+  padding: 88px var(--px-desktop) 24px;
   display: flex;
   flex-direction: column;
+  gap: 14px;
 }
-
-.sc__bgs { position: absolute; inset: 0; }
-.sc__bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transform: scale(1.05);
-  transition: opacity 0.85s ease, transform 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-.sc__bg.is-active { opacity: 1; transform: scale(1); }
-
-/* Préchargement des voisins — présent dans le DOM, jamais peint. */
-.sc__preload {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.sc__scrim {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to top, rgba(13,13,13,0.95) 0%, rgba(13,13,13,0.45) 40%, rgba(13,13,13,0.7) 100%),
-    linear-gradient(to right, rgba(13,13,13,0.75) 0%, transparent 55%);
-}
-
-.sc__header {
-  position: relative;
-  z-index: 2;
-  padding: 40px var(--px-desktop) 0;
-}
-.sc__eyebrow {
+.works__head { margin-bottom: 10px; }
+.works__eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -1431,210 +1432,147 @@ a {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--text-mid);
 }
-.sc__eyebrow-dash { width: 22px; height: 2px; background: var(--accent); }
+.works__eyebrow-dash { width: 22px; height: 2px; background: var(--accent); }
 
-.sc__content {
-  position: relative;
-  z-index: 2;
-  padding: 0 var(--px-desktop);
-  max-width: 600px;
-  margin-block: auto;
+.works__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
 }
-.sc__client {
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 14px;
-}
-.sc__title {
-  font-size: clamp(1.7rem, 3.6vw, 2.7rem);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.035em;
-  line-height: 1;
-  color: #fff;
-  margin: 0 0 18px;
-  /* L'entrée du titre est portée par Reveal (mot à mot), pas par sc-in :
-     cumuler les deux ferait jouer deux animations sur le même élément. */
-}
-.sc__lead {
-  font-size: 0.92rem;
-  font-weight: 300;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.68);
-  margin: 0 0 18px;
-  /* Les textes de galerie vont de deux lignes à un paragraphe entier ; sans
-     limite, les projets bavards poussent le CTA hors de l'écran. */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+
+.works__card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 26px 26px 30px;
   overflow: hidden;
-  animation: sc-in 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) 0.06s both;
 }
-.sc__meta {
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.4);
-  margin: 0 0 26px;
-}
-.sc__cta {
+
+.works__tag {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  padding: 12px 24px;
-  border-radius: var(--radius-pill);
-  background: #fff;
-  color: #0d0d0d;
-  font-size: 0.8rem;
-  font-weight: 600;
-  transition: background 0.25s ease, transform 0.25s ease;
+  gap: 8px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text-mid);
+  margin-bottom: 22px;
 }
-.sc__cta:hover { background: rgba(255, 255, 255, 0.85); transform: translateY(-2px); }
-
-@keyframes sc-in {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: none; }
-}
-
-/* ── Rail de vignettes ── */
-.sc__thumbs {
-  position: relative;
-  z-index: 2;
-  padding-bottom: 28px;
-}
-.sc__thumbs-viewport { overflow: hidden; }
-.sc__thumbs-track {
-  display: flex;
-  gap: 12px;
-  padding-block: 8px;
-  /* Aligne la première vignette sur la gouttière du texte au-dessus. */
-  padding-inline: var(--px-desktop);
-  transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
-  will-change: transform;
-}
-.sc__thumb {
-  position: relative;
-  flex: 0 0 auto;
-  width: 112px;
-  aspect-ratio: 4 / 3;
-  border-radius: 10px;
-  overflow: hidden;
-  opacity: 0.42;
-  transform: scale(0.9);
-  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-.sc__thumb.is-active { opacity: 1; transform: scale(1.06); }
-.sc__thumb::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 10px;
-}
-.sc__thumb.is-active::after { border-color: var(--accent); }
-.sc__thumb-img {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-}
-.sc__thumb-num {
-  position: absolute;
-  top: 7px;
-  left: 9px;
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-}
-.sc__thumb-label {
-  position: absolute;
-  left: 9px;
-  right: 9px;
-  bottom: 7px;
-  font-size: 0.58rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #fff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
-}
-
-.sc__controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 18px var(--px-desktop) 0;
-}
-.sc__nav {
-  width: 38px;
-  height: 38px;
+.works__dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: #fff;
-  font-size: 0.9rem;
-  font-family: inherit;
-  cursor: pointer;
-  transition: background 0.2s ease, opacity 0.2s ease;
+  background: var(--accent);
+  flex-shrink: 0;
 }
-.sc__nav:hover:not(:disabled) { background: rgba(255, 255, 255, 0.18); }
-.sc__nav:disabled { opacity: 0.25; cursor: default; }
-.sc__counter {
-  margin-left: 6px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: #fff;
-}
-.sc__counter span { color: rgba(255, 255, 255, 0.35); font-weight: 400; margin-left: 3px; }
 
-.sc__progress {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.1);
-  z-index: 3;
+/* ── Collages ──
+   Le bloc large déroule six visuels sur deux rangées ; les blocs étroits en
+   alignent trois. Les proportions sont portées par la grille et non par les
+   images, pour que des sources de formats différents (4:5 du reportage,
+   16:9 de la vidéo) cohabitent sans trous. */
+.works__collage {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 28px;
 }
-.sc__progress-fill {
+/* Cinq colonnes sur deux rangées = dix cellules, et les six visuels en
+   consomment exactement dix (4 + 1 + 1 + 2 + 1 + 1). Le compte doit tomber
+   juste : dès qu'il dépasse, la grille fabrique des rangées implicites que
+   `grid-template-rows` ne dimensionne pas, et elles s'écrasent à quelques
+   pixels de haut. */
+.works__card--wide .works__collage {
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  height: 46svh;
+  min-height: 300px;
+  max-height: 440px;
+}
+.works__card--wide .works__asset:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+.works__card--wide .works__asset:nth-child(4) { grid-row: span 2; }
+
+/* Même règle pour les blocs étroits : deux colonnes sur deux rangées, le
+   premier visuel occupe toute la rangée du haut (2 + 1 + 1 = 4). */
+.works__card:not(.works__card--wide) .works__collage {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  height: 34svh;
+  min-height: 240px;
+  max-height: 320px;
+}
+.works__card:not(.works__card--wide) .works__asset:first-child { grid-column: span 2; }
+
+.works__asset {
+  position: relative;
   display: block;
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.04);
+  min-height: 0;
+}
+.works__asset img,
+.works__asset video {
   width: 100%;
   height: 100%;
-  background: var(--accent);
-  transform-origin: left;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1), filter 0.5s ease;
 }
+.works__asset:hover img,
+.works__asset:hover video { transform: scale(1.05); }
 
-/* ── Hero + showcase sur petit écran ──
-   Le module d'origine reposait sur le survol : sans souris, il ne restait
-   que les flèches. Ici le scroll pilote tout, donc la version mobile n'est
-   pas une dégradation — juste une mise en page plus serrée. */
-@media (max-width: 767px) {
-  .hero__inner { padding: 84px 24px 32px; }
-  .hero__cue { display: none; }
-  .hero__actions { width: 100%; }
-  .hero__btn { flex: 1 1 auto; justify-content: center; }
+/* Le survol d'une vignette éteint légèrement les autres du même collage :
+   c'est ce qui fait ressortir celle qu'on vise, sans rien déplacer. */
+.works__collage:hover .works__asset:not(:hover) img,
+.works__collage:hover .works__asset:not(:hover) video { filter: brightness(0.62); }
 
-  .sc__header  { padding: 28px 24px 0; }
-  .sc__content { padding: 0 24px; max-width: none; }
-  .sc__lead { -webkit-line-clamp: 2; font-size: 0.86rem; }
-  .sc__thumb { width: 104px; }
-  .sc__controls { padding: 14px 24px 0; }
-  .sc__scrim {
-    background: linear-gradient(to top, rgba(13,13,13,0.96) 0%, rgba(13,13,13,0.5) 50%, rgba(13,13,13,0.6) 100%);
+.works__text { margin-top: auto; }
+.works__title {
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+.works__lead {
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-mid);
+  max-width: 46ch;
+  margin: 0 0 20px;
+}
+.works__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 3px;
+  transition: gap 0.25s ease, border-color 0.25s ease;
+}
+.works__cta:hover { gap: 13px; border-color: var(--accent); }
+
+@media (max-width: 900px) {
+  .works { padding: 56px 20px 16px; gap: 10px; }
+  .works__row { grid-template-columns: 1fr; gap: 10px; }
+  .works__card { padding: 20px 20px 24px; }
+  .works__card--wide .works__collage {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    height: 62svh;
+    max-height: none;
   }
-  .reel { padding: 12px; }
-  .reel__close { top: 10px; right: 12px; }
+  /* En deux colonnes, la mise en avant du premier visuel sur deux rangées
+     laisserait une case vide en fin de grille. */
+  .works__card--wide .works__asset:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+  .works__card--wide .works__asset:nth-child(4) { grid-row: span 1; }
+  .works__card:not(.works__card--wide) .works__collage { height: 30svh; }
 }
 
 /* Mouvement réduit — on garde les fondus (l'information), on retire les
@@ -1648,12 +1586,6 @@ a {
   .hero-rise { animation: none; opacity: 1; transform: none; }
   .hero__role { transition: opacity 0.2s ease; transform: none; }
   .hero__role.is-active { transition: opacity 0.2s ease 0.2s; transform: none; }
-  .sc__bg { transition: opacity 0.3s ease; transform: none; }
-  .sc__bg.is-active { transform: none; }
-  .sc__title, .sc__lead { animation: none; }
-  .sc__thumbs-track { transition: none; }
-  .sc__thumb { transition: opacity 0.2s ease; transform: none; }
-  .sc__thumb.is-active { transform: none; }
 }
 
 /* ─────────────────────────────────────────────

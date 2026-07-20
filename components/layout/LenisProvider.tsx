@@ -15,10 +15,6 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
 
     lenisRef.current = lenis
 
-    /* Exposé pour les composants qui doivent déplacer le scroll eux-mêmes
-       (Showcase). window.scrollTo se ferait écraser par la boucle de Lenis. */
-    ;(window as unknown as { __lenis?: Lenis }).__lenis = lenis
-
     function raf(time: number) {
       lenis.raf(time)
       requestAnimationFrame(raf)
@@ -29,7 +25,6 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
     return () => {
       cancelAnimationFrame(rafId)
       lenis.destroy()
-      delete (window as unknown as { __lenis?: Lenis }).__lenis
     }
   }, [])
 
