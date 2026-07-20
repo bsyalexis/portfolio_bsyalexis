@@ -614,20 +614,6 @@ a {
     padding-inline: 24px !important;
   }
 
-  /* Bento grid → 1 colonne */
-  .bento-grid {
-    grid-template-columns: 1fr !important;
-    height: auto !important;
-  }
-  .bento-right-col {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    height: auto !important;
-  }
-  .bento-small-row {
-    grid-template-columns: 1fr 1fr !important;
-    height: 180px !important;
-  }
 
   /* Stats → 2 colonnes */
   .stats-grid {
@@ -1028,6 +1014,17 @@ a {
   will-change: transform;
 }
 
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Le poster couvre le cadre pendant le chargement, sinon on voit un aplat
+     noir avant la première frame. */
+  background: #0d0d0d center / cover no-repeat;
+}
+
 .hero__frame {
   position: absolute;
   inset: 0;
@@ -1272,6 +1269,107 @@ a {
 .reel__close:hover { background: rgba(255, 255, 255, 0.2); }
 
 /* ═════════════════════════════════════════════
+   BENTO — mosaïque compacte en parallaxe
+   ═════════════════════════════════════════════ */
+.bento {
+  position: relative;
+  padding-block: 64px;
+  background: var(--bg);
+  --p: 0.5;
+}
+.bento__grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 8px;
+  /* Nettement plus bas qu'avant : la mosaïque est une respiration entre le
+     hero et la sélection de projets, pas une section à part entière. */
+  height: 62svh;
+  min-height: 340px;
+  max-height: 520px;
+  max-width: var(--grid-width);
+  margin-inline: auto;
+  padding-inline: var(--px-desktop);
+}
+.bento__col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+.bento__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  height: 38%;
+}
+.bento__cell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  min-height: 0;
+}
+.bento__cell--tall { flex: 1; }
+
+/* L'image est plus haute que sa cellule : c'est cette marge qui autorise le
+   déplacement vertical sans jamais découvrir de bord vide. */
+.bento__cell > img {
+  position: absolute;
+  inset: -9% 0;
+  width: 100%;
+  height: 118%;
+  object-fit: cover;
+  transform: translate3d(0, calc((var(--p) - 0.5) * var(--speed, 40px)), 0);
+  will-change: transform;
+}
+
+/* Voile local en bas de la grande cellule. L'image qui s'y trouve est un
+   cocktail sur fond très clair : du blanc avec une simple ombre portée y
+   devenait illisible. Le dégradé ne couvre que le quart bas, l'image reste
+   lisible partout ailleurs. */
+.bento__cell--main::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 45%;
+  background: linear-gradient(to top, rgba(13, 13, 13, 0.72), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bento__overlay {
+  position: absolute;
+  left: 20px;
+  bottom: 18px;
+  z-index: 2;
+}
+.bento__tagline {
+  margin: 0;
+  font-size: clamp(1.1rem, 1.7vw, 1.5rem);
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.4);
+}
+.bento__tagline span   { display: block; font-weight: 300; color: rgba(255, 255, 255, 0.75); }
+.bento__tagline strong { display: block; font-weight: 700; color: #fff; }
+
+@media (max-width: 767px) {
+  .bento { padding-block: 40px; }
+  .bento__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1.25fr 1fr;
+    height: 74svh;
+    max-height: none;
+    padding-inline: 20px;
+  }
+  .bento__row { height: 100%; }
+  .bento__cell--tall { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bento__cell > img { transform: none; inset: 0; height: 100%; }
+}
+
+/* ═════════════════════════════════════════════
    SHOWCASE — sélection de projets, piloté au scroll
    ═════════════════════════════════════════════ */
 .sc {
@@ -1341,7 +1439,7 @@ a {
   position: relative;
   z-index: 2;
   padding: 0 var(--px-desktop);
-  max-width: 680px;
+  max-width: 600px;
   margin-block: auto;
 }
 .sc__client {
@@ -1353,11 +1451,11 @@ a {
   margin-bottom: 14px;
 }
 .sc__title {
-  font-size: clamp(1.9rem, 4.4vw, 3.4rem);
+  font-size: clamp(1.7rem, 3.6vw, 2.7rem);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: -0.035em;
-  line-height: 0.98;
+  line-height: 1;
   color: #fff;
   margin: 0 0 18px;
   /* L'entrée du titre est portée par Reveal (mot à mot), pas par sc-in :
@@ -1372,7 +1470,7 @@ a {
   /* Les textes de galerie vont de deux lignes à un paragraphe entier ; sans
      limite, les projets bavards poussent le CTA hors de l'écran. */
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   animation: sc-in 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) 0.06s both;
@@ -1422,7 +1520,7 @@ a {
 .sc__thumb {
   position: relative;
   flex: 0 0 auto;
-  width: 132px;
+  width: 112px;
   aspect-ratio: 4 / 3;
   border-radius: 10px;
   overflow: hidden;

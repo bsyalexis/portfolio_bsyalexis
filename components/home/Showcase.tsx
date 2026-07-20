@@ -164,7 +164,10 @@ export default function Showcase({ projets }: Props) {
     <section
       ref={sectionRef}
       className="sc"
-      style={{ height: `calc(100svh + ${(n - 1) * 80}svh)` }}
+      /* 45svh de course par projet, au lieu de 80 : à sept projets le module
+         mobilisait près de six écrans de défilement, ce qui le faisait
+         ressembler à une section interminable plutôt qu'à une sélection. */
+      style={{ height: `calc(100svh + ${(n - 1) * 45}svh)` }}
       aria-roledescription="galerie défilante"
     >
       <div className="sc__sticky">

@@ -1,6 +1,6 @@
 import Hero from '@/components/home/Hero'
-import Showcase from '@/components/home/Showcase'
 import Bento from '@/components/home/Bento'
+import Showcase from '@/components/home/Showcase'
 import Marquee from '@/components/home/Marquee'
 import About from '@/components/home/About'
 import Footer from '@/components/layout/Footer'
@@ -12,13 +12,12 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
-      {/* Le showcase enchaîne directement sur le hero : deux modules sombres
-          qui se répondent, puis Bento ramène le fond clair avant l'about. */}
-      <Showcase projets={featured} />
-      {/* Le bandeau prolonge le noir du showcase et sert de respiration avant
-          le retour au fond clair. */}
-      <Marquee />
+      {/* La mosaïque enchaîne directement sur le hero : une respiration claire
+          et courte avant d'entrer dans la sélection de projets, qui repasse au
+          noir. Le bandeau prolonge ce noir jusqu'au retour au fond clair. */}
       <Bento />
+      <Showcase projets={featured} />
+      <Marquee />
       <About />
       <Footer />
     </main>

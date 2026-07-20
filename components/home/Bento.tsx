@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import Reveal from '@/components/motion/Reveal'
 
 const IMGS = [
@@ -13,139 +13,68 @@ const IMGS = [
 export default function Bento() {
   const sectionRef = useRef<HTMLElement>(null)
 
-  /* Entrées confiées à Reveal — voir le commentaire équivalent dans About. */
+  /* Parallaxe. Un seul écouteur écrit la progression de la section dans une
+     variable CSS ; chaque image applique ensuite sa propre vitesse. Passer par
+     le CSS plutôt que de déplacer quatre éléments en JavaScript garde tout le
+     travail sur le compositeur, et il n'y a qu'une mesure par frame. */
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    let raf = 0
+    const update = () => {
+      raf = 0
+      const r = el.getBoundingClientRect()
+      const span = window.innerHeight + r.height
+      if (span <= 0) return
+      // 0 quand la section entre par le bas, 1 quand elle sort par le haut.
+      const p = Math.min(1, Math.max(0, (window.innerHeight - r.top) / span))
+      el.style.setProperty('--p', p.toFixed(4))
+    }
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      cancelAnimationFrame(raf)
+    }
+  }, [])
 
   return (
-    <section ref={sectionRef} style={styles.section}>
-      <div className="bento-grid" style={styles.grid}>
+    <section ref={sectionRef} className="bento">
+      <div className="bento__grid">
 
         {/* Grande image — gauche */}
-        <Reveal className="bento-main" style={styles.mainWrap}>
-          <div style={styles.imgFill}>
-            <img src={IMGS[0]} alt="" loading="eager" decoding="async" style={styles.imgTag} />
-          </div>
-          <div style={styles.mainOverlay}>
-            <p style={styles.tagline}>
-              <span style={styles.tagLight}>Des images qui parlent</span>
-              <br />
-              <span style={styles.tagStrong}>pour vous.</span>
+        <Reveal className="bento__cell bento__cell--main">
+          <img src={IMGS[0]} alt="" loading="eager" decoding="async" style={{ '--speed': '58px' } as React.CSSProperties} />
+          <div className="bento__overlay">
+            <p className="bento__tagline">
+              <span>Des images qui parlent</span>
+              <strong>pour vous.</strong>
             </p>
           </div>
         </Reveal>
 
-        {/* Colonne droite : 3 images */}
-        <div className="bento-right-col" style={styles.rightCol}>
-
-          {/* Image haute */}
-          <Reveal delay={0.08} className="bento-item" style={{ ...styles.imgCell, flex: 1 }}>
-            <div style={styles.imgFill}>
-              <img src={IMGS[1]} alt="" loading="lazy" decoding="async" style={styles.imgTag} />
-            </div>
+        <div className="bento__col">
+          <Reveal delay={0.08} className="bento__cell bento__cell--tall">
+            <img src={IMGS[1]} alt="" loading="lazy" decoding="async" style={{ '--speed': '-46px' } as React.CSSProperties} />
           </Reveal>
 
-          {/* Deux petites images */}
-          <div className="bento-small-row" style={styles.smallRow}>
-            <Reveal delay={0.16} className="bento-item" style={styles.smallCard}>
-              <div style={styles.imgFill}>
-                <img src={IMGS[2]} alt="" loading="lazy" decoding="async" style={styles.imgTag} />
-              </div>
+          <div className="bento__row">
+            <Reveal delay={0.16} className="bento__cell">
+              <img src={IMGS[2]} alt="" loading="lazy" decoding="async" style={{ '--speed': '38px' } as React.CSSProperties} />
             </Reveal>
-            <Reveal delay={0.24} className="bento-item" style={styles.smallCard}>
-              <div style={styles.imgFill}>
-                <img src={IMGS[3]} alt="" loading="lazy" decoding="async" style={styles.imgTag} />
-              </div>
+            <Reveal delay={0.24} className="bento__cell">
+              <img src={IMGS[3]} alt="" loading="lazy" decoding="async" style={{ '--speed': '-32px' } as React.CSSProperties} />
             </Reveal>
           </div>
-
         </div>
 
       </div>
-
     </section>
   )
-}
-
-const styles: Record<string, React.CSSProperties> = {
-  section: {
-    position: 'relative',
-    paddingTop: '48px',
-    paddingBottom: '48px',
-    background: 'var(--bg)',
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: '1.5fr 1fr',
-    gap: '3px',
-    height: '560px',
-    maxWidth: '1200px',
-    margin: '0 auto',
-    paddingInline: '56px',
-  },
-  mainWrap: {
-    position: 'relative',
-    overflow: 'hidden',
-    borderRadius: '4px',
-  },
-  imgFill: {
-    width: '100%',
-    height: '100%',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  imgTag: {
-    position: 'absolute',
-    inset: 0,
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-  } as React.CSSProperties,
-  mainOverlay: {
-    position: 'absolute',
-    bottom: '20px',
-    left: '20px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '12px',
-    alignItems: 'flex-start',
-  },
-  namePill: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    padding: '6px 14px',
-    background: 'rgba(248,246,242,0.85)',
-    backdropFilter: 'blur(12px)',
-    borderRadius: '100px',
-    fontSize: '0.72rem',
-    fontWeight: 600,
-    color: 'var(--text)',
-    letterSpacing: '0.01em',
-    border: '1px solid rgba(0,0,0,0.06)',
-  },
-  tagline: {
-    margin: 0,
-    fontSize: 'clamp(1.2rem, 1.8vw, 1.6rem)',
-    letterSpacing: '-0.025em',
-    lineHeight: 1.15,
-  },
-  tagLight:  { fontWeight: 300, color: 'rgba(17,16,16,0.55)' },
-  tagStrong: { fontWeight: 700, color: '#111010' },
-  rightCol: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '3px',
-  },
-  imgCell: {
-    overflow: 'hidden',
-    borderRadius: '4px',
-  },
-  smallRow: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '3px',
-    height: '210px',
-  },
-  smallCard: {
-    overflow: 'hidden',
-    borderRadius: '4px',
-  },
 }
