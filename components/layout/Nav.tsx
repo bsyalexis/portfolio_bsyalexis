@@ -1,47 +1,64 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import clsx from 'clsx'
+import Menu from './Menu'
+import Magnetic from '@/components/motion/Magnetic'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const [overHero, setOverHero] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const navRef = useRef<HTMLElement>(null)
 
-  /* Ombre & fond au scroll */
+  const closeMenu = useCallback(() => setMenuOpen(false), [])
+
+  /* Ombre & fond au scroll, et passage en mode transparent au-dessus d'un
+     hero sombre. Le nav crème posé sur le hero plein cadre cassait l'image
+     en deux ; ici il s'efface tant qu'on est dessus, puis reprend son fond
+     dès qu'on le quitte. */
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24)
+      const hero = document.getElementById('hero')
+      setOverHero(!!hero && window.scrollY < hero.offsetHeight - 120)
+    }
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  /* Fermer le menu mobile au resize desktop */
-  useEffect(() => {
-    const onResize = () => {
-      if (window.innerWidth >= 768) setMobileOpen(false)
-    }
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [])
-
-  /* Bloquer le scroll body quand menu ouvert */
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
-  }, [mobileOpen])
+  /* Le menu est plein écran à toutes les tailles : il n'a plus de raison de
+     se fermer au passage en desktop, contrairement à l'ancien panneau mobile. */
 
   return (
     <>
       <header
         ref={navRef}
-        className={clsx('nav', { 'nav--scrolled': scrolled })}
-        style={{ ...styles.nav, zIndex: mobileOpen ? 201 : 100 }}
+        className={clsx('nav', {
+          'nav--scrolled': scrolled && !overHero && !menuOpen,
+          'nav--over': (overHero || menuOpen) && true,
+        })}
+        style={{
+          ...styles.nav,
+          zIndex: menuOpen ? 201 : 100,
+          /* Le fond est inline dans styles.nav, donc une classe CSS ne peut
+             pas le neutraliser — il faut le retirer ici. Menu ouvert, le nav
+             doit rester transparent au-dessus du rideau noir. */
+          /* borderBottom en entier, pas borderBottomColor : mélanger la
+             propriété raccourcie et sa déclinaison sur le même élément fait
+             que React abandonne la seconde, et la bordure claire restait
+             visible en travers du hero. */
+          ...(overHero || menuOpen
+            ? { background: 'transparent', backdropFilter: 'none', borderBottom: '1px solid transparent' }
+            : null),
+        }}
       >
         <nav style={styles.inner}>
           {/* Logo / nom */}
           <div style={styles.logoGroup}>
-            <Link href="/" style={styles.logo}>
+            <Link href="/" style={styles.logo} onClick={closeMenu} data-cursor="ACCUEIL">
               Alexis Bossy
             </Link>
             <div style={styles.socialLinks}>
@@ -60,124 +77,24 @@ export default function Nav() {
             </div>
           </div>
 
-          {/* Liens desktop */}
-          <div style={styles.desktopLinks} className="nav-desktop-links">
-            <Link href="/travaux" style={styles.navLink} className="nav-link">
-              Travaux
-            </Link>
-            <Link href="/#contact" style={styles.navLink} className="nav-link">
-              Contact
-            </Link>
-          </div>
-
-          {/* Hamburger mobile */}
-          <button
-            onClick={() => setMobileOpen((v) => !v)}
-            style={styles.hamburger}
-            className="nav-hamburger"
-            aria-label={mobileOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
-            aria-expanded={mobileOpen}
-          >
-            <span style={{ ...styles.bar, ...(mobileOpen ? styles.barTopOpen : {}) }} />
-            <span style={{ ...styles.bar, ...(mobileOpen ? styles.barMidOpen : {}) }} />
-            <span style={{ ...styles.bar, ...(mobileOpen ? styles.barBotOpen : {}) }} />
-          </button>
+          {/* Bascule du menu — désormais à toutes les tailles. Le menu plein
+              écran remplace les deux liens qui traînaient à droite. */}
+          <Magnetic strength={0.28}>
+            <button
+              onClick={() => setMenuOpen((v) => !v)}
+              className={clsx('burger', { 'is-open': menuOpen })}
+              aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+              aria-expanded={menuOpen}
+              data-cursor={menuOpen ? 'FERMER' : 'MENU'}
+            >
+              <span />
+              <span />
+            </button>
+          </Magnetic>
         </nav>
       </header>
 
-      {/* Overlay plein écran mobile — hors du header pour éviter le stacking context */}
-      <div
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 200,
-          background: 'var(--bg)',
-          display: 'flex',
-          flexDirection: 'column',
-          paddingTop: '80px',
-          paddingLeft: '32px',
-          paddingRight: '32px',
-          paddingBottom: '48px',
-          transform: mobileOpen ? 'translateY(0)' : 'translateY(-100%)',
-          transition: 'transform 0.55s cubic-bezier(0.77, 0, 0.175, 1)',
-          pointerEvents: mobileOpen ? 'all' : 'none',
-        }}
-        aria-hidden={!mobileOpen}
-      >
-        {/* Ligne accent en haut */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '2px',
-          background: 'var(--accent)',
-          opacity: mobileOpen ? 1 : 0,
-          transition: 'opacity 0.3s 0.35s ease',
-        }} />
-
-        {/* Liens */}
-        <nav style={{ display: 'flex', flexDirection: 'column', marginTop: '32px' }}>
-          <Link
-            href="/travaux"
-            onClick={() => setMobileOpen(false)}
-            style={{
-              display: 'flex',
-              alignItems: 'baseline',
-              gap: '12px',
-              padding: '22px 0',
-              borderBottom: '1px solid var(--border)',
-              fontSize: 'clamp(2rem, 11vw, 3rem)',
-              fontWeight: 300,
-              letterSpacing: '-0.03em',
-              color: 'var(--text)',
-              opacity: mobileOpen ? 1 : 0,
-              transform: mobileOpen ? 'translateY(0)' : 'translateY(18px)',
-              transition: 'opacity 0.45s 0.28s ease, transform 0.45s 0.28s ease',
-            }}
-          >
-            <span style={{ fontSize: '0.6rem', fontWeight: 600, color: 'var(--accent)', letterSpacing: '0.12em', alignSelf: 'flex-start', paddingTop: '10px' }}>01</span>
-            Travaux
-          </Link>
-          <Link
-            href="/#contact"
-            onClick={() => setMobileOpen(false)}
-            style={{
-              display: 'flex',
-              alignItems: 'baseline',
-              gap: '12px',
-              padding: '22px 0',
-              borderBottom: '1px solid var(--border)',
-              fontSize: 'clamp(2rem, 11vw, 3rem)',
-              fontWeight: 300,
-              letterSpacing: '-0.03em',
-              color: 'var(--text)',
-              opacity: mobileOpen ? 1 : 0,
-              transform: mobileOpen ? 'translateY(0)' : 'translateY(18px)',
-              transition: 'opacity 0.45s 0.38s ease, transform 0.45s 0.38s ease',
-            }}
-          >
-            <span style={{ fontSize: '0.6rem', fontWeight: 600, color: 'var(--accent)', letterSpacing: '0.12em', alignSelf: 'flex-start', paddingTop: '10px' }}>02</span>
-            Contact
-          </Link>
-        </nav>
-
-        {/* Email en bas */}
-        <div style={{
-          marginTop: 'auto',
-          opacity: mobileOpen ? 1 : 0,
-          transform: mobileOpen ? 'translateY(0)' : 'translateY(12px)',
-          transition: 'opacity 0.45s 0.48s ease, transform 0.45s 0.48s ease',
-        }}>
-          <span style={{ display: 'block', fontSize: '0.6rem', fontWeight: 600, color: 'var(--text-mid)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '8px' }}>Email</span>
-          <a href="mailto:bsy.alexis@gmail.com" style={{ fontSize: '0.9rem', color: 'var(--text)', fontWeight: 400 }}>
-            bsy.alexis@gmail.com
-          </a>
-        </div>
-      </div>
+      <Menu open={menuOpen} onClose={closeMenu} />
     </>
   )
 }
@@ -216,11 +133,6 @@ const styles: Record<string, React.CSSProperties> = {
     color: 'var(--text)',
     letterSpacing: '-0.01em',
   },
-  desktopLinks: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '28px',
-  },
   socialLinks: {
     display: 'flex',
     alignItems: 'center',
@@ -232,55 +144,4 @@ const styles: Record<string, React.CSSProperties> = {
     color: 'var(--text-mid)',
     transition: 'color 0.2s ease',
   },
-  navLink: {
-    fontSize: '0.85rem',
-    fontWeight: 500,
-    color: 'var(--text)',
-    transition: 'color 0.2s ease',
-    paddingBottom: '2px',
-  },
-  pill: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '7px',
-    padding: '6px 14px',
-    borderRadius: '100px',
-    background: 'rgba(192, 41, 58, 0.06)',
-    border: '1px solid rgba(192, 41, 58, 0.15)',
-    color: 'var(--accent)',
-    fontSize: '0.7rem',
-    fontWeight: 500,
-  },
-  dot: {
-    width: '7px',
-    height: '7px',
-    borderRadius: '50%',
-    background: 'var(--accent)',
-    flexShrink: 0,
-  },
-  hamburger: {
-    display: 'none',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    gap: '5px',
-    width: '36px',
-    height: '36px',
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    padding: '4px',
-    borderRadius: '6px',
-  },
-  bar: {
-    display: 'block',
-    width: '22px',
-    height: '1.5px',
-    background: 'var(--text)',
-    borderRadius: '2px',
-    transition: 'transform 0.3s ease, opacity 0.3s ease',
-    transformOrigin: 'center',
-  },
-  barTopOpen: { transform: 'rotate(45deg) translate(4.5px, 4.5px)' },
-  barMidOpen: { opacity: 0 },
-  barBotOpen: { transform: 'rotate(-45deg) translate(4.5px, -4.5px)' },
 }

@@ -478,7 +478,7 @@ export default function TarifsClubsPage() {
             <span className="prenom">Alexis</span>
             <span className="nom">Bossy</span>
           </div>
-          <div className="logo-sub">Vidéaste · Photographe</div>
+          <div className="logo-sub">Photographe · Vidéaste</div>
         </div>
         <div className="cover-bottom">
           <div className="cover-label">

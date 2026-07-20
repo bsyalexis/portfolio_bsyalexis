@@ -1,44 +1,26 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import Image from 'next/image'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Tag from '@/components/ui/Tag'
-
-gsap.registerPlugin(ScrollTrigger)
+import Reveal from '@/components/motion/Reveal'
 
 const tags = ['Photographie', 'Vidéo', 'Drone', 'Motion Design', 'Branding', 'Webdesign', 'Gestion réseaux sociaux']
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null)
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.about-portrait', {
-        opacity: 0,
-        x: -40,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
-      })
-      gsap.from('.about-text', {
-        opacity: 0,
-        x: 40,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
-      })
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [])
+  /* Plus de GSAP ici : les entrées passent par Reveal, qui pilote des
+     transitions CSS via IntersectionObserver. Un `gsap.from` sur le bloc
+     parent en plus des révélations enfants faisait jouer deux animations
+     superposées sur le même contenu. */
 
   return (
     <section id="about" ref={sectionRef} style={styles.section}>
       <div style={styles.inner} className="about-inner">
 
         {/* Portrait */}
-        <div className="about-portrait" style={styles.portraitWrap}>
+        <Reveal className="about-portrait" style={styles.portraitWrap}>
           <Image
             src="/portrait.jpg.webp"
             alt="Alexis Bossy"
@@ -46,27 +28,30 @@ export default function About() {
             style={{ objectFit: 'cover', objectPosition: 'center top' }}
             className="portrait-img"
           />
-        </div>
+        </Reveal>
 
         {/* Texte */}
         <div className="about-text" style={styles.textCol}>
           <span className="label" style={{ marginBottom: '20px', display: 'block' }}>À propos</span>
-          <h2 style={styles.name}>
-            <span style={styles.nameLight}>Alexis</span>
-            <br />
-            <span style={styles.nameStrong}>Bossy</span>
-          </h2>
-          <p style={styles.bio}>
-            Vidéaste et photographe avec une passion pour les belles images. 5 ans en agence à tourner, monter, faire du motion design et gérer des réseaux sociaux.
-          </p>
-          <p style={{ ...styles.bio, marginTop: '16px' }}>
-            Des clients comme BMW ou Le Petit Futé, des univers variés, toujours le même objectif : que ça soit bien fait.
-          </p>
-          <div style={styles.tags}>
+          <Reveal as="h2" split className="about-name" style={styles.name} stagger={0.07}>
+            Alexis Bossy
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p style={styles.bio}>
+              Photographe et vidéaste, avec une passion pour les belles images. 5 ans en agence à tourner, monter, faire du motion design et gérer des réseaux sociaux.
+            </p>
+            <p style={{ ...styles.bio, marginTop: '16px' }}>
+              La photo et la vidéo restent le cœur du métier ; la direction artistique vient en amont, quand un projet a besoin d&rsquo;une ligne avant d&rsquo;avoir des images.
+            </p>
+            <p style={{ ...styles.bio, marginTop: '16px' }}>
+              Des clients comme BMW ou Le Petit Futé, des univers variés, toujours le même objectif : que ça soit bien fait.
+            </p>
+          </Reveal>
+          <Reveal delay={0.16} style={styles.tags}>
             {tags.map((t) => (
               <Tag key={t} label={t} />
             ))}
-          </div>
+          </Reveal>
         </div>
 
       </div>

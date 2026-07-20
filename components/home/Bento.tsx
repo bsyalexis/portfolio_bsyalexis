@@ -1,10 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { useRef } from 'react'
+import Reveal from '@/components/motion/Reveal'
 
 const IMGS = [
   '/A7403250.webp',
@@ -16,26 +13,14 @@ const IMGS = [
 export default function Bento() {
   const sectionRef = useRef<HTMLElement>(null)
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.bento-main', {
-        opacity: 0, x: -40, duration: 1, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' },
-      })
-      gsap.from('.bento-item', {
-        opacity: 0, y: 30, duration: 0.7, stagger: 0.15, ease: 'power2.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
-      })
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [])
+  /* Entrées confiées à Reveal — voir le commentaire équivalent dans About. */
 
   return (
     <section ref={sectionRef} style={styles.section}>
       <div className="bento-grid" style={styles.grid}>
 
         {/* Grande image — gauche */}
-        <div className="bento-main" style={styles.mainWrap}>
+        <Reveal className="bento-main" style={styles.mainWrap}>
           <div style={styles.imgFill}>
             <img src={IMGS[0]} alt="" loading="eager" decoding="async" style={styles.imgTag} />
           </div>
@@ -46,30 +31,30 @@ export default function Bento() {
               <span style={styles.tagStrong}>pour vous.</span>
             </p>
           </div>
-        </div>
+        </Reveal>
 
         {/* Colonne droite : 3 images */}
         <div className="bento-right-col" style={styles.rightCol}>
 
           {/* Image haute */}
-          <div className="bento-item" style={{ ...styles.imgCell, flex: 1 }}>
+          <Reveal delay={0.08} className="bento-item" style={{ ...styles.imgCell, flex: 1 }}>
             <div style={styles.imgFill}>
               <img src={IMGS[1]} alt="" loading="lazy" decoding="async" style={styles.imgTag} />
             </div>
-          </div>
+          </Reveal>
 
           {/* Deux petites images */}
           <div className="bento-small-row" style={styles.smallRow}>
-            <div className="bento-item" style={styles.smallCard}>
+            <Reveal delay={0.16} className="bento-item" style={styles.smallCard}>
               <div style={styles.imgFill}>
                 <img src={IMGS[2]} alt="" loading="lazy" decoding="async" style={styles.imgTag} />
               </div>
-            </div>
-            <div className="bento-item" style={styles.smallCard}>
+            </Reveal>
+            <Reveal delay={0.24} className="bento-item" style={styles.smallCard}>
               <div style={styles.imgFill}>
                 <img src={IMGS[3]} alt="" loading="lazy" decoding="async" style={styles.imgTag} />
               </div>
-            </div>
+            </Reveal>
           </div>
 
         </div>

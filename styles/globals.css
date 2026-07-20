@@ -27,6 +27,7 @@
   --shadow-h:  0 4px 32px rgba(0, 0, 0, 0.10);
 
   /* Layout */
+  --nav-h:             65px;   /* 64px de contenu + 1px de bordure */
   --container-width:   1100px;
   --grid-width:        1200px;
   --px-desktop:        56px;
@@ -188,6 +189,13 @@ a {
   box-shadow: 0 1px 20px rgba(0, 0, 0, 0.06);
 }
 
+/* Au-dessus d'un hero sombre : nav transparent, contenu en clair. */
+.nav--over a,
+.nav--over button { color: #fff !important; }
+.nav--over .nav-link::after { background: #fff; }
+.nav--over svg { color: rgba(255, 255, 255, 0.8); }
+.nav--over .nav-hamburger span { background: #fff !important; }
+
 /* Lien hover — trait cerise scaleX */
 .nav-link {
   position: relative;
@@ -213,14 +221,8 @@ a {
   animation: pulse-dot 2.4s ease-in-out infinite;
 }
 
-/* Responsive — masquer desktop links / afficher hamburger */
-@media (max-width: 767px) {
-  .nav-desktop-links { display: none !important; }
-  .nav-hamburger { display: flex !important; }
-}
-@media (min-width: 768px) {
-  .nav-hamburger { display: none !important; }
-}
+/* Plus de bascule desktop/mobile ici : la navigation passe entièrement par
+   le menu plein écran, identique à toutes les tailles. */
 
 /* ─────────────────────────────────────────────
    PROJECT CARDS — hover barre cerise top
@@ -545,8 +547,14 @@ a {
 }
 
 /* ─────────────────────────────────────────────
-   ABOUT — portrait hover
+   ABOUT
    ───────────────────────────────────────────── */
+
+/* Nom de famille en rouge, conformément au logotype de la charte. Le mode
+   split découpe par mot : le dernier masque porte donc « Bossy ». */
+.about-name .reveal__unit:last-of-type .reveal__word { color: var(--accent); }
+
+/* ── portrait hover ── */
 .portrait-img {
   transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
               filter 0.8s ease;
@@ -702,6 +710,852 @@ a {
   .travaux-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }
+}
+
+/* ═════════════════════════════════════════════
+   SYSTÈME DE MOTION
+   ═════════════════════════════════════════════ */
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Révélation à l'entrée dans le champ ──
+   L'état caché est conditionné à `.js` sur <html> : sans JavaScript rien ne
+   se cache, et la page reste intégralement lisible plutôt que vide. */
+.js .reveal:not(.reveal--split) {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) var(--reveal-delay, 0s),
+    transform 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) var(--reveal-delay, 0s);
+}
+.js .reveal:not(.reveal--split).is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Mode découpé en mots. Chaque mot est masqué par son parent et remonte. */
+.reveal--split .reveal__mask {
+  display: inline-block;
+  overflow: hidden;
+  /* Le masque coupe à la ligne de base : sans cette marge, les jambages des
+     p, g et j sont rognés une fois le mot en place. */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+  vertical-align: bottom;
+}
+.reveal--split .reveal__word {
+  display: inline-block;
+}
+.js .reveal--split .reveal__word {
+  transform: translateY(110%);
+  opacity: 0;
+  transition:
+    transform 0.78s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.5s ease;
+  transition-delay: calc(var(--reveal-delay, 0s) + var(--i) * var(--stagger, 0.045s));
+}
+.js .reveal--split.is-in .reveal__word {
+  transform: none;
+  opacity: 1;
+}
+
+/* ── Curseur contextuel ── */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10050;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  pointer-events: none;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    width 0.32s cubic-bezier(0.22, 0.61, 0.36, 1),
+    height 0.32s cubic-bezier(0.22, 0.61, 0.36, 1),
+    background 0.32s ease,
+    opacity 0.25s ease;
+  mix-blend-mode: normal;
+}
+.cursor.is-visible { opacity: 1; }
+.cursor.is-active {
+  width: 78px;
+  height: 78px;
+  background: rgba(255, 255, 255, 0.94);
+}
+.cursor__label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0d0d0d;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.2s ease, transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+  white-space: nowrap;
+}
+.cursor.is-active .cursor__label { opacity: 1; transform: none; }
+
+/* On ne masque le vrai curseur que sur les zones qui en proposent un autre.
+   Le masquer sur toute la page rendrait les champs de saisie et les bords de
+   fenêtre pénibles à viser. */
+.has-cursor [data-cursor],
+.has-cursor [data-cursor] * { cursor: none; }
+
+.magnetic { display: inline-flex; will-change: transform; }
+
+/* ── Bandeau défilant ── */
+.mq {
+  overflow: hidden;
+  background: #0d0d0d;
+  border-block: 1px solid rgba(255, 255, 255, 0.09);
+  padding-block: 22px;
+  white-space: nowrap;
+}
+.mq__track {
+  display: flex;
+  width: max-content;
+  animation: mq-slide 34s linear infinite;
+}
+.mq:hover .mq__track { animation-play-state: paused; }
+.mq__group { display: flex; }
+.mq__item {
+  display: inline-flex;
+  align-items: center;
+  font-size: clamp(1.4rem, 3.4vw, 2.6rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.9);
+}
+.mq__sep {
+  color: var(--accent);
+  font-size: 0.5em;
+  margin-inline: 0.55em;
+  transform: translateY(-0.15em);
+}
+@keyframes mq-slide {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* ── Menu plein écran ── */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 96px var(--px-desktop) 48px;
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility 0s linear 0.75s;
+}
+.menu.is-open {
+  pointer-events: auto;
+  visibility: visible;
+  transition: visibility 0s;
+}
+
+/* Le fond est un calque distinct : il se déploie depuis le haut avant que les
+   liens n'apparaissent, ce qui donne le rideau plutôt qu'un simple fondu. */
+.menu__bg {
+  position: absolute;
+  inset: 0;
+  background: #0d0d0d;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.72s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.menu.is-open .menu__bg { transform: scaleY(1); }
+
+.menu__nav {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-block: auto;
+}
+.menu__link {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding-block: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+.menu__num {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  transition-delay: calc(0.34s + var(--i) * 0.07s);
+}
+.menu.is-open .menu__num { opacity: 1; }
+
+.menu__mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+.menu__word {
+  display: block;
+  font-size: clamp(2.6rem, 9vw, 6rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  transform: translateY(105%);
+  transition: transform 0.72s cubic-bezier(0.22, 0.61, 0.36, 1), color 0.3s ease;
+  transition-delay: calc(0.3s + var(--i) * 0.07s);
+}
+.menu.is-open .menu__word { transform: none; }
+.menu__link:hover .menu__word { color: var(--accent); }
+
+.menu__foot {
+  position: relative;
+  display: flex;
+  gap: 64px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease 0.58s, transform 0.5s ease 0.58s;
+}
+.menu.is-open .menu__foot { opacity: 1; transform: none; }
+.menu__col { display: flex; flex-direction: column; gap: 8px; }
+.menu__label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+}
+.menu__mail { color: rgba(255, 255, 255, 0.85); font-size: 0.92rem; }
+.menu__mail:hover { color: var(--accent); }
+.menu__socials { display: flex; gap: 18px; }
+.menu__socials a { color: rgba(255, 255, 255, 0.7); font-size: 0.86rem; }
+.menu__socials a:hover { color: #fff; }
+
+/* Bouton bascule du menu — deux barres qui se croisent. */
+.burger {
+  position: relative;
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.burger span {
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background: var(--text);
+  transition: transform 0.42s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.2s ease;
+}
+.nav--over .burger span { background: #fff; }
+.burger.is-open span { background: #fff; }
+.burger.is-open span:first-child { transform: translateY(3.75px) rotate(45deg); }
+.burger.is-open span:last-child  { transform: translateY(-3.75px) rotate(-45deg); }
+
+@media (max-width: 767px) {
+  .menu { padding: 88px 24px 36px; }
+  .menu__foot { gap: 28px; }
+  .mq { padding-block: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal,
+  .js .reveal--split .reveal__word {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .mq__track { animation: none; }
+  .menu__bg,
+  .menu__word,
+  .menu__foot,
+  .menu__num { transition-duration: 0.15s; transition-delay: 0s; }
+  .cursor { display: none; }
+}
+
+/* ═════════════════════════════════════════════
+   HERO — plein écran, média en fondu
+   ═════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  /* Le nav est sticky et réserve sa hauteur en haut du flux. On la reprend
+     pour que le hero occupe vraiment l'écran entier et passe dessous — sinon
+     il fait 100svh + 65px et le CTA tombe sous le pli. */
+  margin-top: calc(-1 * var(--nav-h));
+  /* svh et non vh : sur mobile, vh compte la barre d'URL rétractée, donc le
+     hero dépasse d'une soixantaine de pixels et le cue de scroll tombe sous
+     le pli tant que la barre est visible. */
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: #0d0d0d;
+  --exit: 0;
+}
+
+/* Le média rétrécit et s'arrondit en sortant — le hero se referme en carte
+   au lieu de simplement défiler hors champ. */
+.hero__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transform: scale(calc(1 - var(--exit) * 0.08));
+  border-radius: calc(var(--exit) * 28px);
+  will-change: transform;
+}
+
+.hero__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1.6s ease, transform 7s linear;
+}
+.hero__frame.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Grain — casse le côté "photo de stock propre" des aplats sombres */
+.hero__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* Les visuels vont d'un vestiaire sombre à une salle de restaurant en plein
+   jour. Un voile calibré sur les images sombres laisse le titre illisible sur
+   les claires : il faut donc un plancher de densité constant (la couche plate)
+   en plus du dégradé. */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    /* Le contenu est calé en bas à gauche : c'est ce coin qu'il faut asseoir,
+       pas le cadre entier — sinon on assombrit uniformément et on perd
+       l'image sans gagner en lisibilité. */
+    radial-gradient(ellipse 90% 70% at 0% 100%, rgba(13,13,13,0.92) 0%, transparent 70%),
+    linear-gradient(to top, rgba(13,13,13,0.95) 0%, rgba(13,13,13,0.45) 45%, rgba(13,13,13,0.6) 100%),
+    rgba(13, 13, 13, 0.2);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 96px var(--px-desktop) 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: calc(1 - var(--exit) * 1.4);
+}
+
+/* Entrée en cascade. Les délais sont portés par chaque bloc dans l'ordre du
+   DOM plutôt que par un stagger JS. */
+.hero-rise {
+  animation: hero-rise 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.hero__top     { animation-delay: 0.15s; }
+.hero__title   { animation-delay: 0.27s; }
+.hero__actions { animation-delay: 0.39s; }
+
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.hero__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 15px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.82);
+}
+.hero__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+.hero__title {
+  margin: 0 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hero__name {
+  font-size: clamp(2.6rem, 8.5vw, 6.5rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  color: #fff;
+}
+
+/* Les rôles sont empilés au même endroit et se relaient. Un élément fantôme
+   réserve la largeur du plus long, sinon la ligne se réduit à chaque
+   rotation et tout ce qui suit tressaute. */
+.hero__roles {
+  position: relative;
+  display: inline-block;
+  height: 1.25em;
+  font-size: clamp(0.95rem, 2.4vw, 1.5rem);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+/* Le rôle sortant s'efface vite et vers le haut, l'entrant arrive après lui.
+   Un fondu croisé symétrique superposerait deux mots lisibles au milieu de la
+   transition — sur du texte, ça se lit comme un bug d'affichage. */
+.hero__role {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.62);
+  opacity: 0;
+  transform: translateY(-0.35em);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+.hero__role.is-active {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.45s ease 0.22s, transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) 0.22s;
+}
+.hero__role--ghost {
+  position: static;
+  visibility: hidden;
+  opacity: 0;
+  transform: none;
+  transition: none;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.hero__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 26px;
+  border-radius: var(--radius-pill);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.hero__btn--solid {
+  background: #fff;
+  color: #0d0d0d;
+}
+.hero__btn--solid:hover { background: rgba(255, 255, 255, 0.85); transform: translateY(-2px); }
+.hero__btn--ghost {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.hero__btn--ghost:hover { background: rgba(255, 255, 255, 0.14); transform: translateY(-2px); }
+.hero__play { font-size: 0.6rem; color: var(--accent); }
+
+.hero__cue {
+  position: absolute;
+  right: var(--px-desktop);
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.hero__cue-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.6));
+  animation: cue-slide 2.2s ease-in-out infinite;
+}
+.hero__cue-label {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  writing-mode: vertical-rl;
+}
+@keyframes cue-slide {
+  0%, 100% { transform: scaleY(0.4); transform-origin: top; opacity: 0.4; }
+  50%      { transform: scaleY(1);   transform-origin: top; opacity: 1; }
+}
+
+/* ── Showreel plein écran ── */
+.reel {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  background: rgba(8, 8, 8, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: lb-fade-in 0.25s ease;
+}
+.reel__frame {
+  width: min(1280px, 100%);
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+.reel__frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+.reel__close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 2;
+}
+.reel__close:hover { background: rgba(255, 255, 255, 0.2); }
+
+/* ═════════════════════════════════════════════
+   SHOWCASE — sélection de projets, piloté au scroll
+   ═════════════════════════════════════════════ */
+.sc {
+  position: relative;
+  background: #0d0d0d;
+}
+/* Pas de justify-content ici : le centrage vertical du bloc de texte est fait
+   par le `margin-block: auto` de .sc__content. Cumuler les deux fait absorber
+   l'espace libre deux fois et pousse le rail de vignettes sous le pli, où
+   l'overflow: hidden le rend simplement invisible. */
+.sc__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.sc__bgs { position: absolute; inset: 0; }
+.sc__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 0.85s ease, transform 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.sc__bg.is-active { opacity: 1; transform: scale(1); }
+
+/* Préchargement des voisins — présent dans le DOM, jamais peint. */
+.sc__preload {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sc__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(13,13,13,0.95) 0%, rgba(13,13,13,0.45) 40%, rgba(13,13,13,0.7) 100%),
+    linear-gradient(to right, rgba(13,13,13,0.75) 0%, transparent 55%);
+}
+
+.sc__header {
+  position: relative;
+  z-index: 2;
+  padding: 40px var(--px-desktop) 0;
+}
+.sc__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.63rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+.sc__eyebrow-dash { width: 22px; height: 2px; background: var(--accent); }
+
+.sc__content {
+  position: relative;
+  z-index: 2;
+  padding: 0 var(--px-desktop);
+  max-width: 680px;
+  margin-block: auto;
+}
+.sc__client {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.sc__title {
+  font-size: clamp(1.9rem, 4.4vw, 3.4rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+  color: #fff;
+  margin: 0 0 18px;
+  /* L'entrée du titre est portée par Reveal (mot à mot), pas par sc-in :
+     cumuler les deux ferait jouer deux animations sur le même élément. */
+}
+.sc__lead {
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.68);
+  margin: 0 0 18px;
+  /* Les textes de galerie vont de deux lignes à un paragraphe entier ; sans
+     limite, les projets bavards poussent le CTA hors de l'écran. */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  animation: sc-in 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) 0.06s both;
+}
+.sc__meta {
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0 0 26px;
+}
+.sc__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  background: #fff;
+  color: #0d0d0d;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.sc__cta:hover { background: rgba(255, 255, 255, 0.85); transform: translateY(-2px); }
+
+@keyframes sc-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Rail de vignettes ── */
+.sc__thumbs {
+  position: relative;
+  z-index: 2;
+  padding-bottom: 28px;
+}
+.sc__thumbs-viewport { overflow: hidden; }
+.sc__thumbs-track {
+  display: flex;
+  gap: 12px;
+  padding-block: 8px;
+  /* Aligne la première vignette sur la gouttière du texte au-dessus. */
+  padding-inline: var(--px-desktop);
+  transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+.sc__thumb {
+  position: relative;
+  flex: 0 0 auto;
+  width: 132px;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  opacity: 0.42;
+  transform: scale(0.9);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.sc__thumb.is-active { opacity: 1; transform: scale(1.06); }
+.sc__thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+}
+.sc__thumb.is-active::after { border-color: var(--accent); }
+.sc__thumb-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+.sc__thumb-num {
+  position: absolute;
+  top: 7px;
+  left: 9px;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+.sc__thumb-label {
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  bottom: 7px;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+}
+
+.sc__controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px var(--px-desktop) 0;
+}
+.sc__nav {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+.sc__nav:hover:not(:disabled) { background: rgba(255, 255, 255, 0.18); }
+.sc__nav:disabled { opacity: 0.25; cursor: default; }
+.sc__counter {
+  margin-left: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+.sc__counter span { color: rgba(255, 255, 255, 0.35); font-weight: 400; margin-left: 3px; }
+
+.sc__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 3;
+}
+.sc__progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left;
+}
+
+/* ── Hero + showcase sur petit écran ──
+   Le module d'origine reposait sur le survol : sans souris, il ne restait
+   que les flèches. Ici le scroll pilote tout, donc la version mobile n'est
+   pas une dégradation — juste une mise en page plus serrée. */
+@media (max-width: 767px) {
+  .hero__inner { padding: 84px 24px 32px; }
+  .hero__cue { display: none; }
+  .hero__actions { width: 100%; }
+  .hero__btn { flex: 1 1 auto; justify-content: center; }
+
+  .sc__header  { padding: 28px 24px 0; }
+  .sc__content { padding: 0 24px; max-width: none; }
+  .sc__lead { -webkit-line-clamp: 2; font-size: 0.86rem; }
+  .sc__thumb { width: 104px; }
+  .sc__controls { padding: 14px 24px 0; }
+  .sc__scrim {
+    background: linear-gradient(to top, rgba(13,13,13,0.96) 0%, rgba(13,13,13,0.5) 50%, rgba(13,13,13,0.6) 100%);
+  }
+  .reel { padding: 12px; }
+  .reel__close { top: 10px; right: 12px; }
+}
+
+/* Mouvement réduit — on garde les fondus (l'information), on retire les
+   déplacements et le zoom (le décor). */
+@media (prefers-reduced-motion: reduce) {
+  .hero__media { transform: none; border-radius: 0; }
+  .hero__frame { transition: opacity 0.4s ease; transform: none; }
+  .hero__frame.is-active { transform: none; }
+  .hero__cue-line { animation: none; }
+  .hero__dot { animation: none; }
+  .hero-rise { animation: none; opacity: 1; transform: none; }
+  .hero__role { transition: opacity 0.2s ease; transform: none; }
+  .hero__role.is-active { transition: opacity 0.2s ease 0.2s; transform: none; }
+  .sc__bg { transition: opacity 0.3s ease; transform: none; }
+  .sc__bg.is-active { transform: none; }
+  .sc__title, .sc__lead { animation: none; }
+  .sc__thumbs-track { transition: none; }
+  .sc__thumb { transition: opacity 0.2s ease; transform: none; }
+  .sc__thumb.is-active { transform: none; }
 }
 
 /* ─────────────────────────────────────────────

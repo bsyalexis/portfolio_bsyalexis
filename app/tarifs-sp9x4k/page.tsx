@@ -537,7 +537,7 @@ export default function TarifsPage() {
             <span className="prenom">Alexis</span>
             <span className="nom">Bossy</span>
           </div>
-          <div className="logo-sub">Vidéaste · Photographe</div>
+          <div className="logo-sub">Photographe · Vidéaste · D.A</div>
         </div>
         <div className="cover-bottom">
           <div className="cover-label">
