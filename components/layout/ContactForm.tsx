@@ -2,16 +2,47 @@
 
 import { useState } from 'react'
 
-type Status = 'idle' | 'sending' | 'sent'
+type Status = 'idle' | 'sending' | 'sent' | 'error'
+
+const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>('idle')
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+
+    const form = e.currentTarget
+    const data = new FormData(form)
+
+    if (!ACCESS_KEY) {
+      console.error('NEXT_PUBLIC_WEB3FORMS_KEY manquante : le message n’a pas été envoyé.')
+      setStatus('error')
+      return
+    }
+
+    data.append('access_key', ACCESS_KEY)
+    data.append('subject', `Nouveau message depuis alexbsy.com — ${data.get('prenom')} ${data.get('nom')}`)
+    data.append('from_name', 'alexbsy.com')
+
     setStatus('sending')
-    // TODO: connecter à une API route ou Resend/Formspree
-    setTimeout(() => setStatus('sent'), 900)
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body:   data,
+      })
+      const json = await res.json()
+
+      if (!res.ok || !json.success) {
+        throw new Error(json.message ?? `HTTP ${res.status}`)
+      }
+
+      setStatus('sent')
+    } catch (err) {
+      console.error('Envoi du formulaire de contact échoué :', err)
+      setStatus('error')
+    }
   }
 
   if (status === 'sent') {
@@ -65,6 +96,15 @@ export default function ContactForm() {
   return (
     <form className="contact-form" onSubmit={handleSubmit} noValidate>
 
+      {/* Anti-spam : invisible pour les humains, rempli par les bots */}
+      <input
+        type="checkbox"
+        name="botcheck"
+        tabIndex={-1}
+        autoComplete="off"
+        style={{ display: 'none' }}
+      />
+
       {/* Nom + Prénom */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '10px' }}>
         <input
@@ -101,6 +141,33 @@ export default function ContactForm() {
         style={{ ...fieldStyle, resize: 'vertical', minHeight: '96px', marginBottom: '16px' }}
       />
 
+      {/* Erreur */}
+      {status === 'error' && (
+        <div
+          role="alert"
+          style={{
+            marginBottom:  '12px',
+            padding:       '10px 14px',
+            borderRadius:  '6px',
+            background:    'rgba(220, 60, 60, 0.12)',
+            border:        '1px solid rgba(220, 60, 60, 0.35)',
+            color:         'rgba(255,255,255,0.85)',
+            fontSize:      '0.78rem',
+            fontWeight:    300,
+            lineHeight:    1.5,
+          }}
+        >
+          L’envoi a échoué. Réessayez, ou écrivez-moi directement à{' '}
+          <a
+            href="mailto:bsy.alexis@gmail.com"
+            style={{ color: '#ffffff', textDecoration: 'underline' }}
+          >
+            bsy.alexis@gmail.com
+          </a>
+          .
+        </div>
+      )}
+
       {/* Submit */}
       <button
         type="submit"
@@ -123,7 +190,7 @@ export default function ContactForm() {
           fontFamily:    'inherit',
         }}
       >
-        {status === 'sending' ? 'Envoi…' : 'Envoyer →'}
+        {status === 'sending' ? 'Envoi…' : status === 'error' ? 'Réessayer →' : 'Envoyer →'}
       </button>
 
     </form>
