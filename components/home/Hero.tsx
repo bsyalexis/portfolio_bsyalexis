@@ -170,7 +170,7 @@ export default function Hero() {
 
           <div className="hero__actions hero-rise">
             <Magnetic strength={0.3}>
-              <Link href="/travaux" className="hero__btn hero__btn--solid" data-cursor="TRAVAUX">
+              <Link href="/travaux" className="hero__btn hero__btn--solid">
                 Voir les travaux
                 <span aria-hidden="true">→</span>
               </Link>
@@ -181,7 +181,6 @@ export default function Hero() {
                 type="button"
                 className="hero__btn hero__btn--ghost"
                 onClick={() => setReelOpen(true)}
-                data-cursor="LECTURE"
               >
                 <span className="hero__play" aria-hidden="true">▶</span>
                 Showreel

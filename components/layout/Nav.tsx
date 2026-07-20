@@ -46,7 +46,7 @@ export default function Nav() {
       >
         {/* Bloc identité : le nom et les réseaux, groupés à gauche. */}
         <div className="nav__left">
-          <Link href="/" className="nav__logo" onClick={closeMenu} data-cursor="ACCUEIL">
+          <Link href="/" className="nav__logo" onClick={closeMenu}>
             Alexis Bossy
           </Link>
 
@@ -73,7 +73,6 @@ export default function Nav() {
               className={clsx('nav__pill', { 'is-hidden': menuOpen })}
               aria-label="Ouvrir le menu"
               aria-expanded={menuOpen}
-              data-cursor="MENU"
             >
               <span className="nav__burger" aria-hidden="true">
                 <span />
@@ -85,7 +84,7 @@ export default function Nav() {
 
         <div className="nav__right">
           <Magnetic strength={0.25}>
-            <Link href="/#contact" className="nav__cta" onClick={closeMenu} data-cursor="ÉCRIRE">
+            <Link href="/#contact" className="nav__cta" onClick={closeMenu}>
               Me contacter
             </Link>
           </Magnetic>

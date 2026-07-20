@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google'
 import Nav from '@/components/layout/Nav'
 import LenisProvider from '@/components/layout/LenisProvider'
 import ScrollProgress from '@/components/layout/ScrollProgress'
-import Cursor from '@/components/motion/Cursor'
 import '@/styles/globals.css'
 
 const inter = Inter({
@@ -59,7 +58,6 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <ScrollProgress />
-        <Cursor />
         <LenisProvider>
           <Nav />
           {children}

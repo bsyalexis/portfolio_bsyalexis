@@ -9,6 +9,8 @@ const CATEGORIES: Record<string, string> = {
   autres:        'Direction artistique',
 }
 
+interface Chapitre { text?: string; body?: string }
+
 interface Projet {
   slug: string
   title: string
@@ -20,15 +22,24 @@ interface Projet {
   galleryText?: string
   galleryImages?: string[]
   metaDescription?: string
+  chapters?: Chapitre[]
 }
 
-/* Les metaDescription sont préfixées « Catégorie · Client · Année — ».
-   On ne garde que la phrase, le préfixe est déjà affiché à côté. */
+/* Description d'un projet, par ordre de préférence : le texte de galerie,
+   puis la metaDescription débarrassée de son préfixe « Catégorie · Client ·
+   Année — », puis le premier chapitre. Trois des sept projets n'ont pas de
+   galleryText — sans cette cascade, leur carte serait muette. */
 function lead(p: Projet): string {
   if (p.galleryText) return p.galleryText
+
   const meta = p.metaDescription ?? ''
-  const dash = meta.indexOf('—')
-  return dash === -1 ? meta : meta.slice(dash + 1).trim()
+  if (meta) {
+    const dash = meta.indexOf('—')
+    return dash === -1 ? meta : meta.slice(dash + 1).trim()
+  }
+
+  const chap = p.chapters?.[0]
+  return (chap?.text ?? chap?.body ?? '').trim()
 }
 
 function label(p: Projet): string {
@@ -43,7 +54,12 @@ export default function Works() {
      bloc large avec une seule image répétée dès qu'Alexis réordonne ses
      projets ou en ajoute un sans galerie. */
   const hero = featured.find((p) => (p.galleryImages?.length ?? 0) >= 6) ?? featured[0]
-  const rest = featured.filter((p) => p.slug !== hero?.slug)
+
+  /* Cinq cartes, dans l'ordre du fichier — qui est l'ordre d'ajout, donc du
+     plus récent au plus ancien. Aucun projet ne porte de date exploitable
+     (tous en 2026), c'est le seul critère de fraîcheur disponible. Le reste
+     du catalogue est accessible par « Tous les projets ». */
+  const rest = featured.filter((p) => p.slug !== hero?.slug).slice(0, 5)
 
   if (!hero) return null
 
@@ -56,7 +72,7 @@ export default function Works() {
           <span className="works__eyebrow-dash" aria-hidden="true" />
           Projets à la une
         </span>
-        <Link href="/travaux" className="works__all" data-cursor="TOUT VOIR">
+        <Link href="/travaux" className="works__all">
           Tous les projets
           <span aria-hidden="true">→</span>
         </Link>
@@ -75,7 +91,6 @@ export default function Works() {
               key={src}
               href={`/projet/${hero.slug}`}
               className="works__asset"
-              data-cursor="VOIR"
               aria-label={i === 0 ? `Voir le projet ${hero.title}` : undefined}
               aria-hidden={i === 0 ? undefined : true}
               tabIndex={i === 0 ? undefined : -1}
@@ -90,21 +105,22 @@ export default function Works() {
             {hero.title}
           </Reveal>
           <p className="works__lead">{lead(hero)}</p>
-          <Link href={`/projet/${hero.slug}`} className="works__cta" data-cursor="OUVRIR">
+          <Link href={`/projet/${hero.slug}`} className="works__cta">
             Voir le projet
             <span aria-hidden="true">→</span>
           </Link>
         </div>
       </article>
 
-      {/* ── Les autres projets ── */}
+      {/* ── Les cinq projets suivants, en tailles inégales ──
+          Le texte passe sur l'image plutôt qu'en dessous : les cartes sont
+          d'abord des visuels, la légende ne fait que les nommer. */}
       <div className="works__grid">
-        {rest.map((p) => (
+        {rest.map((p, i) => (
           <Link
             key={p.slug}
             href={`/projet/${p.slug}`}
-            className="works__item"
-            data-cursor="VOIR"
+            className={`works__item works__item--${i + 1}`}
           >
             <div className="works__item-media">
               {p.coverVideo ? (
@@ -115,9 +131,10 @@ export default function Works() {
                 <img src={p.cover} alt="" loading="lazy" decoding="async" />
               )}
             </div>
-            <div className="works__item-meta">
+            <div className="works__item-body">
               <span className="works__item-client">{p.client}</span>
               <h4 className="works__item-title">{p.title}</h4>
+              <p className="works__item-lead">{lead(p)}</p>
               <span className="works__item-cat">{label(p)} · {p.year}</span>
             </div>
           </Link>

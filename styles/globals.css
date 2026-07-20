@@ -850,53 +850,6 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   opacity: 1;
 }
 
-/* ── Curseur contextuel ── */
-.cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10050;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--accent);
-  pointer-events: none;
-  opacity: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition:
-    width 0.32s cubic-bezier(0.22, 0.61, 0.36, 1),
-    height 0.32s cubic-bezier(0.22, 0.61, 0.36, 1),
-    background 0.32s ease,
-    opacity 0.25s ease;
-  mix-blend-mode: normal;
-}
-.cursor.is-visible { opacity: 1; }
-.cursor.is-active {
-  width: 78px;
-  height: 78px;
-  background: rgba(255, 255, 255, 0.94);
-}
-.cursor__label {
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #0d0d0d;
-  opacity: 0;
-  transform: scale(0.7);
-  transition: opacity 0.2s ease, transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
-  white-space: nowrap;
-}
-.cursor.is-active .cursor__label { opacity: 1; transform: none; }
-
-/* On ne masque le vrai curseur que sur les zones qui en proposent un autre.
-   Le masquer sur toute la page rendrait les champs de saisie et les bords de
-   fenêtre pénibles à viser. */
-.has-cursor [data-cursor],
-.has-cursor [data-cursor] * { cursor: none; }
-
 .magnetic { display: inline-flex; will-change: transform; }
 
 /* ── Bandeau défilant ── */
@@ -1082,7 +1035,6 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   .menu__panel,
   .menu__veil,
   .menu__link { transition-duration: 0.15s; transition-delay: 0s; }
-  .cursor { display: none; }
 }
 
 /* ═════════════════════════════════════════════
@@ -1548,65 +1500,114 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 .works__all:hover { gap: 13px; border-color: var(--accent); }
 
-/* ── Grille des autres projets ── */
+/* ── Grille des cinq projets suivants ──
+   Cinq zones nommées de tailles inégales. Le compte doit tomber juste
+   (4 + 1 + 1 + 2 + 4 = 12 cellules pour 4 colonnes x 3 rangées) : un span
+   de trop et la grille fabrique des rangées implicites non dimensionnées,
+   qui s'écrasent à quelques pixels. */
 .works__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows:
+    clamp(170px, 21svh, 250px)
+    clamp(170px, 21svh, 250px)
+    clamp(150px, 18svh, 210px);
+  grid-template-areas:
+    "a a b c"
+    "a a d d"
+    "e e e e";
   gap: 14px;
 }
-.works__item {
-  display: flex;
-  flex-direction: column;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-card);
-  overflow: hidden;
-  transition: border-color 0.3s ease, transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-.works__item:hover { border-color: rgba(0, 0, 0, 0.16); transform: translateY(-4px); }
+.works__item--1 { grid-area: a; }
+.works__item--2 { grid-area: b; }
+.works__item--3 { grid-area: c; }
+.works__item--4 { grid-area: d; }
+.works__item--5 { grid-area: e; }
 
-.works__item-media {
+.works__item {
   position: relative;
-  aspect-ratio: 4 / 3;
+  display: block;
   overflow: hidden;
+  border-radius: var(--radius-card);
   background: rgba(0, 0, 0, 0.04);
+  min-height: 0;
 }
+
+.works__item-media { position: absolute; inset: 0; }
 .works__item-media img,
 .works__item-media video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .works__item:hover .works__item-media img,
-.works__item:hover .works__item-media video { transform: scale(1.05); }
+.works__item:hover .works__item-media video { transform: scale(1.06); }
 
-.works__item-meta {
+/* Voile de lisibilité. Les covers vont du vestiaire sombre à la salle de
+   restaurant en plein jour : sans plancher de densité constant, la légende
+   disparaît sur les visuels clairs. */
+.works__item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13,13,13,0.88) 0%, rgba(13,13,13,0.25) 45%, transparent 75%);
+  transition: opacity 0.4s ease;
+}
+.works__item:hover::after { opacity: 0.92; }
+
+.works__item-body {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 18px 20px 22px;
+  gap: 5px;
+  padding: 20px 22px 22px;
 }
 .works__item-client {
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: #fff;
+  opacity: 0.75;
 }
 .works__item-title {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.25;
-  color: var(--text);
+  line-height: 1.15;
+  color: #fff;
   margin: 0;
 }
-.works__item-cat {
-  font-size: 0.76rem;
+.works__item-lead {
+  font-size: 0.82rem;
   font-weight: 300;
-  color: var(--text-mid);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0;
+  max-width: 52ch;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
+.works__item-cat {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
+}
+
+/* Les deux petites cartes n'ont pas la place d'un paragraphe : le client et
+   le titre suffisent à les identifier, la description attend la page projet. */
+.works__item--2 .works__item-lead,
+.works__item--3 .works__item-lead { display: none; }
+.works__item--2 .works__item-body,
+.works__item--3 .works__item-body { padding: 16px 18px 18px; }
+.works__item--4 .works__item-lead { -webkit-line-clamp: 2; }
+.works__item--5 .works__item-lead { -webkit-line-clamp: 2; }
 
 /* ── Collages ──
    Le bloc large déroule six visuels sur deux rangées ; les blocs étroits en
@@ -1700,7 +1701,18 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 @media (max-width: 900px) {
   .works { padding: 56px 20px 16px; gap: 10px; }
   .works__row { grid-template-columns: 1fr; gap: 10px; }
-  .works__grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  /* Deux colonnes : la grande carte prend la largeur, les autres se
+     répartissent par paires. */
+  .works__grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, clamp(150px, 20svh, 200px));
+    grid-template-areas:
+      "a a"
+      "b c"
+      "d d"
+      "e e";
+    gap: 10px;
+  }
   .works__card { padding: 20px 20px 24px; }
   .works__card--wide .works__collage {
     grid-template-columns: repeat(2, 1fr);
@@ -1716,7 +1728,14 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 @media (max-width: 560px) {
-  .works__grid { grid-template-columns: 1fr; }
+  .works__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, clamp(180px, 26svh, 230px));
+    grid-template-areas: "a" "b" "c" "d" "e";
+  }
+  /* En pleine largeur, toutes les cartes retrouvent la place d'un chapô. */
+  .works__item--2 .works__item-lead,
+  .works__item--3 .works__item-lead { display: -webkit-box; }
 }
 
 /* Mouvement réduit — on garde les fondus (l'information), on retire les
