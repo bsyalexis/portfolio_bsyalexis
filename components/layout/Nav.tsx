@@ -7,21 +7,21 @@ import Menu from './Menu'
 import Magnetic from '@/components/motion/Magnetic'
 
 export default function Nav() {
-  const [overHero, setOverHero] = useState(false)
+  const [pastHero, setPastHero] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [pct, setPct] = useState(0)
 
   const closeMenu = useCallback(() => setMenuOpen(false), [])
 
-  /* Un seul écouteur pour les deux informations : la progression affichée
-     dans la pilule, et le passage en clair au-dessus du hero sombre — le nav
-     crème posé sur le hero plein cadre cassait l'image en deux. */
+  /* On marque l'état « hero dépassé », pas l'état « au-dessus du hero » :
+     l'apparence claire est le défaut CSS sur une page à hero, donc correcte
+     dès le premier paint. Voir le commentaire dans globals.css. */
   useEffect(() => {
     let raf = 0
     const update = () => {
       raf = 0
       const hero = document.getElementById('hero')
-      setOverHero(!!hero && window.scrollY < hero.offsetHeight - 120)
+      setPastHero(!hero || window.scrollY >= hero.offsetHeight - 120)
 
       const max = document.documentElement.scrollHeight - window.innerHeight
       setPct(max > 0 ? Math.min(100, Math.round((window.scrollY / max) * 100)) : 0)
@@ -41,18 +41,33 @@ export default function Nav() {
   return (
     <>
       <header
-        className={clsx('nav', { 'nav--over': overHero && !menuOpen })}
+        className={clsx('nav', { 'nav--solid': pastHero || menuOpen })}
         style={{ zIndex: menuOpen ? 201 : 100 }}
       >
-        {/* Le nom et l'accès au menu forment un seul bloc, calé en haut à
-            gauche : ce sont les deux commandes d'identité et de navigation,
-            les séparer aux deux bouts du header les rendait moins évidentes. */}
+        {/* Bloc identité : le nom et les réseaux, groupés à gauche. */}
         <div className="nav__left">
           <Link href="/" className="nav__logo" onClick={closeMenu} data-cursor="ACCUEIL">
             Alexis Bossy
           </Link>
 
-          <Magnetic strength={0.2}>
+          <div className="nav__socials">
+            <a href="https://www.instagram.com/alexbsy_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </a>
+            <a href="https://www.tiktok.com/@bsyalex_" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        {/* Le menu occupe le centre : c'est la commande de navigation. */}
+        <Magnetic strength={0.2}>
             <button
               onClick={() => setMenuOpen(true)}
               className={clsx('nav__pill', { 'is-hidden': menuOpen })}
@@ -66,23 +81,7 @@ export default function Nav() {
               </span>
               Menu
             </button>
-          </Magnetic>
-        </div>
-
-        <div className="nav__socials">
-            <a href="https://www.instagram.com/alexbsy_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <circle cx="12" cy="12" r="4"/>
-                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
-              </svg>
-            </a>
-            <a href="https://www.tiktok.com/@bsyalex_" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
-              </svg>
-            </a>
-        </div>
+        </Magnetic>
 
         <div className="nav__right">
           <Magnetic strength={0.25}>

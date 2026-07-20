@@ -207,6 +207,7 @@ a {
   gap: 18px;
   min-width: 0;
 }
+.nav__right { justify-self: end; }
 
 .nav__logo {
   font-size: 0.95rem;
@@ -294,24 +295,30 @@ a {
 }
 .nav__cta:hover { background: var(--accent); }
 
-/* ── Au-dessus du hero sombre ── */
-.nav--over .nav__logo   { color: #fff; }
-.nav--over .nav__socials { color: rgba(255, 255, 255, 0.75); }
-.nav--over .nav__cta    { background: #fff; color: #0d0d0d; }
-.nav--over .nav__cta:hover { background: var(--accent); color: #fff; }
+/* ── Au-dessus du hero sombre ──
+   La règle est inversée par rapport à l'intuition : l'état « clair » est le
+   défaut sur une page à hero, et JavaScript ajoute .nav--solid une fois le
+   hero dépassé. L'inverse — ajouter une classe pour éclaircir — affichait le
+   header en sombre sur le hero sombre jusqu'à l'hydratation : le temps que
+   React se réveille, logo et bouton étaient invisibles.
+   `body:has(#hero)` fait la distinction dès le premier paint, sans JS. */
+body:has(#hero) .nav:not(.nav--solid) .nav__logo      { color: #fff; }
+body:has(#hero) .nav:not(.nav--solid) .nav__socials   { color: rgba(255, 255, 255, 0.75); }
+body:has(#hero) .nav:not(.nav--solid) .nav__cta       { background: #fff; color: #0d0d0d; }
+body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent); color: #fff; }
 
 @media (max-width: 767px) {
-  /* Réseaux et CTA sortent : à 375px ils ne tiennent pas à côté du bloc
-     identité, et tous deux sont déjà accessibles depuis le menu. Il ne reste
-     qu'une colonne, calée à gauche. */
-  .nav__socials,
+  /* Le CTA sort : à 375px il ne tient pas, et il reste accessible depuis le
+     menu. Le nom et les réseaux d'un côté, la pilule de l'autre. */
   .nav__right { display: none; }
   .nav {
-    grid-template-columns: 1fr;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
     padding-inline: 20px;
   }
-  .nav__pill { font-size: 0.82rem; padding-inline: 14px; gap: 10px; }
   .nav__left { gap: 12px; }
+  .nav__socials { gap: 12px; }
+  .nav__pill { font-size: 0.82rem; padding-inline: 14px; gap: 10px; }
 }
 
 /* ─────────────────────────────────────────────
@@ -1520,6 +1527,87 @@ a {
   flex-shrink: 0;
 }
 
+/* En-tête de section : intitulé à gauche, accès au catalogue à droite. */
+.works__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.works__all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 3px;
+  transition: gap 0.25s ease, border-color 0.25s ease;
+}
+.works__all:hover { gap: 13px; border-color: var(--accent); }
+
+/* ── Grille des autres projets ── */
+.works__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.works__item {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.works__item:hover { border-color: rgba(0, 0, 0, 0.16); transform: translateY(-4px); }
+
+.works__item-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.04);
+}
+.works__item-media img,
+.works__item-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.works__item:hover .works__item-media img,
+.works__item:hover .works__item-media video { transform: scale(1.05); }
+
+.works__item-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 20px 22px;
+}
+.works__item-client {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.works__item-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--text);
+  margin: 0;
+}
+.works__item-cat {
+  font-size: 0.76rem;
+  font-weight: 300;
+  color: var(--text-mid);
+}
+
 /* ── Collages ──
    Le bloc large déroule six visuels sur deux rangées ; les blocs étroits en
    alignent trois. Les proportions sont portées par la grille et non par les
@@ -1612,6 +1700,7 @@ a {
 @media (max-width: 900px) {
   .works { padding: 56px 20px 16px; gap: 10px; }
   .works__row { grid-template-columns: 1fr; gap: 10px; }
+  .works__grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .works__card { padding: 20px 20px 24px; }
   .works__card--wide .works__collage {
     grid-template-columns: repeat(2, 1fr);
@@ -1624,6 +1713,10 @@ a {
   .works__card--wide .works__asset:nth-child(1) { grid-column: span 2; grid-row: span 1; }
   .works__card--wide .works__asset:nth-child(4) { grid-row: span 1; }
   .works__card:not(.works__card--wide) .works__collage { height: 30svh; }
+}
+
+@media (max-width: 560px) {
+  .works__grid { grid-template-columns: 1fr; }
 }
 
 /* Mouvement réduit — on garde les fondus (l'information), on retire les
