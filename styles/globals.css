@@ -199,7 +199,12 @@ a {
   background: transparent;
   pointer-events: none;
 }
-.nav > * { pointer-events: auto; }
+/* Seuls les éléments interactifs reprennent la main — pas les colonnes de
+   la grille : menu ouvert, le header passe au-dessus du panneau (201 > 200)
+   et une colonne cliquable sur toute sa largeur avalerait les clics destinés
+   au bouton « Fermer » situé dessous. */
+.nav a,
+.nav button { pointer-events: auto; }
 
 .nav__left {
   display: flex;
@@ -647,11 +652,92 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
    ABOUT
    ───────────────────────────────────────────── */
 
+/* Fond partagé avec le parcours : aucune couture de couleur entre les deux,
+   c'est un seul plan qui se prolonge. */
+.about { background: var(--bg); }
+
+/* ── Pont depuis le parcours ──
+   Prolonge la ligne de vie : même axe (centre de page), même tracé, même
+   point accent. La ligne descend puis se pose — le récit du parcours atterrit
+   sur « voici qui je suis aujourd'hui ». */
+.about-bridge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 104px;
+  margin-bottom: 4px;
+}
+.about-bridge__line {
+  flex: 1;
+  width: 1.5px;
+  background: var(--text-dim);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.05s;
+}
+.about-bridge.is-in .about-bridge__line { transform: scaleY(1); }
+.about-bridge__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1.2) 0.72s;
+}
+.about-bridge.is-in .about-bridge__dot { transform: scale(1); }
+
 /* Nom de famille en rouge, conformément au logotype de la charte. Le mode
    split découpe par mot : le dernier masque porte donc « Bossy ». */
 .about-name .reveal__unit:last-of-type .reveal__word { color: var(--accent); }
 
-/* ── portrait hover ── */
+@media (prefers-reduced-motion: reduce) {
+  .about-bridge__line { transform: scaleY(1); transition: none; }
+  .about-bridge__dot { transform: scale(1); transition: none; }
+}
+
+@media (max-width: 767px) {
+  /* La ligne du parcours passe à gauche en mobile : le pont l'y suit pour
+     rester dans l'axe (≈ 25px du bord = padding section + offset ligne). */
+  .about-bridge { height: 64px; align-items: flex-start; padding-left: 25px; }
+}
+
+/* ── Colonne visuelle : portrait flottant + puce ──
+   Trois couches empilées, comme les cartes du parcours, pour prolonger la
+   même sensation de flottaison. */
+
+/* Dérive au scroll + inclinaison de repos. */
+.about-visual {
+  position: relative;
+  transform:
+    translateY(calc(var(--pdrift, 0) * var(--drift, 0) * 1px))
+    rotate(var(--tilt, 0deg));
+  transition: transform 0.2s linear;
+  will-change: transform;
+}
+
+/* Éclosion (le Reveal ne fait que porter le is-in ; la transition est ici,
+   pour laisser la couche flottaison libre en dessous). */
+.js .reveal.about-portrait-reveal {
+  opacity: 0;
+  transform: translateY(6%) scale(0.9);
+  transition: opacity 0.8s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js .reveal.about-portrait-reveal.is-in { opacity: 1; transform: none; }
+
+/* La carte-portrait : radius généreux, ombre de lévitation, flottaison
+   continue (même keyframe que les cartes du parcours). */
+.about-portrait {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow:
+    0 40px 70px -30px rgba(20, 14, 14, 0.4),
+    0 10px 24px -14px rgba(20, 14, 14, 0.18);
+  animation: tl-float 7.2s ease-in-out infinite alternate;
+}
+
 .portrait-img {
   transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
               filter 0.8s ease;
@@ -659,6 +745,51 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 .about-portrait:hover .portrait-img {
   transform: scale(1.06);
   filter: brightness(1.06) saturate(1.08);
+}
+
+/* Puce flottante, débordant du coin bas-droit du portrait — grammaire des
+   chips du bento : verre sombre, point accent, tempo de flottaison propre. */
+.about-chip {
+  position: absolute;
+  right: -14px;
+  bottom: 26px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 17px;
+  border-radius: var(--radius-pill);
+  background: rgba(13, 13, 13, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 18px 40px rgba(20, 14, 14, 0.24);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  animation: tl-float 6.2s ease-in-out infinite alternate -2s;
+}
+.about-chip__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(192, 41, 58, 0.18);
+}
+/* Le Reveal ne pilote que le fondu de la puce ; la flottaison (animation)
+   gouverne le transform, on ne lui oppose donc pas d'entrée en translation. */
+.js .reveal.about-chip { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .about-visual { transform: rotate(var(--tilt, 0deg)); transition: none; }
+  .about-portrait { animation: none; }
+  .about-chip { animation: none; }
+}
+
+@media (max-width: 767px) {
+  .about-chip { right: 10px; bottom: 14px; font-size: 0.72rem; padding: 9px 14px; }
 }
 
 /* ─────────────────────────────────────────────
@@ -1331,6 +1462,8 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   --p: 0.5;
 }
 .bento__grid {
+  /* Ancre des chips flottantes — absolues, donc hors du flux de la grille. */
+  position: relative;
   display: grid;
   grid-template-columns: 1.45fr 1fr;
   gap: 8px;
@@ -1395,6 +1528,70 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   bottom: 18px;
   z-index: 2;
 }
+
+/* ── Chips de réassurance ──
+   Verre dépoli sombre, même famille que la pilule « Disponible » du hero.
+   Elles ne vivent pas dans une photo : posées à cheval sur les bords de la
+   mosaïque, le blur avale ce qui passe derrière — image d'un côté, fond de
+   page de l'autre. */
+.bento__card {
+  margin: 0;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(13, 13, 13, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+  color: #fff;
+}
+
+.bento__float {
+  position: absolute;
+  z-index: 3;
+}
+/* À cheval sur la couture verticale entre la grande image et la colonne. */
+.bento__float--projects {
+  top: 15%;
+  left: 55%;
+  transform: translateX(-50%);
+}
+/* Déborde sous la rangée basse, moitié sur la photo moitié sur le fond. */
+.bento__float--xp {
+  bottom: -20px;
+  right: 16%;
+}
+/* À cheval sur le bord gauche de la grande image, en haut : la troisième
+   pointe de la diagonale que dessinent les trois chips. */
+.bento__float--clients {
+  top: 20%;
+  left: 26px;
+}
+/* Contre-mouvement : les images descendent quand les chips remontent. */
+.bento__float .bento__card {
+  transform: translate3d(0, calc((0.5 - var(--p)) * 30px), 0);
+  will-change: transform;
+}
+
+.bento__stat {
+  padding: 12px 18px 13px;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.4;
+}
+.bento__stat strong {
+  display: block;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  text-transform: none;
+  color: #fff;
+}
+.bento__stat strong span { color: var(--accent); }
 .bento__tagline {
   margin: 0;
   font-size: clamp(1.1rem, 1.7vw, 1.5rem);
@@ -1416,10 +1613,18 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   }
   .bento__row { height: 100%; }
   .bento__cell--tall { display: none; }
+  /* Une seule colonne : la première chip chevauche la couture horizontale
+     entre la grande image et la rangée basse, la seconde déborde en bas. */
+  .bento__float--projects { top: 52%; left: auto; right: 24px; transform: none; }
+  .bento__float--xp { bottom: -16px; right: auto; left: 24px; }
+  .bento__float--clients { top: 14px; left: 12px; }
+  .bento__stat { padding: 10px 14px 11px; font-size: 0.56rem; }
+  .bento__stat strong { font-size: 1.35rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .bento__cell > img { transform: none; inset: 0; height: 100%; }
+  .bento__float .bento__card { transform: none; }
 }
 
 /* ═════════════════════════════════════════════
@@ -1502,9 +1707,11 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 
 /* ── Grille des cinq projets suivants ──
    Cinq zones nommées de tailles inégales. Le compte doit tomber juste
-   (4 + 1 + 1 + 2 + 4 = 12 cellules pour 4 colonnes x 3 rangées) : un span
+   (4 + 1 + 2 + 2 + 3 = 12 cellules pour 4 colonnes x 3 rangées) : un span
    de trop et la grille fabrique des rangées implicites non dimensionnées,
-   qui s'écrasent à quelques pixels. */
+   qui s'écrasent à quelques pixels. La dernière carte occupe la colonne de
+   droite sur toute la hauteur — un portrait, plutôt qu'un bandeau écrasé
+   en pied de grille. */
 .works__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1513,9 +1720,9 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
     clamp(170px, 21svh, 250px)
     clamp(150px, 18svh, 210px);
   grid-template-areas:
-    "a a b c"
-    "a a d d"
-    "e e e e";
+    "a a b e"
+    "a a c e"
+    "d d c e";
   gap: 14px;
 }
 .works__item--1 { grid-area: a; }
@@ -1600,12 +1807,12 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   margin-top: 2px;
 }
 
-/* Les deux petites cartes n'ont pas la place d'un paragraphe : le client et
-   le titre suffisent à les identifier, la description attend la page projet. */
-.works__item--2 .works__item-lead,
-.works__item--3 .works__item-lead { display: none; }
-.works__item--2 .works__item-body,
-.works__item--3 .works__item-body { padding: 16px 18px 18px; }
+/* La petite carte n'a pas la place d'un paragraphe : le client et le titre
+   suffisent à l'identifier, la description attend la page projet. Les deux
+   portraits (c, e) sont hauts mais étroits : chapô court, sur deux lignes. */
+.works__item--2 .works__item-lead { display: none; }
+.works__item--2 .works__item-body { padding: 16px 18px 18px; }
+.works__item--3 .works__item-lead { -webkit-line-clamp: 2; }
 .works__item--4 .works__item-lead { -webkit-line-clamp: 2; }
 .works__item--5 .works__item-lead { -webkit-line-clamp: 2; }
 
@@ -1734,8 +1941,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
     grid-template-areas: "a" "b" "c" "d" "e";
   }
   /* En pleine largeur, toutes les cartes retrouvent la place d'un chapô. */
-  .works__item--2 .works__item-lead,
-  .works__item--3 .works__item-lead { display: -webkit-box; }
+  .works__item--2 .works__item-lead { display: -webkit-box; }
 }
 
 /* Mouvement réduit — on garde les fondus (l'information), on retire les
@@ -1853,4 +2059,381 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   }
   .lightbox-counter { top: 16px; left: 16px; }
   .lightbox-close { top: 12px; right: 14px; }
+}
+
+/* ─────────────────────────────────────────────
+   Pilule e-mail flottante
+   Reprend la grammaire de la pilule « Menu » : surface noire, radius pilule,
+   attraction magnétique. Sous le nav (100) et le menu (200) : le voile la
+   recouvre quand le panneau est ouvert, elle n'a rien à y faire.
+   ───────────────────────────────────────────── */
+.mailpill {
+  position: fixed;
+  left: 22px;
+  bottom: 20px;
+  z-index: 90;
+}
+.mailpill__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--bar-h);
+  padding-inline: 18px 15px;
+  /* Liseré hairline : détache la pilule noire des sections sombres (hero,
+     bandeau) ; sur fond clair il se confond avec le bord et disparaît. */
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-pill);
+  background: #0d0d0d;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.22);
+  transition: transform 0.25s ease;
+}
+.mailpill__btn:active { transform: scale(0.96); }
+.mailpill__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Libellés superposés dans une même cellule : l'e-mail, plus long, fixe la
+   largeur — la pilule ne bouge pas d'un pixel pendant l'échange. */
+.mailpill__labels { display: grid; text-align: left; }
+.mailpill__labels > span {
+  grid-area: 1 / 1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.mailpill__done { opacity: 0; transform: translateY(6px); }
+.is-copied .mailpill__mail { opacity: 0; transform: translateY(-6px); }
+.is-copied .mailpill__done { opacity: 1; transform: translateY(0); }
+
+/* Même principe pour l'icône : copie → coche. */
+.mailpill__icons { display: grid; opacity: 0.85; }
+.mailpill__icons > svg {
+  grid-area: 1 / 1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.mailpill__ic-check { opacity: 0; transform: scale(0.6); color: var(--accent); }
+.is-copied .mailpill__ic-copy { opacity: 0; transform: scale(0.6); }
+.is-copied .mailpill__ic-check { opacity: 1; transform: scale(1); }
+
+@media (max-width: 560px) {
+  .mailpill { left: 14px; bottom: 14px; }
+  .mailpill__btn { font-size: 0.78rem; padding-inline: 15px 12px; gap: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mailpill__labels > span,
+  .mailpill__icons > svg { transition: opacity 0.2s ease; transform: none; }
+}
+
+/* ─────────────────────────────────────────────
+   Parcours — frise sous le bloc À propos
+   Quatre jalons, une phrase chacun. La ligne se dessine au fil du scroll
+   (variable --tlp écrite par About.tsx) ; chaque jalon est un Reveal
+   autonome qui déclenche ses rouleaux de chiffres et ses masques de texte
+   quand on l'atteint. Aucune bibliothèque d'animation.
+   ───────────────────────────────────────────── */
+.tl {
+  padding: 120px 56px 0;
+  background: var(--bg);
+}
+
+/* Surtitre de section, motif de la charte : tiret rouge + label capitales.
+   Générique, partagé entre le parcours et le à-propos pour qu'ils portent la
+   même signature — c'est aussi ce qui les fait lire comme une suite. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.63rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+}
+.eyebrow__dash { width: 22px; height: 2px; background: var(--accent); }
+
+/* ── En-tête de module ── */
+.tl__head {
+  max-width: 1100px;
+  margin: 0 auto 64px;
+}
+.tl__label { margin-bottom: 20px; }
+.tl__heading {
+  margin: 0;
+  font-size: clamp(1.9rem, 3.4vw, 2.9rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--text);
+  max-width: 14em;
+}
+
+/* ── Ligne de vie centrale, jalons alternés ── */
+.tl__list {
+  position: relative;
+  list-style: none;
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 8px 0 0;
+}
+/* La ligne, scrubbée : scaleY suit la progression de lecture. Elle court
+   jusqu'au bas de la liste ; le pont du à-propos la reprend juste en dessous,
+   au même axe (centre de page), pour que le fil ne casse pas. */
+.tl__list::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+  margin-left: -0.75px;
+  background: var(--text-dim);
+  transform: scaleY(var(--tlp, 0));
+  transform-origin: top;
+  transition: transform 0.15s linear;
+}
+
+/* Un jalon occupe une demi-largeur, en alternance — l'année et le texte
+   restent alignés à gauche des deux côtés, seule la boîte change de rive. */
+.tl__item {
+  position: relative;
+  width: calc(50% - 56px);
+  padding-block: 26px;
+}
+.tl__item:nth-child(even) { margin-left: auto; }
+
+/* ── Couche de dérive ──
+   Réponse au scroll : translation verticale = progression du module
+   (--pdrift) × amplitude propre à la carte (--drift), plus l'inclinaison de
+   repos (--tilt). C'est ce léger décalage qui fait « planer » les cartes les
+   unes par rapport aux autres quand on descend. */
+.tl__drift {
+  transform:
+    translateY(calc(var(--pdrift, 0) * var(--drift, 0) * 1px))
+    rotate(var(--tilt, 0deg));
+  transition: transform 0.2s linear;
+  will-change: transform;
+}
+
+/* ── Carte ──
+   Surface du système, mais soulevée : double ombre (une portée large et
+   diffuse pour la lévitation, une courte pour l'assise), hairline, radius
+   généreux. La flottaison continue vit ici. */
+.tl__card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 34px 30px 30px;
+  box-shadow:
+    0 34px 60px -28px rgba(20, 14, 14, 0.34),
+    0 8px 20px -12px rgba(20, 14, 14, 0.14);
+  animation: tl-float 6.4s ease-in-out infinite alternate;
+  transition: box-shadow 0.5s ease;
+}
+/* Phases et tempos déphasés : les cartes respirent chacune à leur rythme,
+   pas en banc de poissons. */
+.tl__item:nth-child(even) .tl__card { animation-duration: 7.6s; animation-delay: -2.8s; }
+.tl__item:nth-child(3) .tl__card { animation-duration: 6.9s; animation-delay: -1.4s; }
+.tl__item:nth-child(4) .tl__card { animation-duration: 8.1s; animation-delay: -4.2s; }
+
+/* Sillage accent en pied de carte : une lueur froide très diffuse qui donne
+   le sentiment que la carte lévite au-dessus de la page. */
+.tl__card::after {
+  content: '';
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -14px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(192, 41, 58, 0.16), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.tl__item.is-in .tl__card::after { opacity: 1; }
+
+@keyframes tl-float {
+  from { transform: translateY(-6px); }
+  to   { transform: translateY(7px); }
+}
+
+/* ── Éclosion ──
+   La carte pousse depuis son point d'ancrage sur la ligne : origine côté
+   ligne, scale + montée, détente expo. Remplace la révélation générique du
+   Reveal (même spécificité, déclarée plus bas dans la feuille). */
+.tl__item:nth-child(odd)  { transform-origin: bottom right; }
+.tl__item:nth-child(even) { transform-origin: bottom left; }
+.js .reveal.tl__item {
+  opacity: 0;
+  transform: translateY(11%) scale(0.7);
+  transition: opacity 0.7s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js .reveal.tl__item.is-in { opacity: 1; transform: none; }
+
+/* Le point, posé sur la ligne centrale : il éclot quand la pointe du tracé
+   arrive à sa hauteur (même seuil que le Reveal du jalon). */
+.tl__item::before {
+  content: '';
+  position: absolute;
+  top: 72px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1.2) 0.25s;
+}
+.tl__item:nth-child(odd)::before  { right: -61px; }
+.tl__item:nth-child(even)::before { left: -61px; }
+.tl__item.is-in::before { transform: scale(1); }
+
+/* Le trait qui relie la boîte à la ligne centrale, révélé avec le point. */
+.tl__item::after {
+  content: '';
+  position: absolute;
+  top: 76px;
+  width: 36px;
+  height: 1px;
+  background: var(--text-dim);
+  transform: scaleX(0);
+  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s;
+}
+.tl__item:nth-child(odd)::after  { right: -48px; transform-origin: right; }
+.tl__item:nth-child(even)::after { left: -48px; transform-origin: left; }
+.tl__item.is-in::after { transform: scaleX(1); }
+
+/* Le dernier jalon, « la suite s'écrit » : son point respire en continu, un
+   halo accent qui s'ouvre puis s'éteint. Sur box-shadow seule, le scale-in
+   du point (transform) n'est pas perturbé. */
+.tl__item:last-child.is-in::before {
+  animation: tl-pulse 2.6s ease-out infinite 0.6s;
+}
+@keyframes tl-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(192, 41, 58, 0.45); }
+  70%  { box-shadow: 0 0 0 12px rgba(192, 41, 58, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(192, 41, 58, 0); }
+}
+
+/* ── Rouleaux de chiffres ──
+   Chaque digit est une colonne 0-9 sous masque d'1em ; la piste remonte
+   jusqu'à la valeur cible (--d). Sans JavaScript, pas de classe `js` : la
+   piste est déjà à sa position finale et l'année reste lisible. */
+.tl__digit {
+  display: inline-block;
+  overflow: hidden;
+  height: 1em;
+  vertical-align: top;
+}
+/* Le « 1 » laisse un vide à sa droite (glyphe étroit dans une case large) :
+   on tire le chiffre suivant vers lui pour resserrer, ex. le « 8 » de '18. */
+.tl__digit--one + .tl__digit { margin-left: -0.28em; }
+.tl__digit-track {
+  display: block;
+  transform: translateY(calc(var(--d) * -1em));
+}
+.tl__digit-track > span {
+  display: block;
+  height: 1em;
+  line-height: 1;
+}
+.js .tl__digit-track {
+  transform: translateY(0);
+  transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1)
+    calc(0.15s + var(--j) * 0.12s);
+}
+.js .tl__item.is-in .tl__digit-track {
+  transform: translateY(calc(var(--d) * -1em));
+}
+
+/* ── Masques de texte ──
+   Titre puis phrase remontent sous masque, décalés — la grammaire des
+   révélations mot à mot du reste du site, appliquée à la ligne. */
+.tl__mask { display: block; overflow: hidden; }
+.tl__mask-inner { display: block; }
+.js .tl__mask-inner {
+  transform: translateY(110%);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+}
+.js .tl__text .tl__mask-inner { transition-delay: 0.37s; }
+.js .tl__item.is-in .tl__mask-inner { transform: translateY(0); }
+
+/* L'année en contour, surdimensionnée, qui chevauche le bord haut de la
+   carte : c'est le geste stylisé du module. Corps creux (fill transparent +
+   text-stroke) pour ne pas alourdir, tiré vers le haut pour déborder. */
+.tl__year {
+  display: block;
+  margin: -0.62em 0 14px;
+  font-size: clamp(3.6rem, 6.4vw, 5.6rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.6px var(--text-dim);
+  transition: -webkit-text-stroke-color 0.45s ease, color 0.45s ease;
+}
+/* Au survol, le chiffre creux se remplit d'accent — la carte s'anime sous
+   le curseur sans rien déplacer d'autre. */
+.tl__card:hover .tl__year {
+  color: var(--accent);
+  -webkit-text-stroke-color: var(--accent);
+}
+.tl__card:hover {
+  box-shadow:
+    0 46px 74px -30px rgba(20, 14, 14, 0.42),
+    0 10px 24px -12px rgba(20, 14, 14, 0.18);
+}
+.tl__title {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.tl__text {
+  margin: 0;
+  max-width: 52ch;
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-mid);
+}
+
+/* Mobile : l'alternance n'a plus la place, la ligne repasse à gauche et les
+   jalons s'empilent en pleine largeur. */
+@media (max-width: 767px) {
+  .tl { padding: 80px 20px 32px; }
+  .tl__head { margin-bottom: 44px; }
+  .tl__list::before { left: 5px; margin-left: 0; }
+  .tl__item,
+  .tl__item:nth-child(even) {
+    width: 100%;
+    margin-left: 0;
+    padding: 20px 0 20px 34px;
+  }
+  .tl__item:nth-child(odd)::before,
+  .tl__item:nth-child(even)::before { left: 0; right: auto; top: 62px; }
+  .tl__item::after { display: none; }
+  .tl__card { padding: 34px 22px 24px; }
+  /* Moins de débord en colonne étroite : la carte du dessus est juste
+     au-dessus, on évite le chevauchement. */
+  .tl__year { margin-top: -0.4em; font-size: clamp(3rem, 12vw, 4rem); }
+}
+
+/* Mouvement réduit : ligne complète, cartes posées, chiffres et textes à
+   leur position finale (Reveal pose is-in immédiatement, on coupe tout —
+   flottaison, dérive, pulsation comprises). */
+@media (prefers-reduced-motion: reduce) {
+  .tl__list::before { transform: scaleY(1); transition: none; }
+  .tl__item::before { transform: scale(1); transition: none; animation: none; }
+  .tl__item::after { transform: scaleX(1); transition: none; }
+  .tl__drift { transform: rotate(var(--tilt, 0deg)); transition: none; }
+  .tl__card { animation: none; }
+  .js .reveal.tl__item { opacity: 1; transform: none; transition: none; }
+  .js .tl__digit-track { transition: none; }
+  .js .tl__mask-inner { transition: none; }
 }

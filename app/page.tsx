@@ -1,7 +1,7 @@
 import Hero from '@/components/home/Hero'
 import Bento from '@/components/home/Bento'
 import Works from '@/components/home/Works'
-import Marquee from '@/components/home/Marquee'
+import Parcours from '@/components/home/Parcours'
 import About from '@/components/home/About'
 import Footer from '@/components/layout/Footer'
 
@@ -11,10 +11,10 @@ export default function HomePage() {
       <Hero />
       {/* La mosaïque enchaîne sur le hero, puis les travaux sont présentés en
           blocs éditoriaux — un par métier — plutôt qu'en carrousel collant.
-          Le bandeau referme la séquence avant la présentation. */}
+          Le parcours pose les bascules en quatre jalons, la bio détaille. */}
       <Bento />
       <Works />
-      <Marquee />
+      <Parcours />
       <About />
       <Footer />
     </main>

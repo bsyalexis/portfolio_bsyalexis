@@ -9,7 +9,6 @@ import Magnetic from '@/components/motion/Magnetic'
 export default function Nav() {
   const [pastHero, setPastHero] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [pct, setPct] = useState(0)
 
   const closeMenu = useCallback(() => setMenuOpen(false), [])
 
@@ -22,9 +21,6 @@ export default function Nav() {
       raf = 0
       const hero = document.getElementById('hero')
       setPastHero(!hero || window.scrollY >= hero.offsetHeight - 120)
-
-      const max = document.documentElement.scrollHeight - window.innerHeight
-      setPct(max > 0 ? Math.min(100, Math.round((window.scrollY / max) * 100)) : 0)
     }
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
 
@@ -91,7 +87,7 @@ export default function Nav() {
         </div>
       </header>
 
-      <Menu open={menuOpen} onClose={closeMenu} pct={pct} />
+      <Menu open={menuOpen} onClose={closeMenu} />
     </>
   )
 }

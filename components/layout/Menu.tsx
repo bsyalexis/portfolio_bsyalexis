@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 const LINKS = [
   { href: '/',         label: 'Accueil' },
-  { href: '/#travaux', label: 'Travaux' },
+  { href: '/travaux',  label: 'Travaux' },
   { href: '/#about',   label: 'À propos' },
   { href: '/#contact', label: 'Contact' },
 ]
@@ -19,9 +19,6 @@ const SOCIALS = [
 interface Props {
   open: boolean
   onClose: () => void
-  /** Progression de lecture, calculée une seule fois dans Nav et partagée
-      avec la pilule fermée : les deux affichent forcément le même chiffre. */
-  pct: number
 }
 
 /**
@@ -29,10 +26,9 @@ interface Props {
  *
  * Le rideau noir plein écran masquait complètement la page ; ce panneau
  * centré la laisse visible autour de lui, ce qui garde le contexte de
- * navigation. La barre supérieure porte l'action de fermeture et la
- * progression de lecture.
+ * navigation. La barre supérieure porte l'action de fermeture.
  */
-export default function Menu({ open, onClose, pct }: Props) {
+export default function Menu({ open, onClose }: Props) {
   const panelRef = useRef<HTMLDivElement>(null)
   const firstRef = useRef<HTMLAnchorElement>(null)
 
@@ -91,7 +87,6 @@ export default function Menu({ open, onClose, pct }: Props) {
             <span className="menu__close-icon" aria-hidden="true">✕</span>
             Fermer
           </button>
-          <span className="menu__pct" aria-hidden="true">{pct}%</span>
         </div>
 
         <div className="menu__body">

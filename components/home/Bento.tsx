@@ -10,6 +10,7 @@ const IMGS = [
   '/DSC01261.webp',
 ]
 
+
 export default function Bento() {
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -73,6 +74,30 @@ export default function Bento() {
             </Reveal>
           </div>
         </div>
+
+        {/* Chips de réassurance, hors des cellules : posées à cheval sur les
+            bords de la mosaïque, elles flottent au-dessus de la composition
+            au lieu d'être enfermées dans une photo. Leur parallaxe est
+            inversée par rapport aux images — c'est ce contre-mouvement qui
+            donne l'impression qu'elles sont détachées du plan. */}
+        <Reveal delay={0.3} className="bento__float bento__float--projects">
+          <p className="bento__card bento__stat">
+            <strong>3</strong>
+            Expertises · photo, vidéo, DA
+          </p>
+        </Reveal>
+        <Reveal delay={0.4} className="bento__float bento__float--xp">
+          <p className="bento__card bento__stat">
+            <strong>8<span>+</span></strong>
+            Années d&rsquo;expérience
+          </p>
+        </Reveal>
+        <Reveal delay={0.5} className="bento__float bento__float--clients">
+          <p className="bento__card bento__stat">
+            <strong>60<span>+</span></strong>
+            Clients accompagnés
+          </p>
+        </Reveal>
 
       </div>
     </section>

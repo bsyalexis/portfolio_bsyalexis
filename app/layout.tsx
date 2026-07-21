@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Nav from '@/components/layout/Nav'
+import EmailPill from '@/components/layout/EmailPill'
 import LenisProvider from '@/components/layout/LenisProvider'
 import ScrollProgress from '@/components/layout/ScrollProgress'
 import '@/styles/globals.css'
@@ -61,6 +62,7 @@ export default function RootLayout({
         <LenisProvider>
           <Nav />
           {children}
+          <EmailPill />
         </LenisProvider>
       </body>
     </html>

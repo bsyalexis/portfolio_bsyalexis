@@ -131,10 +131,10 @@ export default function Works() {
                 <img src={p.cover} alt="" loading="lazy" decoding="async" />
               )}
             </div>
+            {/* Titre, type, année — rien de plus : ces cartes sont d'abord
+                des visuels, la légende ne fait que les nommer. */}
             <div className="works__item-body">
-              <span className="works__item-client">{p.client}</span>
               <h4 className="works__item-title">{p.title}</h4>
-              <p className="works__item-lead">{lead(p)}</p>
               <span className="works__item-cat">{label(p)} · {p.year}</span>
             </div>
           </Link>
