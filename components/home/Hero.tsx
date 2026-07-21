@@ -10,12 +10,12 @@ import Magnetic from '@/components/motion/Magnetic'
    Ne pas ajouter de rôle ici sans recalculer la proportion. */
 const ROLES = ['Photographe', 'Vidéaste', 'Photographe', 'Vidéaste', 'Directeur artistique']
 
-/* Boucle de fond. VP9/WebM : le seul format vidéo présent dans le dépôt.
-   Un compagnon H.264/MP4 couvrirait les navigateurs plus anciens, mais il
-   demande un ffmpeg qui n'est pas installé ici — d'où le repli images
-   ci-dessous, qui prend le relais dès que la lecture échoue. */
-const VIDEO  = '/images/projets/eva-cl/CONVERGENCE.webm'
-const POSTER = '/images/projets/eva-cl/3.webp'
+/* Boucle de fond : le showreel encodé en AV1 (MP4). AV1 pèse nettement moins
+   que le VP9 à qualité égale, mais tous les navigateurs ne le décodent pas
+   (Safari selon la machine) — d'où le repli images ci-dessous, qui prend le
+   relais dès que la lecture échoue. */
+const VIDEO  = '/videos/SHOWREEL.mp4'
+const POSTER = '/videos/SHOWREEL_poster.webp'
 
 /* Repli : les vraies images des projets, également servies sur mobile pour
    ne pas imposer 4 Mo de vidéo en 4G. */
@@ -119,11 +119,11 @@ export default function Hero() {
             loop
             playsInline
             preload="metadata"
-            /* Si le navigateur ne sait pas lire le VP9, on bascule sur le
+            /* Si le navigateur ne sait pas décoder l'AV1, on bascule sur le
                fondu d'images plutôt que de laisser un cadre noir. */
             onError={() => setUseVideo(false)}
           >
-            <source src={VIDEO} type="video/webm" />
+            <source src={VIDEO} type="video/mp4" />
           </video>
         ) : (
           FRAMES.map((src, i) => (
