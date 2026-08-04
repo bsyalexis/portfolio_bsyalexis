@@ -4,10 +4,13 @@ import { useState, useCallback } from 'react'
 import Lightbox from './Lightbox'
 
 interface Visual {
-  layout:   string
-  images:   string[]
-  vimeoId?: string
-  videos?:  string[]
+  layout:     string
+  images:     string[]
+  vimeoId?:   string
+  youtubeId?: string
+  video?:     string   // fichier servi par le site (AV1), lu à la demande
+  poster?:    string
+  videos?:    string[]
 }
 
 interface Props {
@@ -77,6 +80,45 @@ export default function VisualBlock({ visual }: Props) {
             allow="fullscreen; picture-in-picture"
             allowFullScreen
           />
+        </div>
+      )
+    }
+    /* Même traitement que Vimeo côté mise en page. Domaine -nocookie et
+       `rel=0` comme la modale showreel : pas de cookie tant que le visiteur
+       ne lance pas la lecture, et pas de suggestions d'autres chaînes en fin
+       de vidéo. `loading="lazy"` parce que le bloc est sous la ligne de
+       flottaison — l'iframe ne pèse rien tant qu'on n'a pas scrollé. */
+    if (visual.youtubeId) {
+      return (
+        <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000' }}>
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${visual.youtubeId}?rel=0&modestbranding=1&playsinline=1`}
+            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+            allow="fullscreen; encrypted-media; picture-in-picture"
+            allowFullScreen
+            loading="lazy"
+          />
+        </div>
+      )
+    }
+    /* Vidéo servie par le site. `preload="none"` est ce qui rend un fichier
+       lourd acceptable : tant que le visiteur ne lance pas la lecture, seul le
+       poster est téléchargé — zéro octet de vidéo. Pas d'autoplay non plus,
+       c'est un film qu'on regarde avec le son, pas une boucle d'ambiance.
+       Source en video/mp4 sans codec-string, comme le hero : les navigateurs
+       qui ne décodent pas l'AV1 échouent proprement et laissent le poster. */
+    if (visual.video) {
+      return (
+        <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000' }}>
+          <video
+            controls
+            preload="none"
+            playsInline
+            poster={visual.poster}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+          >
+            <source src={visual.video} type="video/mp4" />
+          </video>
         </div>
       )
     }

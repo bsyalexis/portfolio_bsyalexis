@@ -747,13 +747,23 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   filter: brightness(1.06) saturate(1.08);
 }
 
-/* Puce flottante, débordant du coin bas-droit du portrait — grammaire des
-   chips du bento : verre sombre, point accent, tempo de flottaison propre. */
-.about-chip {
+/* Pile de puces, débordant du coin bas-droit du portrait. C'est le conteneur
+   qui porte l'ancrage : les puces s'alignent à droite et s'empilent vers le
+   haut, donc en ajouter une ne déplace pas les autres. */
+.about-chips {
   position: absolute;
   right: -14px;
   bottom: 26px;
   z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 9px;
+}
+
+/* Puce — grammaire des chips du bento : verre sombre, point accent, tempo de
+   flottaison propre. */
+.about-chip {
   display: inline-flex;
   align-items: center;
   gap: 9px;
@@ -771,6 +781,9 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   white-space: nowrap;
   animation: tl-float 6.2s ease-in-out infinite alternate -2s;
 }
+/* Tempo déphasé sur la seconde : deux puces qui flottent à l'unisson se lisent
+   comme un seul bloc rigide. */
+.about-chip:nth-child(2) { animation-duration: 7.4s; animation-delay: -3.6s; }
 .about-chip__dot {
   width: 7px;
   height: 7px;
@@ -789,7 +802,8 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 @media (max-width: 767px) {
-  .about-chip { right: 10px; bottom: 14px; font-size: 0.72rem; padding: 9px 14px; }
+  .about-chips { right: 10px; bottom: 14px; gap: 7px; }
+  .about-chip { font-size: 0.72rem; padding: 9px 14px; }
 }
 
 /* ─────────────────────────────────────────────
@@ -2238,6 +2252,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 .tl__item:nth-child(even) .tl__card { animation-duration: 7.6s; animation-delay: -2.8s; }
 .tl__item:nth-child(3) .tl__card { animation-duration: 6.9s; animation-delay: -1.4s; }
 .tl__item:nth-child(4) .tl__card { animation-duration: 8.1s; animation-delay: -4.2s; }
+.tl__item:nth-child(5) .tl__card { animation-duration: 7.2s; animation-delay: -0.6s; }
 
 /* Sillage accent en pied de carte : une lueur froide très diffuse qui donne
    le sentiment que la carte lévite au-dessus de la page. */
@@ -2376,6 +2391,27 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   -webkit-text-stroke: 1.6px var(--text-dim);
   transition: -webkit-text-stroke-color 0.45s ease, color 0.45s ease;
 }
+/* « ans » accolé aux chiffres : même corps creux, réduit et décalé vers le
+   haut pour se poser sur la ligne de tête des digits plutôt que sur leur
+   pied. Sans ça l'unité pèse autant que l'âge et casse le geste. */
+.tl__unit {
+  display: inline-block;
+  margin-left: 0.14em;
+  font-size: 0.34em;
+  letter-spacing: -0.01em;
+  vertical-align: top;
+  transform: translateY(0.42em);
+}
+
+/* Le jalon du présent n'a pas de chiffre à faire rouler : le mot prend la
+   place du rouleau, à un corps qui tient sur une ligne dans la carte. */
+.tl__year--now {
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  margin-top: -0.2em;
+  letter-spacing: -0.02em;
+  -webkit-text-stroke-width: 1.1px;
+}
+
 /* Au survol, le chiffre creux se remplit d'accent — la carte s'anime sous
    le curseur sans rien déplacer d'autre. */
 .tl__card:hover .tl__year {
@@ -2422,6 +2458,9 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   /* Moins de débord en colonne étroite : la carte du dessus est juste
      au-dessus, on évite le chevauchement. */
   .tl__year { margin-top: -0.4em; font-size: clamp(3rem, 12vw, 4rem); }
+  /* Le mot du présent ne suit pas l'échelle des chiffres : sans ce rappel il
+     hériterait du clamp ci-dessus et déborderait de la carte étroite. */
+  .tl__year--now { margin-top: -0.15em; font-size: clamp(1.35rem, 5.4vw, 1.8rem); }
 }
 
 /* Mouvement réduit : ligne complète, cartes posées, chiffres et textes à

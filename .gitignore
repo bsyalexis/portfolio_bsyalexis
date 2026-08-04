@@ -40,3 +40,15 @@ next-env.d.ts
 
 # Windows artifacts
 nul
+
+# Sources photo/vidéo pleine résolution des projets récents (~800 Mo).
+# Converties en .webp par scripts/convert-projet.mjs ; ce sont les .webp qui
+# sont servis. Les originaux restent sur le disque mais ne sont ni versionnés
+# ni déployés. Volontairement ciblé : les .jpg des projets plus anciens
+# (st-ferre) et les vignettes HERO.jpg des clips restent suivis.
+/public/images/projets/volkan-eva-esport/*.jpg
+/public/images/projets/padelshot-p100-saint-etienne/*.jpg
+/public/images/projets/inpick-theo-platel/**/*.jpg
+# Master du teaser EVA (130 Mo, 15 Mbps). C'est TEASER.mp4, l'encodage AV1,
+# qui est servi — lui reste versionné.
+/public/images/projets/eva-ligue-1-2025-teaser/TEASER_EL1_2025_2.mp4

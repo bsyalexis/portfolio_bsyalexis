@@ -1,5 +1,75 @@
 [
   {
+    "slug": "volkan-eva-esport",
+    "title": "Volkan - EVA - Shooting Esport",
+    "client": "Volkan",
+    "category": "photo",
+    "year": "2026",
+    "date": "2026-07",
+    "metaDescription": "Photographie · Volkan · Juillet 2026 — Shooting esport pour Volkan sur la scène EVA : portraits joueurs et visuels d'équipe.",
+    "layout": "photo-gallery",
+    "galleryText": "",
+    "galleryImages": [
+      "/images/projets/volkan-eva-esport/A7407330.webp",
+      "/images/projets/volkan-eva-esport/A7407468.webp",
+      "/images/projets/volkan-eva-esport/A7407507.webp",
+      "/images/projets/volkan-eva-esport/A7407695.webp",
+      "/images/projets/volkan-eva-esport/A7407719.webp",
+      "/images/projets/volkan-eva-esport/A7408113.webp",
+      "/images/projets/volkan-eva-esport/A7408117.webp",
+      "/images/projets/volkan-eva-esport/A7408168.webp",
+      "/images/projets/volkan-eva-esport/A7408184.webp",
+      "/images/projets/volkan-eva-esport/A7408309.webp",
+      "/images/projets/volkan-eva-esport/A7408349.webp",
+      "/images/projets/volkan-eva-esport/A7408378.webp",
+      "/images/projets/volkan-eva-esport/A7409054.webp",
+      "/images/projets/volkan-eva-esport/A7409280.webp"
+    ],
+    "ratio": "2:3",
+    "featured": false,
+    "chapters": [],
+    "nextProject": "padelshot-p100-saint-etienne",
+    "prevProject": "hakai-allumer",
+    "cover": "/images/projets/volkan-eva-esport/A7407330.webp",
+    "heroImage": "/images/projets/volkan-eva-esport/A7407330.webp"
+  },
+  {
+    "slug": "padelshot-p100-saint-etienne",
+    "title": "Tournoi P100 - PadelShot Saint-Étienne",
+    "client": "PadelShot Saint-Étienne",
+    "category": "photo",
+    "year": "2026",
+    "date": "2026-07",
+    "metaDescription": "Photographie · PadelShot Saint-Étienne · Juillet 2026 — Reportage photo du tournoi P100 de padel à Saint-Étienne.",
+    "layout": "photo-gallery",
+    "galleryText": "",
+    "galleryImages": [
+      "/images/projets/padelshot-p100-saint-etienne/A7402470.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7402718.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7402909-2.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7403153.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7403174-2.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7403378-2.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7403658.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7404372.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7404421.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7405044.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7405231-2-2.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7405288-2.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7405500-2.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7405525.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7405624-2.webp",
+      "/images/projets/padelshot-p100-saint-etienne/A7405626.webp"
+    ],
+    "ratio": "2:3",
+    "featured": false,
+    "chapters": [],
+    "nextProject": "st-ferre-coupe-haute-loire",
+    "prevProject": "volkan-eva-esport",
+    "cover": "/images/projets/padelshot-p100-saint-etienne/A7402470.webp",
+    "heroImage": "/images/projets/padelshot-p100-saint-etienne/A7403658.webp"
+  },
+  {
     "slug": "st-ferre-coupe-haute-loire",
     "title": "Finale Régis Fay Coupe de Haute-Loire",
     "client": "A.S Saint-Ferréol",
@@ -37,7 +107,7 @@
     "featured": true,
     "chapters": [],
     "nextProject": "fc-saint-chamond",
-    "prevProject": "astral-esport"
+    "prevProject": "padelshot-p100-saint-etienne"
   },
   {
     "slug": "fc-saint-chamond",
@@ -268,7 +338,7 @@
     "heroImage": "/images/projets/astral-esport/A7405160.webp",
     "ratio": "16:9",
     "featured": true,
-    "nextProject": "st-ferre-coupe-haute-loire",
+    "nextProject": "inpick-theo-platel",
     "prevProject": "fc-saint-joseph",
     "chapters": [
       {
@@ -333,5 +403,198 @@
         ]
       }
     ]
+  },
+  {
+    "slug": "inpick-theo-platel",
+    "title": "Inpick x Theo Platel",
+    "client": "Inpick",
+    "category": "photo",
+    "year": "2026",
+    "date": "2026-02",
+    "metaDescription": "Photographie · Inpick · Février 2026 — Journée de promotion d’Inpick House of Pickleball à Lyon, avec Théo Platel, jeune champion français de pickleball.",
+    "ratio": "2:3",
+    "featured": false,
+    "chapters": [
+      {
+        "number": "I",
+        "title": "Inpick, House of Pickleball",
+        "text": "Le lieu, à Lyon : les terrains, l’ambiance, une journée de promotion du pickleball.",
+        "darkBackground": false,
+        "visuals": [
+          {
+            "layout": "grid-3col",
+            "images": [
+              "/images/projets/inpick-theo-platel/inpick/A7401325.webp",
+              "/images/projets/inpick-theo-platel/inpick/A7401451.webp",
+              "/images/projets/inpick-theo-platel/inpick/A7401576.webp",
+              "/images/projets/inpick-theo-platel/inpick/A7401627.webp",
+              "/images/projets/inpick-theo-platel/inpick/A7401636.webp",
+              "/images/projets/inpick-theo-platel/inpick/A7402341.webp",
+              "/images/projets/inpick-theo-platel/inpick/A7402561.webp",
+              "/images/projets/inpick-theo-platel/inpick/A7402632.webp",
+              "/images/projets/inpick-theo-platel/inpick/A7402740.webp",
+              "/images/projets/inpick-theo-platel/inpick/A7402814.webp",
+              "/images/projets/inpick-theo-platel/inpick/A7409057.webp",
+              "/images/projets/inpick-theo-platel/inpick/A7409058.webp",
+              "/images/projets/inpick-theo-platel/inpick/A7409082.webp"
+            ]
+          }
+        ]
+      },
+      {
+        "number": "II",
+        "title": "Théo Platel",
+        "text": "Le jeune champion français de pickleball en démonstration sur les terrains.",
+        "darkBackground": true,
+        "visuals": [
+          {
+            "layout": "grid-3col",
+            "images": [
+              "/images/projets/inpick-theo-platel/theoplatel/A7400009.webp",
+              "/images/projets/inpick-theo-platel/theoplatel/A7400053.webp",
+              "/images/projets/inpick-theo-platel/theoplatel/A7400150.webp",
+              "/images/projets/inpick-theo-platel/theoplatel/A7400249.webp",
+              "/images/projets/inpick-theo-platel/theoplatel/A7400882.webp",
+              "/images/projets/inpick-theo-platel/theoplatel/A7409100.webp",
+              "/images/projets/inpick-theo-platel/theoplatel/A7409222.webp",
+              "/images/projets/inpick-theo-platel/theoplatel/A7409391.webp",
+              "/images/projets/inpick-theo-platel/theoplatel/A7409404.webp",
+              "/images/projets/inpick-theo-platel/theoplatel/A7409519.webp",
+              "/images/projets/inpick-theo-platel/theoplatel/A7409545.webp",
+              "/images/projets/inpick-theo-platel/theoplatel/A7409623.webp"
+            ]
+          }
+        ]
+      }
+    ],
+    "nextProject": "eva-ligue-1-2025-teaser",
+    "prevProject": "astral-esport",
+    "cover": "/images/projets/inpick-theo-platel/theoplatel/A7400009.webp",
+    "heroImage": "/images/projets/inpick-theo-platel/inpick/A7409057.webp"
+  },
+  {
+    "slug": "eva-ligue-1-2025-teaser",
+    "title": "EVA Ligue 1 2025 - Teaser",
+    "client": "EVA",
+    "category": "video",
+    "year": "2025",
+    "date": "2025-01",
+    "metaDescription": "Vidéo · EVA · Janvier 2025 — Teaser de la Ligue 1 EVA 2025.",
+    "ratio": "16:9",
+    "featured": false,
+    "chapters": [
+      {
+        "number": "I",
+        "title": "Le teaser",
+        "text": "Teaser d’ouverture de la Ligue 1 EVA 2025 : présentation des équipes du Spring Split et séquences de jeu.",
+        "darkBackground": true,
+        "visuals": [
+          {
+            "layout": "full",
+            "images": [],
+            "video": "/images/projets/eva-ligue-1-2025-teaser/TEASER.mp4",
+            "poster": "/images/projets/eva-ligue-1-2025-teaser/HERO.webp"
+          }
+        ]
+      }
+    ],
+    "nextProject": "blanka-beldia",
+    "prevProject": "inpick-theo-platel",
+    "cover": "/images/projets/eva-ligue-1-2025-teaser/HERO.webp",
+    "heroImage": "/images/projets/eva-ligue-1-2025-teaser/HERO.webp",
+    "coverVideo": "/images/projets/eva-ligue-1-2025-teaser/LOOP.mp4"
+  },
+  {
+    "slug": "blanka-beldia",
+    "title": "Blanka - Beldia",
+    "client": "Blanka",
+    "category": "video",
+    "year": "2023",
+    "date": "2023-02",
+    "metaDescription": "Vidéo · Blanka · Février 2023 — Clip musical « Beldia » : cadrage, montage et FX.",
+    "ratio": "16:9",
+    "featured": false,
+    "chapters": [
+      {
+        "number": "I",
+        "title": "Le clip",
+        "text": "Je suis au cadrage, au montage et aux FX. En amont, on a mené à plusieurs la direction artistique et le travail de chargé de production.",
+        "darkBackground": true,
+        "visuals": [
+          {
+            "layout": "full",
+            "images": [],
+            "youtubeId": "7EsLBxZAYSE"
+          }
+        ]
+      }
+    ],
+    "nextProject": "hakai-lune",
+    "prevProject": "eva-ligue-1-2025-teaser",
+    "youtubeId": "7EsLBxZAYSE",
+    "cover": "/images/projets/blanka-beldia/HERO.jpg",
+    "heroImage": "/images/projets/blanka-beldia/HERO.jpg"
+  },
+  {
+    "slug": "hakai-lune",
+    "title": "Hakai - Lune",
+    "client": "Hakai",
+    "category": "video",
+    "year": "2022",
+    "date": "2022-07",
+    "metaDescription": "Vidéo · Hakai · Juillet 2022 — Clip musical « Lune » : cadrage, montage et FX.",
+    "ratio": "16:9",
+    "featured": false,
+    "chapters": [
+      {
+        "number": "I",
+        "title": "Le clip",
+        "text": "Je suis au cadrage, au montage et aux FX. En amont, on a mené à plusieurs la direction artistique et le travail de chargé de production.",
+        "darkBackground": true,
+        "visuals": [
+          {
+            "layout": "full",
+            "images": [],
+            "youtubeId": "46kiss-VKco"
+          }
+        ]
+      }
+    ],
+    "nextProject": "hakai-allumer",
+    "prevProject": "blanka-beldia",
+    "youtubeId": "46kiss-VKco",
+    "cover": "/images/projets/hakai-lune/HERO.jpg",
+    "heroImage": "/images/projets/hakai-lune/HERO.jpg"
+  },
+  {
+    "slug": "hakai-allumer",
+    "title": "Hakai - Allumer",
+    "client": "Hakai",
+    "category": "video",
+    "year": "2022",
+    "date": "2022-06",
+    "metaDescription": "Vidéo · Hakai · Juin 2022 — Clip musical « Allumer » : cadrage, montage et FX.",
+    "ratio": "16:9",
+    "featured": false,
+    "chapters": [
+      {
+        "number": "I",
+        "title": "Le clip",
+        "text": "Je suis au cadrage, au montage et aux FX. En amont, on a mené à plusieurs la direction artistique et le travail de chargé de production.",
+        "darkBackground": true,
+        "visuals": [
+          {
+            "layout": "full",
+            "images": [],
+            "youtubeId": "iPqWPpsW8dg"
+          }
+        ]
+      }
+    ],
+    "nextProject": "volkan-eva-esport",
+    "prevProject": "hakai-lune",
+    "youtubeId": "iPqWPpsW8dg",
+    "cover": "/images/projets/hakai-allumer/HERO.jpg",
+    "heroImage": "/images/projets/hakai-allumer/HERO.jpg"
   }
 ]

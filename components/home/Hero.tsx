@@ -35,15 +35,41 @@ export default function Hero() {
   const [role, setRole]         = useState(0)
   const [reelOpen, setReelOpen] = useState(false)
   const [useVideo, setUseVideo] = useState(false)
+  /* Un échec de décodage est définitif pour la session : sans ce drapeau, la
+     réévaluation ci-dessous remonterait une vidéo que le navigateur vient de
+     refuser, en boucle à chaque redimensionnement. */
+  const videoFailed = useRef(false)
 
-  /* Décide au montage si la vidéo est appropriée. Trois refus : petit écran
-     (data mobile), mouvement réduit, et mode économie de données annoncé par
-     le navigateur. Dans ces cas le fondu d'images fait le travail. */
+  /* Décide si la vidéo est appropriée. Trois refus : petit écran (data
+     mobile), mouvement réduit, et mode économie de données annoncé par le
+     navigateur. Dans ces cas le fondu d'images fait le travail.
+
+     Réévalué à chaque changement de largeur ou de préférence de mouvement :
+     une fenêtre ouverte étroite puis élargie doit récupérer la vidéo, alors
+     qu'une décision prise une seule fois au montage la condamnait pour toute
+     la visite. */
   useEffect(() => {
-    const small = window.matchMedia('(max-width: 767px)').matches
-    const calm  = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const conn  = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
-    setUseVideo(!small && !calm && !conn?.saveData)
+    const smallQ = window.matchMedia('(max-width: 767px)')
+    const calmQ  = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+    const decide = () => {
+      // Une largeur nulle veut dire « pas encore mesuré », pas « écran
+      // étroit ». Sans cette garde, la media query matche au premier rendu et
+      // un écran large se voit servir le repli images.
+      const small = window.innerWidth > 0 && smallQ.matches
+      const conn  = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
+      setUseVideo(!small && !calmQ.matches && !conn?.saveData && !videoFailed.current)
+    }
+
+    decide()
+    smallQ.addEventListener('change', decide)
+    calmQ.addEventListener('change', decide)
+    window.addEventListener('resize', decide)
+    return () => {
+      smallQ.removeEventListener('change', decide)
+      calmQ.removeEventListener('change', decide)
+      window.removeEventListener('resize', decide)
+    }
   }, [])
 
   /* Crossfade des visuels + rotation des rôles. Le fondu d'images ne tourne
@@ -121,7 +147,7 @@ export default function Hero() {
             preload="metadata"
             /* Si le navigateur ne sait pas décoder l'AV1, on bascule sur le
                fondu d'images plutôt que de laisser un cadre noir. */
-            onError={() => setUseVideo(false)}
+            onError={() => { videoFailed.current = true; setUseVideo(false) }}
           >
             <source src={VIDEO} type="video/mp4" />
           </video>

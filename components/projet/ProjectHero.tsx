@@ -2,12 +2,14 @@
 
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
+import { formatProjetDate } from '@/lib/date'
 
 interface Projet {
   title:       string
   client:      string
   category:    string
   year:        string
+  date?:       string   // « AAAA-MM » — affiche le mois quand on le connaît
   cover?:      string
   heroImage?:  string   // image de fond hero (si différente du cover carte)
   vimeoId?:    string
@@ -116,7 +118,9 @@ export default function ProjectHero({ projet }: Props) {
         >
           {[
             { label: 'Client', value: projet.client },
-            { label: 'Année',  value: projet.year   },
+            // « Date » plutôt qu'« Année » : le libellé doit rester juste pour
+            // les projets datés au mois comme pour ceux qui n'ont qu'une année.
+            { label: 'Date',   value: formatProjetDate(projet.date, projet.year) },
             { label: 'Type',   value: categoryLabels[projet.category] ?? projet.category },
           ].map((item) => (
             <div key={item.label}>

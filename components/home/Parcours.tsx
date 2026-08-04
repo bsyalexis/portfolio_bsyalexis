@@ -3,38 +3,48 @@
 import { useEffect, useRef } from 'react'
 import Reveal from '@/components/motion/Reveal'
 
-/* Parcours en quatre jalons — une phrase chacun. La version longue vit dans
+/* Parcours en cinq jalons — une phrase chacun. La version longue vit dans
    la bio, juste en dessous ; ici on ne garde que les bascules.
+   Les jalons sont repérés par l'âge, pas par l'année : c'est une trajectoire
+   personnelle, pas une frise d'entreprise. `age: null` marque le présent, qui
+   se rend en toutes lettres plutôt qu'en rouleaux de chiffres.
    `drift` (px) et `tilt` (deg) individualisent la flottaison : dérive au
    scroll et inclinaison au repos, jamais deux cartes sur le même tempo. */
 const MILESTONES = [
   {
-    year: '18',
+    age: '16',
     title: 'Le déclic',
-    text: 'Premières photos, premiers montages : je ne lâche plus l’appareil.',
+    text: 'Mes premiers montages, sur des jeux vidéo et des animés. Par passion, sans y voir autre chose.',
     drift: 30,
     tilt: -1.3,
   },
   {
-    year: '20',
-    title: 'L’agence',
-    text: 'Chez Innolive : tourner, monter, motion design, réseaux sociaux. Cinq ans à tout apprendre, vite.',
+    age: '18',
+    title: 'La bascule',
+    text: 'Je continue à monter, et je comprends que ça peut être un métier.',
     drift: -22,
     tilt: 1.1,
   },
   {
-    year: '25',
-    title: 'Indépendant',
-    text: 'Le saut : travailler en direct avec les gens dont je raconte l’histoire.',
+    age: '21',
+    title: 'Les clips',
+    text: 'Je me spécialise dans mes études et je commence à filmer et monter des clips musicaux.',
     drift: 26,
     tilt: -0.9,
   },
   {
-    year: '26',
-    title: 'Aujourd’hui',
-    text: 'Bord de terrain, accréditations, clubs et indépendants de la région. La suite s’écrit.',
+    age: '23',
+    title: 'Le CDI',
+    text: 'Je signe chez Innolive, où j’ai fait mon apprentissage : corporate, communication, web.',
     drift: -32,
     tilt: 1.2,
+  },
+  {
+    age: null,
+    title: 'La photo en plus',
+    text: 'Toujours chez Innolive, et à côté je me suis mis à la photo : le sport et les indépendants qui veulent briller sur les réseaux.',
+    drift: 22,
+    tilt: -1.1,
   },
 ]
 
@@ -101,13 +111,13 @@ export default function Parcours() {
           Parcours
         </span>
         <Reveal as="h2" split className="tl__heading" stagger={0.05}>
-          De l’agence au bord de terrain.
+          Du montage au bord de terrain.
         </Reveal>
       </header>
 
       <ol className="tl__list">
         {MILESTONES.map((m) => (
-          <Reveal as="li" key={m.year} className="tl__item">
+          <Reveal as="li" key={m.title} className="tl__item">
             {/* Trois couches de mouvement empilées, une par élément, pour
                 qu'aucun transform n'en écrase un autre :
                   <li>       éclosion à l'entrée dans le champ ;
@@ -119,29 +129,41 @@ export default function Parcours() {
             >
               <div className="tl__card">
                 {/* Rouleaux de chiffres : chaque digit remonte de 0 jusqu'à sa
-                    valeur. Le conteneur est masqué à l'accessibilité, l'année
-                    complète est annoncée dans le titre. */}
-                <span className="tl__year" aria-hidden="true">
-                  &rsquo;
-                  {m.year.split('').map((d, j) => (
-                    // Le « 1 » est bien plus étroit que sa case (largeur du
-                    // chiffre le plus large du rouleau) : on le marque pour
-                    // rapprocher le chiffre suivant et fermer le vide à droite.
-                    <span key={j} className={`tl__digit${d === '1' ? ' tl__digit--one' : ''}`}>
-                      <span
-                        className="tl__digit-track"
-                        style={{ ['--d' as string]: d, ['--j' as string]: j }}
-                      >
-                        {Array.from({ length: 10 }, (_, n) => (
-                          <span key={n}>{n}</span>
-                        ))}
-                      </span>
-                    </span>
-                  ))}
+                    valeur. Le conteneur est masqué à l'accessibilité, l'âge
+                    complet est annoncé dans le titre. Le jalon du présent n'a
+                    pas d'âge : il se rend en toutes lettres, sans rouleau. */}
+                <span
+                  className={`tl__year${m.age ? '' : ' tl__year--now'}`}
+                  aria-hidden="true"
+                >
+                  {m.age ? (
+                    <>
+                      {m.age.split('').map((d, j) => (
+                        // Le « 1 » est bien plus étroit que sa case (largeur du
+                        // chiffre le plus large du rouleau) : on le marque pour
+                        // rapprocher le chiffre suivant et fermer le vide à droite.
+                        <span key={j} className={`tl__digit${d === '1' ? ' tl__digit--one' : ''}`}>
+                          <span
+                            className="tl__digit-track"
+                            style={{ ['--d' as string]: d, ['--j' as string]: j }}
+                          >
+                            {Array.from({ length: 10 }, (_, n) => (
+                              <span key={n}>{n}</span>
+                            ))}
+                          </span>
+                        </span>
+                      ))}
+                      <span className="tl__unit">ans</span>
+                    </>
+                  ) : (
+                    'Aujourd’hui'
+                  )}
                 </span>
                 <div className="tl__body">
                   <h3 className="tl__title">
-                    <span className="sr-only">20{m.year} — </span>
+                    <span className="sr-only">
+                      {m.age ? `${m.age} ans — ` : 'Aujourd’hui — '}
+                    </span>
                     <span className="tl__mask">
                       <span className="tl__mask-inner">{m.title}</span>
                     </span>

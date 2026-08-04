@@ -10,6 +10,7 @@ interface Projet {
   client: string
   category: string
   year: string
+  date?: string   // « AAAA-MM » — affiche le mois quand on le connaît
   ratio?: string
   cover?: string
 }

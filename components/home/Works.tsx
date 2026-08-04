@@ -124,8 +124,18 @@ export default function Works() {
           >
             <div className="works__item-media">
               {p.coverVideo ? (
-                <video autoPlay muted loop playsInline preload="metadata" aria-hidden="true">
-                  <source src={p.coverVideo} type="video/webm" />
+                /* poster : image d'attente le temps que la boucle arrive, et
+                   repli si le navigateur ne décode pas le format.
+                   type déduit de l'extension — la grille mélange .webm et
+                   .mp4 selon la source disponible. */
+                <video
+                  autoPlay muted loop playsInline preload="metadata" aria-hidden="true"
+                  poster={p.cover}
+                >
+                  <source
+                    src={p.coverVideo}
+                    type={p.coverVideo.endsWith('.webm') ? 'video/webm' : 'video/mp4'}
+                  />
                 </video>
               ) : (
                 <img src={p.cover} alt="" loading="lazy" decoding="async" />
