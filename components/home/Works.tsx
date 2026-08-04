@@ -23,6 +23,7 @@ interface Projet {
   galleryImages?: string[]
   metaDescription?: string
   chapters?: Chapitre[]
+  homeHero?: boolean
 }
 
 /* Description d'un projet, par ordre de préférence : le texte de galerie,
@@ -49,16 +50,21 @@ function label(p: Projet): string {
 export default function Works() {
   const featured = (projets as Projet[]).filter((p) => (p as Projet & { featured?: boolean }).featured)
 
-  /* Le projet mis en avant est le premier qui dispose d'assez d'images pour
-     remplir le collage. Choisir bêtement le premier de la liste donnerait un
-     bloc large avec une seule image répétée dès qu'Alexis réordonne ses
-     projets ou en ajoute un sans galerie. */
-  const hero = featured.find((p) => (p.galleryImages?.length ?? 0) >= 6) ?? featured[0]
+  /* Le projet du collage se déclare par `homeHero`. Sans ce drapeau, l'ordre
+     du fichier décidait à la fois du classement de /travaux et du choix du
+     hero : remonter un projet récent en tête de /travaux le propulsait hero
+     de l'accueil sans qu'on l'ait demandé. Les deux réglages sont désormais
+     indépendants.
+     Repli inchangé : le premier projet ayant assez d'images pour remplir le
+     collage, faute de quoi un bloc large répéterait une seule image. */
+  const hero =
+    featured.find((p) => p.homeHero) ??
+    featured.find((p) => (p.galleryImages?.length ?? 0) >= 6) ??
+    featured[0]
 
   /* Cinq cartes, dans l'ordre du fichier — qui est l'ordre d'ajout, donc du
-     plus récent au plus ancien. Aucun projet ne porte de date exploitable
-     (tous en 2026), c'est le seul critère de fraîcheur disponible. Le reste
-     du catalogue est accessible par « Tous les projets ». */
+     plus récent au plus ancien. Le reste du catalogue est accessible par
+     « Tous les projets ». */
   const rest = featured.filter((p) => p.slug !== hero?.slug).slice(0, 5)
 
   if (!hero) return null

@@ -60,6 +60,7 @@ export default function ProjetPage({ params }: Props) {
           /* eslint-disable @typescript-eslint/no-explicit-any */
           galleryText={(projet as any).galleryText}
           galleryImages={(projet as any).galleryImages}
+          galleryAspects={(projet as any).galleryAspects}
           /* eslint-enable @typescript-eslint/no-explicit-any */
         />
       ) : (
