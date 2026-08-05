@@ -35,7 +35,7 @@ const categoryLabel: Record<string, string> = {
 }
 
 /* Une rangée : combien de colonnes, quels indices, et la forme du bloc.
-   `aspect` est le ratio du conteneur, pas d'une image — c'est lui qui fixe la
+   `aspect` est le ratio du conteneur, pas d'une image : c'est lui qui fixe la
    hauteur en CSS, donc la rangée reste proportionnelle à toutes les largeurs
    d'écran là où une hauteur en pixels ne l'était pas. */
 interface Row { cols: number; idx: number[]; aspect: number }
@@ -75,8 +75,8 @@ function decouper(pool: number[], cycle: number[], mini: number): number[][] {
  *
  * Les cellules d'une même ligne partagent leur hauteur : y mélanger portrait
  * et paysage force forcément le rognage de l'un des deux. On sépare donc les
- * deux orientations en amont — et non au fil de la liste, sinon l'alternance
- * issue du dé-groupage produit des séries d'une seule image — puis on
+ * deux orientations en amont (et non au fil de la liste, sinon l'alternance
+ * issue du dé-groupage produit des séries d'une seule image), puis on
  * répartit les rangées paysage parmi les portraits pour garder du rythme.
  * La hauteur de chaque rangée se déduit du ratio moyen de son contenu : c'est
  * ce qui rend les photos visibles en entier plutôt qu'en bande recadrée.

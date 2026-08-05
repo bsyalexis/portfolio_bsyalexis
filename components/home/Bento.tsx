@@ -49,7 +49,7 @@ export default function Bento() {
     <section ref={sectionRef} className="bento">
       <div className="bento__grid">
 
-        {/* Grande image — gauche */}
+        {/* Grande image, à gauche */}
         <Reveal className="bento__cell bento__cell--main">
           <img src={IMGS[0]} alt="" loading="eager" decoding="async" style={{ '--speed': '58px' } as React.CSSProperties} />
           <div className="bento__overlay">
@@ -78,7 +78,7 @@ export default function Bento() {
         {/* Chips de réassurance, hors des cellules : posées à cheval sur les
             bords de la mosaïque, elles flottent au-dessus de la composition
             au lieu d'être enfermées dans une photo. Leur parallaxe est
-            inversée par rapport aux images — c'est ce contre-mouvement qui
+            inversée par rapport aux images, et c'est ce contre-mouvement qui
             donne l'impression qu'elles sont détachées du plan. */}
         <Reveal delay={0.3} className="bento__float bento__float--projects">
           <p className="bento__card bento__stat">

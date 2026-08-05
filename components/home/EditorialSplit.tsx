@@ -35,7 +35,7 @@ export default function EditorialSplit() {
     <section ref={sectionRef} style={styles.section}>
       <div style={styles.grid}>
 
-        {/* Grande image — gauche */}
+        {/* Grande image, à gauche */}
         <div className="split-left" style={styles.imgWrap}>
           <div style={styles.imgBg} />
           <span className="label" style={styles.imgLabel}>Innolive &middot; 2024</span>
@@ -44,7 +44,7 @@ export default function EditorialSplit() {
         {/* Colonne droite */}
         <div style={styles.rightCol}>
 
-          {/* Carte éditoriale — texte */}
+          {/* Carte éditoriale : texte */}
           <div className="split-right-item" style={styles.topCard}>
             <span style={styles.pill}>&bull; Esthétique</span>
             <h2 style={styles.heading}>

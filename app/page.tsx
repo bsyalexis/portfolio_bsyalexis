@@ -10,7 +10,7 @@ export default function HomePage() {
     <main>
       <Hero />
       {/* La mosaïque enchaîne sur le hero, puis les travaux sont présentés en
-          blocs éditoriaux — un par métier — plutôt qu'en carrousel collant.
+          blocs éditoriaux, un par métier, plutôt qu'en carrousel collant.
           Le parcours pose les bascules en quatre jalons, la bio détaille. */}
       <Bento />
       <Works />

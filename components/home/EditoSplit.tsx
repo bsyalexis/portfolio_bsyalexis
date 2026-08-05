@@ -44,7 +44,7 @@ export default function EditoSplit() {
           <p style={styles.body}>
             Chaque projet commence par une question simple : qu&rsquo;est-ce qui doit
             rester dans l&rsquo;esprit du spectateur&nbsp;? À partir de là, je construis
-            un langage visuel cohérent &mdash; lumière, cadre, rythme &mdash; qui sert
+            un langage visuel cohérent (lumière, cadre, rythme) qui sert
             l&rsquo;histoire de la marque.
           </p>
           <p style={{ ...styles.body, marginTop: '16px' }}>

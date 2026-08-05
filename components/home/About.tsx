@@ -58,7 +58,7 @@ export default function About() {
       <div style={styles.inner} className="about-inner">
 
         {/* Colonne visuelle : mêmes couches de mouvement que les cartes du
-            parcours — dérive au scroll (about-visual), éclosion (Reveal),
+            parcours : dérive au scroll (about-visual), éclosion (Reveal),
             flottaison continue (about-portrait). */}
         <div
           className="about-visual"
@@ -80,7 +80,7 @@ export default function About() {
           {/* Puces flottantes qui débordent du portrait, dans la grammaire des
               chips du bento : verre sombre, point accent, tempo propre. Les
               deux villes sont empilées dans un conteneur plutôt que calées
-              chacune sur sa propre position absolue — l'écart reste constant
+              chacune sur sa propre position absolue, l'écart reste constant
               quelle que soit la longueur des noms. */}
           <div className="about-chips">
             <Reveal delay={0.3} className="about-chip">
@@ -108,7 +108,7 @@ export default function About() {
               descend la colonne au même rythme que les cartes du parcours. */}
           <Reveal delay={0.06}>
             <p style={styles.bio}>
-              Photographe et vidéaste basé à Saint-Étienne. Cinq ans chez Innolive à tourner, monter, faire du motion design et gérer des réseaux sociaux &mdash; un poste que j&rsquo;occupe toujours. À côté, j&rsquo;ai pris l&rsquo;appareil photo et je mets tout ça au service de mes propres projets.
+              Photographe et vidéaste basé à Saint-Étienne. Cinq ans chez Innolive à tourner, monter, faire du motion design et gérer des réseaux sociaux, un poste que j&rsquo;occupe toujours. À côté, j&rsquo;ai pris l&rsquo;appareil photo et je mets tout ça au service de mes propres projets.
             </p>
           </Reveal>
           <Reveal delay={0.12}>

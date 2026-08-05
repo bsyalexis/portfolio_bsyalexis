@@ -1,4 +1,4 @@
-# Brief — Portfolio Alexis Bossy
+# Brief : Portfolio Alexis Bossy
 > Copie-colle ce fichier entier dans Claude Code pour démarrer le projet.
 
 ---
@@ -6,7 +6,7 @@
 ## 1. CONTEXTE
 
 - **Client** : Alexis Bossy, Directeur Artistique chez Innolive
-- **Objectif** : Portfolio freelance — trouver des missions auprès de marques premium, startups tech, agences créatives
+- **Objectif** : Portfolio freelance, pour trouver des missions auprès de marques premium, startups tech, agences créatives
 - **Stack** : Next.js 14 (App Router) + Tailwind CSS + GSAP + Lenis (smooth scroll) + TypeScript
 - **Hébergement** : Vercel
 - **Contenu** : JSON files (pas de CMS)
@@ -18,7 +18,7 @@
 ```
 alexisbossy.com
 │
-├── / (Home — longue page scrollable)
+├── / (Home, longue page scrollable)
 │   ├── #hero
 │   ├── #projets (grille 4 projets)
 │   ├── #services
@@ -32,16 +32,16 @@ alexisbossy.com
 │
 └── /projet/[slug] (page projet individuelle)
     ├── Hero visuel plein écran
-    ├── Chapitre I — Le contexte
-    ├── Chapitre II — La démarche
-    └── Chapitre III — Le résultat
+    ├── Chapitre I : Le contexte
+    ├── Chapitre II : La démarche
+    └── Chapitre III : Le résultat
 ```
 
 ---
 
 ## 3. WIREFRAMES
 
-### 3.1 — Page Home `/`
+### 3.1 : Page Home `/`
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -52,7 +52,7 @@ alexisbossy.com
 ┌─────────────────────────────────────────────────────┐
 │ HERO                                   padding: 108px│
 │                                                      │
-│  VIDÉASTE · PHOTOGRAPHE · DA — INNOLIVE              │
+│  VIDÉASTE · PHOTOGRAPHE · DA · INNOLIVE              │
 │  (label tiny uppercase, dim)                         │
 │                                                      │
 │  Créer des                                           │
@@ -68,7 +68,7 @@ alexisbossy.com
 │ gap: 3px, border-radius: 20px overflow hidden        │
 │                                                      │
 │ ┌──────┬──────────────────────────┐                  │
-│ │      │  Projet 02 — 16:9        │                  │
+│ │      │  Projet 02 · 16:9        │                  │
 │ │  01  │  (span col 2/4)          │                  │
 │ │ 9:16 ├─────────────┬────────────┤                  │
 │ │ tall │  Projet 03  │  Projet 04 │                  │
@@ -116,7 +116,7 @@ alexisbossy.com
 
 ---
 
-### 3.2 — Page Travaux `/travaux`
+### 3.2 : Page Travaux `/travaux`
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -150,11 +150,11 @@ alexisbossy.com
 
 ---
 
-### 3.3 — Page Projet `/projet/[slug]`
+### 3.3 : Page Projet `/projet/[slug]`
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│ HERO — visuel plein écran (100vh)                    │
+│ HERO : visuel plein écran (100vh)                    │
 │                                                      │
 │  [image ou vidéo background]                         │
 │                                                      │
@@ -162,13 +162,13 @@ alexisbossy.com
 │  │ PHOTO · 2024                    │                 │
 │  │                                 │                 │
 │  │ Nom du projet                   │                 │
-│  │ Client — Contexte court         │                 │
+│  │ Client · Contexte court         │                 │
 │  └─────────────────────────────────┘                 │
 │  (card glass en bas à gauche)                        │
 └─────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────┐
-│ CHAPITRE I — Le contexte      padding: 120px         │
+│ CHAPITRE I : Le contexte      padding: 120px         │
 │                                                      │
 │  I.          ← numéro cerise, tiny                   │
 │  Le contexte ← titre 300 light                       │
@@ -179,12 +179,12 @@ alexisbossy.com
 └─────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────┐
-│ CHAPITRE II — La démarche                            │
+│ CHAPITRE II : La démarche                            │
 │ [idem structure]                                     │
 └─────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────┐
-│ CHAPITRE III — Le résultat                           │
+│ CHAPITRE III : Le résultat                           │
 │ [galerie finale]                                     │
 └─────────────────────────────────────────────────────┘
 
@@ -207,12 +207,12 @@ alexisbossy.com
 
 /* Texte */
 --text:      #111010;   /* noir profond */
---text-mid:  #9a9590;   /* gris moyen — labels, sous-titres */
---text-dim:  #d0ccc8;   /* gris clair — eyebrows, placeholders */
+--text-mid:  #9a9590;   /* gris moyen : labels, sous-titres */
+--text-dim:  #d0ccc8;   /* gris clair : eyebrows, placeholders */
 
 /* Accent UNIQUE */
 --accent:    #c0293a;   /* rouge cerise */
---accent-d:  #a01f2e;   /* cerise foncé — état hover */
+--accent-d:  #a01f2e;   /* cerise foncé : état hover */
 
 /* UI */
 --border:    rgba(0,0,0,0.07);
@@ -277,7 +277,7 @@ Hover services: trait cerise 2px à gauche (::before), opacity 0→1, 0.3s
 Cards         : box-shadow light → shadow-h, background white, 0.25s
 
 Scroll        : Lenis smooth scroll
-Animations    : GSAP — entrées en fade+translateY au scroll (stagger)
+Animations    : GSAP : entrées en fade+translateY au scroll (stagger)
 Transitions   : pages avec opacity fade 0.3s
 
 Barre de chargement : fine ligne cerise en top de page (progress scroll)
@@ -347,7 +347,7 @@ TAGS / PILLS :
 
 ---
 
-## 6. DATA SHAPE — projets.json
+## 6. DATA SHAPE : projets.json
 
 ```json
 [
@@ -401,4 +401,4 @@ TAGS / PILLS :
 
 ---
 
-*Brief généré le 05/03/2026 — Direction visuelle validée : Fond crème + Rouge cerise*
+*Brief généré le 05/03/2026. Direction visuelle validée : Fond crème + Rouge cerise*

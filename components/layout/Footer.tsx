@@ -9,7 +9,7 @@ export default function Footer() {
       <div style={styles.engage} className="footer-engage">
         <div style={styles.engageInner} className="engage-inner">
 
-          {/* Gauche — texte */}
+          {/* Gauche : texte */}
           <div style={styles.engageLeft}>
             <p className="label" style={{ color: 'rgba(255,255,255,0.35)', letterSpacing: '0.18em', marginBottom: '18px' }}>
               Contact
@@ -22,7 +22,7 @@ export default function Footer() {
             </a>
           </div>
 
-          {/* Droite — formulaire de contact */}
+          {/* Droite : formulaire de contact */}
           <div style={styles.formWrap}>
             <ContactForm />
           </div>

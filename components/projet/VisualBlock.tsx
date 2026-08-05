@@ -18,7 +18,7 @@ interface Props {
   dark?:  boolean
 }
 
-/* Gradients placeholder — lumière simulée pour habiller les blocs sans image */
+/* Gradients placeholder : lumière simulée pour habiller les blocs sans image */
 const GRAD = [
   'radial-gradient(ellipse at 35% 35%, rgba(255,255,255,0.18) 0%, transparent 55%), linear-gradient(155deg, #c8c0b8 0%, #a09080 50%, #7a7068 100%)',
   'radial-gradient(ellipse at 65% 30%, rgba(255,255,255,0.14) 0%, transparent 50%), linear-gradient(155deg, #b0b4b8 0%, #888c90 50%, #606468 100%)',
@@ -87,7 +87,7 @@ export default function VisualBlock({ visual }: Props) {
        `rel=0` comme la modale showreel : pas de cookie tant que le visiteur
        ne lance pas la lecture, et pas de suggestions d'autres chaînes en fin
        de vidéo. `loading="lazy"` parce que le bloc est sous la ligne de
-       flottaison — l'iframe ne pèse rien tant qu'on n'a pas scrollé. */
+       flottaison, l'iframe ne pèse rien tant qu'on n'a pas scrollé. */
     if (visual.youtubeId) {
       return (
         <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000' }}>
@@ -103,7 +103,7 @@ export default function VisualBlock({ visual }: Props) {
     }
     /* Vidéo servie par le site. `preload="none"` est ce qui rend un fichier
        lourd acceptable : tant que le visiteur ne lance pas la lecture, seul le
-       poster est téléchargé — zéro octet de vidéo. Pas d'autoplay non plus,
+       poster est téléchargé, zéro octet de vidéo. Pas d'autoplay non plus,
        c'est un film qu'on regarde avec le son, pas une boucle d'ambiance.
        Source en video/mp4 sans codec-string, comme le hero : les navigateurs
        qui ne décodent pas l'AV1 échouent proprement et laissent le poster. */
@@ -245,7 +245,7 @@ export default function VisualBlock({ visual }: Props) {
     )
   }
 
-  /* ── GRID 3 colonnes — n images ─────── */
+  /* ── GRID 3 colonnes : n images ─────── */
   if (layout === 'grid-3col') {
     const rows = Math.ceil(images.length / 3)
     const lastIsAlone = images.length % 3 === 1

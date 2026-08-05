@@ -4,7 +4,7 @@
  * Les scripts existants (convert-to-webp / optimize-images) balayent tout
  * `public/` : les relancer reconvertirait les projets déjà en ligne. Celui-ci
  * ne traite que les dossiers passés en argument, et laisse les originaux en
- * place — c'est un autre geste, volontairement séparé, de les déplacer.
+ * place ; c'est un autre geste, volontairement séparé, de les déplacer.
  *
  *   node scripts/convert-projet.mjs volkan-eva-esport padelshot-p100-...
  */
@@ -44,7 +44,7 @@ for (const slug of slugs) {
   const tous = await parcourir(dossier)
   const sources = tous.filter((f) => /\.(jpe?g|png)$/i.test(f))
 
-  console.log(`\n── ${slug} — ${sources.length} image(s)`)
+  console.log(`\n── ${slug} : ${sources.length} image(s)`)
 
   for (const src of sources) {
     const dest = src.replace(/\.(jpe?g|png)$/i, '.webp')
@@ -53,7 +53,7 @@ for (const slug of slugs) {
     // réécrasé : le script doit pouvoir être relancé sans dégrader.
     try {
       await stat(dest)
-      console.log(`  · ${basename(src)} — .webp déjà présent, ignoré`)
+      console.log(`  · ${basename(src)} : .webp déjà présent, ignoré`)
       ignores++
       continue
     } catch { /* pas de .webp : on convertit */ }
@@ -84,7 +84,7 @@ for (const slug of slugs) {
 }
 
 console.log(
-  `\n${faits} converties, ${ignores} ignorées — ` +
+  `\n${faits} converties, ${ignores} ignorées, ` +
   `${(avant / 1048576).toFixed(0)} Mo → ${(apres / 1048576).toFixed(1)} Mo ` +
   `(−${((1 - apres / avant) * 100).toFixed(1)}%)`
 )

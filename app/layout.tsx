@@ -42,7 +42,7 @@ export default function RootLayout({
   return (
     // suppressHydrationWarning : le script ci-dessous ajoute la classe `js`
     // avant l'hydratation, donc le className du client diffère forcément de
-    // celui du serveur. Sans ça React avertit à chaque rendu — et surtout il
+    // celui du serveur. Sans ça React avertit à chaque rendu, et surtout il
     // réaligne l'attribut sur la version serveur, ce qui efface `js` et
     // désactive silencieusement toutes les révélations.
     <html lang="fr" className={inter.variable} suppressHydrationWarning>

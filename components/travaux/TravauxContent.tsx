@@ -11,7 +11,7 @@ interface Projet {
   client:   string
   category: string
   year:     string
-  date?:    string   // « AAAA-MM » — affiche le mois quand on le connaît
+  date?:    string   // « AAAA-MM », affiche le mois quand on le connaît
   ratio?:   string
   cover?:   string
   featured?: boolean
@@ -21,7 +21,7 @@ interface Props {
   projets: Projet[]
 }
 
-/* ─── Composant interne — utilise useSearchParams ─── */
+/* ─── Composant interne : utilise useSearchParams ─── */
 function TravauxInner({ projets }: Props) {
   const searchParams  = useSearchParams()
   const router        = useRouter()

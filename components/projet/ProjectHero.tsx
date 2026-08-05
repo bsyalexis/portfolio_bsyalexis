@@ -9,7 +9,7 @@ interface Projet {
   client:      string
   category:    string
   year:        string
-  date?:       string   // « AAAA-MM » — affiche le mois quand on le connaît
+  date?:       string   // « AAAA-MM », affiche le mois quand on le connaît
   cover?:      string
   heroImage?:  string   // image de fond hero (si différente du cover carte)
   vimeoId?:    string

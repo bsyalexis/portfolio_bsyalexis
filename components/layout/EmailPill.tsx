@@ -9,7 +9,7 @@ const EMAIL = 'bsy.alexis@gmail.com'
  * Pilule e-mail flottante, présente sur tout le site.
  *
  * Pendant discret de la pilule « Menu » du nav : même surface noire, même
- * rayon, même attraction magnétique. Un clic copie l'adresse — le contact
+ * rayon, même attraction magnétique. Un clic copie l'adresse, le contact
  * reste à portée de main sans avoir à retrouver le footer.
  */
 export default function EmailPill() {

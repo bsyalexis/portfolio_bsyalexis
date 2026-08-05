@@ -22,7 +22,7 @@ export default function ContactForm() {
     }
 
     data.append('access_key', ACCESS_KEY)
-    data.append('subject', `Nouveau message depuis alexbsy.com — ${data.get('prenom')} ${data.get('nom')}`)
+    data.append('subject', `Nouveau message depuis alexbsy.com : ${data.get('prenom')} ${data.get('nom')}`)
     data.append('from_name', 'alexbsy.com')
 
     setStatus('sending')

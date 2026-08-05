@@ -22,7 +22,7 @@ type Props = {
  *
  * Deux principes :
  *
- * 1. Le texte est découpé au rendu, donc côté serveur — les mots sont dans le
+ * 1. Le texte est découpé au rendu, donc côté serveur : les mots sont dans le
  *    HTML livré et restent lisibles par les moteurs de recherche et les
  *    lecteurs d'écran (le conteneur porte le texte complet, les fragments
  *    sont masqués à l'accessibilité).

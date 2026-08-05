@@ -50,7 +50,7 @@ export default function Services() {
           </Link>
         </div>
 
-        {/* Une seule ligne — grands à gauche, petits à droite alignés en bas */}
+        {/* Une seule ligne : grands à gauche, petits à droite alignés en bas */}
         <div
           className="svc-word"
           style={{

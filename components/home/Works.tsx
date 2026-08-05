@@ -28,15 +28,18 @@ interface Projet {
 
 /* Description d'un projet, par ordre de préférence : le texte de galerie,
    puis la metaDescription débarrassée de son préfixe « Catégorie · Client ·
-   Année — », puis le premier chapitre. Trois des sept projets n'ont pas de
-   galleryText — sans cette cascade, leur carte serait muette. */
+   Année. », puis le premier chapitre. Trois des sept projets n'ont pas de
+   galleryText, et sans cette cascade leur carte serait muette. */
 function lead(p: Projet): string {
   if (p.galleryText) return p.galleryText
 
   const meta = p.metaDescription ?? ''
   if (meta) {
-    const dash = meta.indexOf('—')
-    return dash === -1 ? meta : meta.slice(dash + 1).trim()
+    /* Le préfixe se referme sur le premier point suivi d'une espace : les
+       abréviations qu'il contient (« A.S ») n'ont pas d'espace après le point,
+       la description commence donc bien après cette coupure. */
+    const cut = meta.indexOf('. ')
+    return cut === -1 ? meta : meta.slice(cut + 1).trim()
   }
 
   const chap = p.chapters?.[0]
@@ -62,7 +65,7 @@ export default function Works() {
     featured.find((p) => (p.galleryImages?.length ?? 0) >= 6) ??
     featured[0]
 
-  /* Cinq cartes, dans l'ordre du fichier — qui est l'ordre d'ajout, donc du
+  /* Cinq cartes, dans l'ordre du fichier, qui est l'ordre d'ajout, donc du
      plus récent au plus ancien. Le reste du catalogue est accessible par
      « Tous les projets ». */
   const rest = featured.filter((p) => p.slug !== hero?.slug).slice(0, 5)
@@ -132,7 +135,7 @@ export default function Works() {
               {p.coverVideo ? (
                 /* poster : image d'attente le temps que la boucle arrive, et
                    repli si le navigateur ne décode pas le format.
-                   type déduit de l'extension — la grille mélange .webm et
+                   type déduit de l'extension, la grille mélange .webm et
                    .mp4 selon la source disponible. */
                 <video
                   autoPlay muted loop playsInline preload="metadata" aria-hidden="true"
@@ -147,7 +150,7 @@ export default function Works() {
                 <img src={p.cover} alt="" loading="lazy" decoding="async" />
               )}
             </div>
-            {/* Titre, type, année — rien de plus : ces cartes sont d'abord
+            {/* Titre, type, année et rien de plus : ces cartes sont d'abord
                 des visuels, la légende ne fait que les nommer. */}
             <div className="works__item-body">
               <h4 className="works__item-title">{p.title}</h4>

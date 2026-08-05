@@ -10,7 +10,7 @@ interface Projet {
   client: string
   category: string
   year: string
-  date?: string   // « AAAA-MM » — affiche le mois quand on le connaît
+  date?: string   // « AAAA-MM », affiche le mois quand on le connaît
   ratio?: string
   cover?: string
 }
@@ -29,7 +29,7 @@ export default function ProjetGrid({ projets }: Props) {
     const cards = gridRef.current.querySelectorAll<HTMLElement>('.projet-card')
 
     if (isFirst.current) {
-      // Entrée initiale — légèrement différée
+      // Entrée initiale, légèrement différée
       gsap.from(cards, {
         opacity: 0,
         y: 24,
@@ -40,7 +40,7 @@ export default function ProjetGrid({ projets }: Props) {
       })
       isFirst.current = false
     } else {
-      // Transition filtre — out → in rapide
+      // Transition filtre : out → in rapide
       gsap.fromTo(
         cards,
         { opacity: 0, y: 16 },

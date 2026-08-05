@@ -495,7 +495,7 @@ export default function TarifsClubsPage() {
         </div>
       </div>
 
-      {/* PAGE 2 — À l'unité */}
+      {/* PAGE 2 : À l'unité */}
       <div className="page">
         <div className="page-header">
           <span className="page-brand">Alexis Bossy · Grille Tarifaire · Juin 2026</span>
@@ -558,7 +558,7 @@ export default function TarifsClubsPage() {
         <div className="page-num">2 / 4</div>
       </div>
 
-      {/* PAGE 3 — Packs mensuels */}
+      {/* PAGE 3 : Packs mensuels */}
       <div className="page">
         <div className="page-header">
           <span className="page-brand">Alexis Bossy · Grille Tarifaire · Juin 2026</span>
@@ -622,7 +622,7 @@ export default function TarifsClubsPage() {
         <div className="page-num">3 / 4</div>
       </div>
 
-      {/* PAGE 4 — Sur-mesure & Conditions */}
+      {/* PAGE 4 : Sur-mesure & Conditions */}
       <div className="page">
         <div className="page-header">
           <span className="page-brand">Alexis Bossy · Grille Tarifaire · Juin 2026</span>

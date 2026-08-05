@@ -35,7 +35,7 @@ export default function FeatureEditorial() {
     <section ref={ref} style={styles.section}>
       <div style={styles.inner}>
 
-        {/* Image — grande, cinématographique */}
+        {/* Image grande, cinématographique */}
         <div className="feat-image" style={styles.imageWrap}>
           <div style={styles.imagePlaceholder} />
           {/* Pill catégorie */}

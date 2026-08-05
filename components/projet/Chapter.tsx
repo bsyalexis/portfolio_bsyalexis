@@ -76,7 +76,7 @@ export default function Chapter({ chapter }: Props) {
             alignItems:          'start',
           }}
         >
-          {/* Colonne gauche — numéro + trait cerise */}
+          {/* Colonne gauche : numéro + trait cerise */}
           <div
             className="chapter-entry chapter-number-col"
             style={{ paddingTop: '6px' }}
@@ -104,7 +104,7 @@ export default function Chapter({ chapter }: Props) {
             </div>
           </div>
 
-          {/* Colonne droite — titre, texte, méta */}
+          {/* Colonne droite : titre, texte, méta */}
           <div>
             <h2
               className="chapter-entry"

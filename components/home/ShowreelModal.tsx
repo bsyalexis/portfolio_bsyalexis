@@ -48,7 +48,7 @@ export default function ShowreelModal({ videoId, onClose }: Props) {
       <div className="reel__frame" onClick={(e) => e.stopPropagation()}>
         <iframe
           src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
-          title="Showreel — Alexis Bossy"
+          title="Showreel Alexis Bossy"
           allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
           allowFullScreen
         />

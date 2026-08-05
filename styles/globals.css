@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 /* ─────────────────────────────────────────────
-   CSS VARIABLES — Identité visuelle Alexis Bossy
+   CSS VARIABLES : Identité visuelle Alexis Bossy
    ───────────────────────────────────────────── */
 :root {
   /* Backgrounds */
@@ -17,7 +17,7 @@
   --text-mid:  #9a9590;
   --text-dim:  #d0ccc8;
 
-  /* Accent unique — rouge cerise */
+  /* Accent unique : rouge cerise */
   --accent:    #c0293a;
   --accent-d:  #a01f2e;
 
@@ -103,7 +103,7 @@ a {
   padding-inline: var(--px-desktop);
 }
 
-/* Labels — uppercase tiny */
+/* Labels : uppercase tiny */
 .label {
   font-size: 0.6rem;
   font-weight: 600;
@@ -171,7 +171,7 @@ a {
 }
 
 /* ─────────────────────────────────────────────
-   NAV — bloc identité à gauche, réseaux au centre, CTA à droite
+   NAV : bloc identité à gauche, réseaux au centre, CTA à droite
    ───────────────────────────────────────────── */
 
 /* Hauteur commune aux éléments du header et à la barre du panneau, pour que
@@ -188,7 +188,7 @@ a {
   height: var(--nav-h);
   /* Grille en trois colonnes plutôt que flex + positionnement absolu :
      Magnetic applique un transform à son conteneur, et un ancêtre transformé
-     devient le bloc de référence des descendants absolus — tout élément
+     devient le bloc de référence des descendants absolus, et tout élément
      absolu se calerait dessus au lieu du header. */
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -199,7 +199,7 @@ a {
   background: transparent;
   pointer-events: none;
 }
-/* Seuls les éléments interactifs reprennent la main — pas les colonnes de
+/* Seuls les éléments interactifs reprennent la main, pas les colonnes de
    la grille : menu ouvert, le header passe au-dessus du panneau (201 > 200)
    et une colonne cliquable sur toute sa largeur avalerait les clics destinés
    au bouton « Fermer » situé dessous. */
@@ -303,7 +303,7 @@ a {
 /* ── Au-dessus du hero sombre ──
    La règle est inversée par rapport à l'intuition : l'état « clair » est le
    défaut sur une page à hero, et JavaScript ajoute .nav--solid une fois le
-   hero dépassé. L'inverse — ajouter une classe pour éclaircir — affichait le
+   hero dépassé. L'inverse, qui consistait à ajouter une classe pour éclaircir, affichait le
    header en sombre sur le hero sombre jusqu'à l'hydratation : le temps que
    React se réveille, logo et bouton étaient invisibles.
    `body:has(#hero)` fait la distinction dès le premier paint, sans JS. */
@@ -327,7 +327,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 /* ─────────────────────────────────────────────
-   PROJECT CARDS — hover barre cerise top
+   PROJECT CARDS : hover barre cerise top
    ───────────────────────────────────────────── */
 .project-card {
   position: relative;
@@ -362,7 +362,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 /* ─────────────────────────────────────────────
-   SERVICE CARDS — hover trait cerise gauche
+   SERVICE CARDS : hover trait cerise gauche
    ───────────────────────────────────────────── */
 .service-card {
   position: relative;
@@ -406,13 +406,13 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
    ANIMATIONS GLOBALES
    ───────────────────────────────────────────── */
 
-/* Dot pulsant — Nav "Disponible" */
+/* Dot pulsant : Nav "Disponible" */
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50%       { opacity: 0.4; transform: scale(0.7); }
 }
 
-/* Fade + translateY — entrées GSAP au scroll */
+/* Fade + translateY : entrées GSAP au scroll */
 .gsap-fade-up {
   opacity: 0;
   transform: translateY(24px);
@@ -430,7 +430,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 /* ─────────────────────────────────────────────
-   MASONRY PROJECTS — hover overlay
+   MASONRY PROJECTS : hover overlay
    ───────────────────────────────────────────── */
 .masonry-hover-info {
   position: absolute;
@@ -469,7 +469,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 /* ─────────────────────────────────────────────
-   FILTER PILLS — /travaux
+   FILTER PILLS : /travaux
    ───────────────────────────────────────────── */
 .filter-pill {
   display: inline-flex;
@@ -499,7 +499,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 /* ─────────────────────────────────────────────
-   PROJET CARDS — /travaux grid (Apple style)
+   PROJET CARDS : /travaux grid (Apple style)
    ───────────────────────────────────────────── */
 .projet-card {
   display: block;
@@ -571,7 +571,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   gap: 32px 24px;
 }
 
-/* CONTACT FORM — thème sombre (footer) */
+/* CONTACT FORM : thème sombre (footer) */
 .contact-form input,
 .contact-form textarea {
   display: block;
@@ -602,7 +602,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 /* ─────────────────────────────────────────────
-   PROJECT NAV — underline hover
+   PROJECT NAV : underline hover
    ───────────────────────────────────────────── */
 .project-nav-link {
   display: inline-block;
@@ -658,7 +658,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 
 /* ── Pont depuis le parcours ──
    Prolonge la ligne de vie : même axe (centre de page), même tracé, même
-   point accent. La ligne descend puis se pose — le récit du parcours atterrit
+   point accent. La ligne descend puis se pose, et le récit du parcours atterrit
    sur « voici qui je suis aujourd'hui ». */
 .about-bridge {
   display: flex;
@@ -761,7 +761,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   gap: 9px;
 }
 
-/* Puce — grammaire des chips du bento : verre sombre, point accent, tempo de
+/* Puce : grammaire des chips du bento : verre sombre, point accent, tempo de
    flottaison propre. */
 .about-chip {
   display: inline-flex;
@@ -1183,12 +1183,12 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 /* ═════════════════════════════════════════════
-   HERO — plein écran, média en fondu
+   HERO : plein écran, média en fondu
    ═════════════════════════════════════════════ */
 .hero {
   position: relative;
   /* Le nav est sticky et réserve sa hauteur en haut du flux. On la reprend
-     pour que le hero occupe vraiment l'écran entier et passe dessous — sinon
+     pour que le hero occupe vraiment l'écran entier et passe dessous, sinon
      il fait 100svh + 65px et le CTA tombe sous le pli. */
   margin-top: calc(-1 * var(--nav-h));
   /* svh et non vh : sur mobile, vh compte la barre d'URL rétractée, donc le
@@ -1201,7 +1201,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   --exit: 0;
 }
 
-/* Le média rétrécit et s'arrondit en sortant — le hero se referme en carte
+/* Le média rétrécit et s'arrondit en sortant : le hero se referme en carte
    au lieu de simplement défiler hors champ. */
 .hero__media {
   position: absolute;
@@ -1238,7 +1238,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   transform: scale(1);
 }
 
-/* Grain — casse le côté "photo de stock propre" des aplats sombres */
+/* Grain : casse le côté "photo de stock propre" des aplats sombres */
 .hero__grain {
   position: absolute;
   inset: 0;
@@ -1256,7 +1256,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   inset: 0;
   background:
     /* Le contenu est calé en bas à gauche : c'est ce coin qu'il faut asseoir,
-       pas le cadre entier — sinon on assombrit uniformément et on perd
+       pas le cadre entier, sinon on assombrit uniformément et on perd
        l'image sans gagner en lisibilité. */
     radial-gradient(ellipse 90% 70% at 0% 100%, rgba(13,13,13,0.92) 0%, transparent 70%),
     linear-gradient(to top, rgba(13,13,13,0.95) 0%, rgba(13,13,13,0.45) 45%, rgba(13,13,13,0.6) 100%),
@@ -1341,7 +1341,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 /* Le rôle sortant s'efface vite et vers le haut, l'entrant arrive après lui.
    Un fondu croisé symétrique superposerait deux mots lisibles au milieu de la
-   transition — sur du texte, ça se lit comme un bug d'affichage. */
+   transition, et sur du texte, ça se lit comme un bug d'affichage. */
 .hero__role {
   position: absolute;
   left: 0;
@@ -1467,7 +1467,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 .reel__close:hover { background: rgba(255, 255, 255, 0.2); }
 
 /* ═════════════════════════════════════════════
-   BENTO — mosaïque compacte en parallaxe
+   BENTO : mosaïque compacte en parallaxe
    ═════════════════════════════════════════════ */
 .bento {
   position: relative;
@@ -1476,7 +1476,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   --p: 0.5;
 }
 .bento__grid {
-  /* Ancre des chips flottantes — absolues, donc hors du flux de la grille. */
+  /* Ancre des chips flottantes : absolues, donc hors du flux de la grille. */
   position: relative;
   display: grid;
   grid-template-columns: 1.45fr 1fr;
@@ -1546,7 +1546,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 /* ── Chips de réassurance ──
    Verre dépoli sombre, même famille que la pilule « Disponible » du hero.
    Elles ne vivent pas dans une photo : posées à cheval sur les bords de la
-   mosaïque, le blur avale ce qui passe derrière — image d'un côté, fond de
+   mosaïque, le blur avale ce qui passe derrière, image d'un côté, fond de
    page de l'autre. */
 .bento__card {
   margin: 0;
@@ -1642,7 +1642,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 /* ═════════════════════════════════════════════
-   WORKS — blocs éditoriaux par métier
+   WORKS : blocs éditoriaux par métier
    ═════════════════════════════════════════════ */
 .works {
   max-width: var(--grid-width);
@@ -1724,7 +1724,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
    (4 + 1 + 2 + 2 + 3 = 12 cellules pour 4 colonnes x 3 rangées) : un span
    de trop et la grille fabrique des rangées implicites non dimensionnées,
    qui s'écrasent à quelques pixels. La dernière carte occupe la colonne de
-   droite sur toute la hauteur — un portrait, plutôt qu'un bandeau écrasé
+   droite sur toute la hauteur : un portrait, plutôt qu'un bandeau écrasé
    en pied de grille. */
 .works__grid {
   display: grid;
@@ -1958,7 +1958,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   .works__item--2 .works__item-lead { display: -webkit-box; }
 }
 
-/* Mouvement réduit — on garde les fondus (l'information), on retire les
+/* Mouvement réduit : on garde les fondus (l'information), on retire les
    déplacements et le zoom (le décor). */
 @media (prefers-reduced-motion: reduce) {
   .hero__media { transform: none; border-radius: 0; }
@@ -1972,7 +1972,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 /* ─────────────────────────────────────────────
-   LIGHTBOX — visionneuse plein écran
+   LIGHTBOX : visionneuse plein écran
    ───────────────────────────────────────────── */
 .lightbox-overlay {
   position: fixed;
@@ -2111,7 +2111,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 .mailpill__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 /* Libellés superposés dans une même cellule : l'e-mail, plus long, fixe la
-   largeur — la pilule ne bouge pas d'un pixel pendant l'échange. */
+   largeur, et la pilule ne bouge pas d'un pixel pendant l'échange. */
 .mailpill__labels { display: grid; text-align: left; }
 .mailpill__labels > span {
   grid-area: 1 / 1;
@@ -2142,7 +2142,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 /* ─────────────────────────────────────────────
-   Parcours — frise sous le bloc À propos
+   Parcours : frise sous le bloc À propos
    Quatre jalons, une phrase chacun. La ligne se dessine au fil du scroll
    (variable --tlp écrite par About.tsx) ; chaque jalon est un Reveal
    autonome qui déclenche ses rouleaux de chiffres et ses masques de texte
@@ -2155,7 +2155,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 
 /* Surtitre de section, motif de la charte : tiret rouge + label capitales.
    Générique, partagé entre le parcours et le à-propos pour qu'ils portent la
-   même signature — c'est aussi ce qui les fait lire comme une suite. */
+   même signature, c'est aussi ce qui les fait lire comme une suite. */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -2209,7 +2209,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   transition: transform 0.15s linear;
 }
 
-/* Un jalon occupe une demi-largeur, en alternance — l'année et le texte
+/* Un jalon occupe une demi-largeur, en alternance : l'année et le texte
    restent alignés à gauche des deux côtés, seule la boîte change de rive. */
 .tl__item {
   position: relative;
@@ -2366,7 +2366,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 /* ── Masques de texte ──
-   Titre puis phrase remontent sous masque, décalés — la grammaire des
+   Titre puis phrase remontent sous masque, décalés, dans la grammaire des
    révélations mot à mot du reste du site, appliquée à la ligne. */
 .tl__mask { display: block; overflow: hidden; }
 .tl__mask-inner { display: block; }
@@ -2412,7 +2412,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   -webkit-text-stroke-width: 1.1px;
 }
 
-/* Au survol, le chiffre creux se remplit d'accent — la carte s'anime sous
+/* Au survol, le chiffre creux se remplit d'accent : la carte s'anime sous
    le curseur sans rien déplacer d'autre. */
 .tl__card:hover .tl__year {
   color: var(--accent);
@@ -2464,7 +2464,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 /* Mouvement réduit : ligne complète, cartes posées, chiffres et textes à
-   leur position finale (Reveal pose is-in immédiatement, on coupe tout —
+   leur position finale (Reveal pose is-in immédiatement, on coupe tout :
    flottaison, dérive, pulsation comprises). */
 @media (prefers-reduced-motion: reduce) {
   .tl__list::before { transform: scaleY(1); transition: none; }

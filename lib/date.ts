@@ -9,7 +9,7 @@ const MOIS = [
  * Les projets récents portent un champ `date` au format « AAAA-MM » et
  * s'affichent au mois près ; les plus anciens n'ont qu'une année et restent
  * affichés tels quels. Toute valeur qu'on ne sait pas lire retombe sur
- * l'année — mieux vaut une date grossière qu'un « Invalid Date » en page.
+ * l'année : mieux vaut une date grossière qu'un « Invalid Date » en page.
  */
 export function formatProjetDate(date: string | undefined, year: string): string {
   if (!date) return year

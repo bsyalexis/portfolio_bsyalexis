@@ -554,7 +554,7 @@ export default function TarifsPage() {
         </div>
       </div>
 
-      {/* PAGE 2 — Prestations */}
+      {/* PAGE 2 : Prestations */}
       <div className="page">
         <div className="page-header">
           <span className="page-brand">Alexis Bossy · Grille Tarifaire · Juin 2026</span>
@@ -628,7 +628,7 @@ export default function TarifsPage() {
         <div className="page-num">2 / 3</div>
       </div>
 
-      {/* PAGE 3 — Sur-mesure & Conditions */}
+      {/* PAGE 3 : Sur-mesure & Conditions */}
       <div className="page">
         <div className="page-header">
           <span className="page-brand">Alexis Bossy · Grille Tarifaire · Juin 2026</span>

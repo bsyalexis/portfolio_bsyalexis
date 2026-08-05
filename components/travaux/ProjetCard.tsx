@@ -7,7 +7,7 @@ interface Projet {
   client: string
   category: string
   year: string
-  date?: string   // « AAAA-MM » — affiche le mois quand on le connaît
+  date?: string   // « AAAA-MM », affiche le mois quand on le connaît
   ratio?: string
   cover?: string
   coverVideo?: string
@@ -67,7 +67,7 @@ export default function ProjetCard({ projet }: { projet: Projet }) {
         )}
       </div>
 
-      {/* Méta — sous l'image */}
+      {/* Méta, sous l'image */}
       <div className="card-meta">
         <p className="card-cat">
           {categoryLabels[projet.category] ?? projet.category}&ensp;·&ensp;{formatProjetDate(projet.date, projet.year)}

@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import Reveal from '@/components/motion/Reveal'
 
-/* Parcours en cinq jalons — une phrase chacun. La version longue vit dans
+/* Parcours en cinq jalons, une phrase chacun. La version longue vit dans
    la bio, juste en dessous ; ici on ne garde que les bascules.
    Les jalons sont repérés par l'âge, pas par l'année : c'est une trajectoire
    personnelle, pas une frise d'entreprise. `age: null` marque le présent, qui
@@ -54,12 +54,12 @@ const MILESTONES = [
  * Ligne de vie centrale qui se dessine au fil du scroll, jalons alternés de
  * part et d'autre. Chaque jalon est un Reveal autonome : rouleaux de
  * chiffres pour l'année, titre et phrase sous masque. La bio détaillée suit
- * dans la section À propos — ce module ne raconte que les bascules.
+ * dans la section À propos ; ce module ne raconte que les bascules.
  */
 export default function Parcours() {
   const tlRef = useRef<HTMLElement>(null)
 
-  /* La ligne se dessine au fil du scroll — même mécanique que la parallaxe
+  /* La ligne se dessine au fil du scroll, même mécanique que la parallaxe
      du bento : un écouteur écrit la progression dans une variable CSS, le
      tracé n'est qu'un scaleY côté compositeur. Le point de référence (80% du
      viewport) correspond au seuil de déclenchement des jalons : la pointe de
@@ -85,7 +85,7 @@ export default function Parcours() {
 
       // Dérive parallaxe : position du centre du module par rapport au centre
       // du viewport, ramenée dans [-1, 1]. Chaque carte multiplie ça par son
-      // propre --drift — c'est la 2ᵉ couche de flottaison, celle qui répond
+      // propre --drift : c'est la 2ᵉ couche de flottaison, celle qui répond
       // au scroll par-dessus l'oscillation continue.
       const s = el.getBoundingClientRect()
       const pd = Math.max(-1, Math.min(1, (vh / 2 - (s.top + s.height / 2)) / (vh / 2 + s.height / 2)))
@@ -162,7 +162,7 @@ export default function Parcours() {
                 <div className="tl__body">
                   <h3 className="tl__title">
                     <span className="sr-only">
-                      {m.age ? `${m.age} ans — ` : 'Aujourd’hui — '}
+                      {m.age ? `${m.age} ans, ` : 'Aujourd’hui, '}
                     </span>
                     <span className="tl__mask">
                       <span className="tl__mask-inner">{m.title}</span>

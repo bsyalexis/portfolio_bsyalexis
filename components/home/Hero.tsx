@@ -5,14 +5,14 @@ import Link from 'next/link'
 import ShowreelModal from './ShowreelModal'
 import Magnetic from '@/components/motion/Magnetic'
 
-/* Séquence de rôles — encode la répartition 40 / 40 / 20.
+/* Séquence de rôles : encode la répartition 40 / 40 / 20.
    Sur 5 rotations : 2 photographe, 2 vidéaste, 1 directeur artistique.
    Ne pas ajouter de rôle ici sans recalculer la proportion. */
 const ROLES = ['Photographe', 'Vidéaste', 'Photographe', 'Vidéaste', 'Directeur artistique']
 
 /* Boucle de fond : le showreel encodé en AV1 (MP4). AV1 pèse nettement moins
    que le VP9 à qualité égale, mais tous les navigateurs ne le décodent pas
-   (Safari selon la machine) — d'où le repli images ci-dessous, qui prend le
+   (Safari selon la machine), d'où le repli images ci-dessous, qui prend le
    relais dès que la lecture échoue. */
 const VIDEO  = '/videos/SHOWREEL.mp4'
 const POSTER = '/videos/SHOWREEL_poster.webp'
@@ -73,7 +73,7 @@ export default function Hero() {
   }, [])
 
   /* Crossfade des visuels + rotation des rôles. Le fondu d'images ne tourne
-     que s'il est réellement affiché — inutile de faire battre une horloge
+     que s'il est réellement affiché : inutile de faire battre une horloge
      derrière une vidéo opaque. */
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -86,7 +86,7 @@ export default function Hero() {
     return () => { clearInterval(ri); if (fi) clearInterval(fi) }
   }, [useVideo])
 
-  /* Sortie au scroll — le média rétrécit et s'arrondit pendant que le contenu
+  /* Sortie au scroll : le média rétrécit et s'arrondit pendant que le contenu
      s'efface. Piloté en CSS var pour rester sur le compositeur. */
   useEffect(() => {
     const el = sectionRef.current

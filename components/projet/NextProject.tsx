@@ -33,7 +33,7 @@ export default function NextProject({ currentSlug }: Props) {
         position:     'relative',
       }}
     >
-      {/* Image de fond — légère et sombre */}
+      {/* Image de fond, légère et sombre */}
       <div
         style={{
           position:   'absolute',
