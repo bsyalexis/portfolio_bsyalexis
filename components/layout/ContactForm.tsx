@@ -159,10 +159,10 @@ export default function ContactForm() {
         >
           L’envoi a échoué. Réessayez, ou écrivez-moi directement à{' '}
           <a
-            href="mailto:bsy.alexis@gmail.com"
+            href="mailto:contact@alexbsy.fr"
             style={{ color: '#ffffff', textDecoration: 'underline' }}
           >
-            bsy.alexis@gmail.com
+            contact@alexbsy.fr
           </a>
           .
         </div>

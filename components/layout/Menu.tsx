@@ -111,11 +111,11 @@ export default function Menu({ open, onClose }: Props) {
 
           <p className="menu__label">Contact</p>
           <a
-            href="mailto:bsy.alexis@gmail.com"
+            href="mailto:contact@alexbsy.fr"
             tabIndex={open ? 0 : -1}
             className="menu__small"
           >
-            bsy.alexis@gmail.com
+            contact@alexbsy.fr
           </a>
 
           <p className="menu__label menu__label--spaced">Réseaux</p>

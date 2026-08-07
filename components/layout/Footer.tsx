@@ -17,8 +17,8 @@ export default function Footer() {
             <h2 style={styles.engageHeading}>
               Discutons ensemble.
             </h2>
-            <a href="mailto:bsy.alexis@gmail.com" style={styles.engageCta}>
-              bsy.alexis@gmail.com
+            <a href="mailto:contact@alexbsy.fr" style={styles.engageCta}>
+              contact@alexbsy.fr
             </a>
           </div>
 
@@ -50,7 +50,7 @@ export default function Footer() {
 
           <div style={styles.col}>
             <span className="label" style={styles.colLabel}>Contact</span>
-            <a href="mailto:bsy.alexis@gmail.com" style={styles.link}>bsy.alexis@gmail.com</a>
+            <a href="mailto:contact@alexbsy.fr" style={styles.link}>contact@alexbsy.fr</a>
           </div>
 
         </div>

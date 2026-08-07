@@ -490,7 +490,7 @@ export default function TarifsClubsPage() {
             <div className="cover-meta-item">Clubs Sportifs</div>
           </div>
           <div className="cover-contact">
-            bsy.alexis@gmail.com &nbsp;·&nbsp; @alexbsy_ &nbsp;·&nbsp; alexbsy.com &nbsp;·&nbsp; Saint-Étienne / Lyon
+            contact@alexbsy.fr &nbsp;·&nbsp; @alexbsy_ &nbsp;·&nbsp; alexbsy.com &nbsp;·&nbsp; Saint-Étienne / Lyon
           </div>
         </div>
       </div>
@@ -681,7 +681,7 @@ export default function TarifsClubsPage() {
                 </div>
 
                 <div className="conditions-item">
-                  bsy.alexis@gmail.com · @alexbsy_
+                  contact@alexbsy.fr · @alexbsy_
                 </div>
               </div>
             </div>

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Magnetic from '@/components/motion/Magnetic'
 
-const EMAIL = 'bsy.alexis@gmail.com'
+const EMAIL = 'contact@alexbsy.fr'
 
 /**
  * Pilule e-mail flottante, présente sur tout le site.
