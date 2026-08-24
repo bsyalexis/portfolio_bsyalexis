@@ -2481,6 +2481,12 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
    GALERIE FOOT (page hors menu, lien envoyé aux clubs)
    ───────────────────────────────────────────── */
 
+#galerie,
+#creation,
+#parlons-en {
+  scroll-margin-top: calc(var(--nav-h) + 28px);
+}
+
 .fg-hero {
   position: relative;
   min-height: 88vh;
@@ -2552,24 +2558,6 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   line-height: 1.75;
   color: rgba(255, 255, 255, 0.62);
 }
-.fg-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 26px;
-  margin-top: 34px;
-  padding-top: 26px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
-}
-.fg-meta strong {
-  color: #fff;
-  font-weight: 600;
-}
-
 .fg-cta {
   display: inline-flex;
   align-items: center;
@@ -2597,6 +2585,23 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   grid-template-columns: repeat(3, 1fr);
   gap: 44px;
 }
+/* Les trois points renvoient à leur partie : ils doivent se donner comme
+   cliquables sans devenir des boutons, la page n'est pas un menu. */
+.fg-card {
+  display: block;
+  color: inherit;
+}
+.fg-card__fleche {
+  display: inline-block;
+  margin-left: 10px;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity var(--transition-hover), transform var(--transition-hover);
+}
+a.fg-card:hover .fg-card__fleche { opacity: 1; transform: translateY(0); }
+a.fg-card:hover .fg-card__title { color: var(--accent); }
+
 .fg-card__num {
   font-size: 0.68rem;
   font-weight: 600;
@@ -2605,6 +2610,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 .fg-card__title {
   margin: 14px 0 10px;
+  transition: color var(--transition-hover);
   font-size: 1.12rem;
   font-weight: 500;
   letter-spacing: -0.015em;
@@ -2622,19 +2628,12 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 .fg-galerie-head {
   max-width: var(--grid-width);
   margin-inline: auto;
-  padding: 0 var(--px-desktop) 30px;
+  padding: 0 var(--px-desktop) 22px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 24px;
   flex-wrap: wrap;
-}
-.fg-galerie-head h2 {
-  margin: 12px 0 0;
-  font-size: clamp(1.6rem, 3vw, 2.3rem);
-  font-weight: 300;
-  letter-spacing: -0.03em;
-  color: var(--text);
 }
 .fg-clubs {
   display: flex;
@@ -2812,6 +2811,8 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   .fg-cta,
   .fg-cta span,
   .fg-visuel,
+  .fg-card__fleche,
+  .fg-card__title,
   .foot-cell__club { transition: none; }
   .fg-cta:hover,
   .fg-visuel:hover { transform: none; }

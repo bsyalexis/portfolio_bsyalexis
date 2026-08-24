@@ -28,22 +28,29 @@ const MAILTO =
   '&body=' +
   encodeURIComponent('Bonjour Alexis,\n\nNous sommes le club ')
 
+/* Chaque point renvoie à la partie qui le prouve : un club qui lit « visuels
+   réseaux » doit pouvoir en voir un sans chercher. */
 const offre = [
   {
     num:   '01',
     titre: 'Reportage de match',
+    href:  '#galerie',
     texte:
       "Au bord du terrain sur toute la rencontre : les actions, les duels, le banc, les tribunes et ce qui se passe après le coup de sifflet. Photos triées et retouchées, livrées dans la foulée.",
   },
   {
     num:   '02',
     titre: 'Visuels pour vos réseaux',
+    // Sans visuels en ligne, le point reste un texte : un lien vers une section
+    // absente vaut moins que pas de lien.
+    href:  visuels.length ? '#creation' : null,
     texte:
       "Compositions aux formats Instagram et Facebook à partir des photos du jour : compos, scores, joueur du match, annonces. Votre identité, pas un gabarit.",
   },
   {
     num:   '03',
     titre: 'Vidéo',
+    href:  '#parlons-en',
     texte:
       "Résumés de match, teasers d'avant-rencontre et formats verticaux pour faire vivre la saison au-delà des 90 minutes.",
   },
@@ -81,34 +88,33 @@ export default function GalerieFootPage() {
               Parler de votre saison <span aria-hidden="true">&rarr;</span>
             </a>
           </Reveal>
-          <Reveal delay={0.45}>
-            <p className="fg-meta">
-              <span><strong>{photos.length}</strong>&ensp;photos</span>
-              <span><strong>{clubs.length}</strong>&ensp;clubs</span>
-              <span>Loire &amp; Haute-Loire</span>
-              <span>Saison 2025 / 2026</span>
-            </p>
-          </Reveal>
         </div>
       </section>
 
       {/* ── Ce que le club reçoit ── */}
       <section className="fg-offre">
-        {offre.map((bloc, i) => (
-          <Reveal key={bloc.num} delay={i * 0.08}>
-            <span className="fg-card__num">{bloc.num}</span>
-            <h2 className="fg-card__title">{bloc.titre}</h2>
-            <p className="fg-card__text">{bloc.texte}</p>
-          </Reveal>
-        ))}
+        {offre.map((bloc, i) => {
+          const Carte = bloc.href ? 'a' : 'div'
+          return (
+            <Reveal key={bloc.num} delay={i * 0.08}>
+              <Carte className="fg-card" href={bloc.href ?? undefined}>
+                <span className="fg-card__num">{bloc.num}</span>
+                <h2 className="fg-card__title">
+                  {bloc.titre}
+                  {bloc.href && <span className="fg-card__fleche" aria-hidden="true">&darr;</span>}
+                </h2>
+                <p className="fg-card__text">{bloc.texte}</p>
+              </Carte>
+            </Reveal>
+          )
+        })}
       </section>
 
       {/* ── La galerie ── */}
-      <section>
+      <section id="galerie">
         <div className="fg-galerie-head">
           <Reveal>
             <span className="fg-label">Toutes les photos</span>
-            <h2>{photos.length} images, {clubs.length} clubs, une seule page.</h2>
           </Reveal>
           <div className="fg-clubs">
             {clubs.map((club) => (
@@ -124,7 +130,7 @@ export default function GalerieFootPage() {
           Ne s'affiche que si le dossier des visuels contient quelque chose :
           une section vide vaudrait moins que pas de section du tout. */}
       {visuels.length > 0 && (
-        <section className="fg-creation">
+        <section className="fg-creation" id="creation">
           <Reveal className="fg-creation__head">
             <span className="fg-label">Création visuelle</span>
             <h2>Les photos ne s&apos;arrêtent pas à la galerie.</h2>
@@ -140,13 +146,14 @@ export default function GalerieFootPage() {
       )}
 
       {/* ── Relance ── */}
-      <section className="fg-final">
+      <section className="fg-final" id="parlons-en">
         <Reveal>
           <span className="fg-label">La suite</span>
           <h2>Et si c&apos;était votre club sur ces photos&nbsp;?</h2>
           <p>
-            Un match, une phase finale ou une saison entière : dites-moi ce que vous
-            avez en tête, je vous réponds avec une proposition claire et un tarif.
+            Un match, une phase finale ou une saison entière, en photo comme en vidéo :
+            dites-moi ce que vous avez en tête, je vous réponds avec une proposition
+            claire et un tarif.
           </p>
         </Reveal>
         <Reveal delay={0.12}>

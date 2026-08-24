@@ -67,6 +67,16 @@ function melanger(liste, rnd) {
   return out
 }
 
+/* Un nom de fichier d'export finit dans une URL : accents, espaces et
+   parenthèses n'y ont pas leur place. */
+function assainir(nom) {
+  return nom
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
 /* Round-robin entre les clubs : deux photos voisines viennent rarement du
    même match, ce qui est tout l'intérêt d'une galerie commune. */
 function entrelacer(paquets) {
@@ -159,7 +169,7 @@ try {
 const visuels = []
 for (const fichier of sourcesVisuels) {
   const src  = join(VISUELS_SOURCE, fichier)
-  const nom  = `${basename(fichier, extname(fichier))}.webp`
+  const nom  = `${assainir(basename(fichier, extname(fichier)))}.webp`
   const dest = join(VISUELS_SORTIE, nom)
 
   const meta = await sharp(src).metadata()
