@@ -1,0 +1,376 @@
+{
+  "photos": [
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7409762.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7409762.jpg",
+      "ratio": 0.75,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401455.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401455.jpg",
+      "ratio": 0.8,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-joseph__HERO.webp",
+      "pleine": "/images/projets/fc-saint-joseph/HERO.webp",
+      "ratio": 0.666,
+      "club": "FC Saint-Joseph",
+      "projet": "fc-saint-joseph"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401967.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401967.jpg",
+      "ratio": 0.8,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7400552.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7400552.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-joseph__A7406568.webp",
+      "pleine": "/images/projets/fc-saint-joseph/A7406568.webp",
+      "ratio": 0.75,
+      "club": "FC Saint-Joseph",
+      "projet": "fc-saint-joseph"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401917.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401917.jpg",
+      "ratio": 0.8,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7409721.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7409721.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-joseph__A7406276.webp",
+      "pleine": "/images/projets/fc-saint-joseph/A7406276.webp",
+      "ratio": 0.75,
+      "club": "FC Saint-Joseph",
+      "projet": "fc-saint-joseph"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401121.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401121.jpg",
+      "ratio": 1.5,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7400850.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7400850.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-joseph__A7402682.webp",
+      "pleine": "/images/projets/fc-saint-joseph/A7402682.webp",
+      "ratio": 0.666,
+      "club": "FC Saint-Joseph",
+      "projet": "fc-saint-joseph"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401264.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401264.jpg",
+      "ratio": 0.8,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7409606.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7409606.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-joseph__A7402743.webp",
+      "pleine": "/images/projets/fc-saint-joseph/A7402743.webp",
+      "ratio": 0.666,
+      "club": "FC Saint-Joseph",
+      "projet": "fc-saint-joseph"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401526.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401526.jpg",
+      "ratio": 0.8,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7400097.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7400097.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-joseph__A7408078.webp",
+      "pleine": "/images/projets/fc-saint-joseph/A7408078.webp",
+      "ratio": 0.75,
+      "club": "FC Saint-Joseph",
+      "projet": "fc-saint-joseph"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401099-2.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401099-2.jpg",
+      "ratio": 0.666,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7409880.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7409880.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-joseph__A7403206.webp",
+      "pleine": "/images/projets/fc-saint-joseph/A7403206.webp",
+      "ratio": 0.666,
+      "club": "FC Saint-Joseph",
+      "projet": "fc-saint-joseph"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401144.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401144.jpg",
+      "ratio": 0.8,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7409637.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7409637.jpg",
+      "ratio": 0.799,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-joseph__A7406538.webp",
+      "pleine": "/images/projets/fc-saint-joseph/A7406538.webp",
+      "ratio": 0.75,
+      "club": "FC Saint-Joseph",
+      "projet": "fc-saint-joseph"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401717-2.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401717-2.jpg",
+      "ratio": 0.8,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7400021.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7400021.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-joseph__A7406115.webp",
+      "pleine": "/images/projets/fc-saint-joseph/A7406115.webp",
+      "ratio": 0.75,
+      "club": "FC Saint-Joseph",
+      "projet": "fc-saint-joseph"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401855.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401855.jpg",
+      "ratio": 0.666,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7409654.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7409654.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401137.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401137.jpg",
+      "ratio": 0.8,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7409931.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7409931.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-joseph__A7406590.webp",
+      "pleine": "/images/projets/fc-saint-joseph/A7406590.webp",
+      "ratio": 0.75,
+      "club": "FC Saint-Joseph",
+      "projet": "fc-saint-joseph"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7402062.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7402062.jpg",
+      "ratio": 0.8,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-joseph__A7406150.webp",
+      "pleine": "/images/projets/fc-saint-joseph/A7406150.webp",
+      "ratio": 0.75,
+      "club": "FC Saint-Joseph",
+      "projet": "fc-saint-joseph"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401196.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401196.jpg",
+      "ratio": 0.8,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7400705.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7400705.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-joseph__A7402376.webp",
+      "pleine": "/images/projets/fc-saint-joseph/A7402376.webp",
+      "ratio": 1.5,
+      "club": "FC Saint-Joseph",
+      "projet": "fc-saint-joseph"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7402103.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7402103.jpg",
+      "ratio": 0.8,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7409686.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7409686.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401685.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401685.jpg",
+      "ratio": 0.666,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7400477.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7400477.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7402148.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7402148.jpg",
+      "ratio": 0.666,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7400497.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7400497.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401338.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401338.jpg",
+      "ratio": 0.8,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7400032.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7400032.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7400335.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7400335.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401700.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401700.jpg",
+      "ratio": 0.75,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7400599.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7400599.jpg",
+      "ratio": 0.799,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7401374.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7401374.jpg",
+      "ratio": 0.8,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7409891.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7409891.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7402245.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7402245.jpg",
+      "ratio": 0.8,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    },
+    {
+      "vignette": "/images/galerie-foot/fc-saint-chamond__A7409560.webp",
+      "pleine": "/images/projets/fc-saint-chamond/A7409560.jpg",
+      "ratio": 0.8,
+      "club": "FC Saint-Chamond",
+      "projet": "fc-saint-chamond"
+    },
+    {
+      "vignette": "/images/galerie-foot/st-ferre-coupe-haute-loire__A7400868.webp",
+      "pleine": "/images/projets/st-ferre-coupe-haute-loire/A7400868.jpg",
+      "ratio": 0.799,
+      "club": "A.S Saint-Ferréol",
+      "projet": "st-ferre-coupe-haute-loire"
+    }
+  ],
+  "visuels": []
+}

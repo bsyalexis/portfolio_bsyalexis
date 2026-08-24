@@ -2476,3 +2476,343 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   .js .tl__digit-track { transition: none; }
   .js .tl__mask-inner { transition: none; }
 }
+
+/* ─────────────────────────────────────────────
+   GALERIE FOOT (page hors menu, lien envoyé aux clubs)
+   ───────────────────────────────────────────── */
+
+.fg-hero {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 var(--px-desktop) 72px;
+  background: #111010;
+  overflow: hidden;
+}
+.fg-hero__media {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  /* La photo porte l'ambiance, le texte porte le message : on la pousse vers
+     le fond pour que le second reste lisible sans caisson opaque. */
+  opacity: 0.55;
+  filter: grayscale(0.25);
+}
+.fg-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #111010 4%, rgba(17,16,16,0.72) 38%, rgba(17,16,16,0.25) 100%);
+}
+.fg-hero__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--grid-width);
+  margin-inline: auto;
+}
+.fg-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.fg-label::before {
+  content: '';
+  width: 26px;
+  height: 2px;
+  background: var(--accent);
+}
+/* Un seul mot : il peut prendre toute la largeur disponible sans jamais se
+   couper, d'où une échelle bien plus haute qu'un titre de phrase. */
+.fg-title {
+  margin: 18px 0 0;
+  font-size: clamp(4rem, 12vw, 10rem);
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  color: #fff;
+}
+.fg-title em {
+  font-style: normal;
+  color: var(--accent);
+}
+.fg-lead {
+  margin: 26px 0 0;
+  max-width: 46ch;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.62);
+}
+.fg-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  margin-top: 34px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+.fg-meta strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.fg-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding: 15px 28px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: background var(--transition-hover), transform var(--transition-hover);
+}
+.fg-cta:hover { background: var(--accent-d); transform: translateY(-2px); }
+.fg-cta span { transition: transform var(--transition-hover); }
+.fg-cta:hover span { transform: translateX(4px); }
+
+/* ── Ce que je fais pour un club ── */
+.fg-offre {
+  max-width: var(--grid-width);
+  margin-inline: auto;
+  padding: 96px var(--px-desktop) 84px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 44px;
+}
+.fg-card__num {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+.fg-card__title {
+  margin: 14px 0 10px;
+  font-size: 1.12rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+.fg-card__text {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-mid);
+}
+
+/* ── En-tête de la grille ── */
+.fg-galerie-head {
+  max-width: var(--grid-width);
+  margin-inline: auto;
+  padding: 0 var(--px-desktop) 30px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.fg-galerie-head h2 {
+  margin: 12px 0 0;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+.fg-clubs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.fg-clubs span {
+  padding: 7px 15px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-mid);
+  background: var(--bg-card);
+}
+
+/* ── La grille ── */
+.foot-row {
+  display: grid;
+  gap: 3px;
+  width: 100%;
+}
+.foot-cell {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  height: 100%;
+}
+.foot-cell img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.foot-cell__club {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  z-index: 2;
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  background: rgba(17, 16, 16, 0.72);
+  backdrop-filter: blur(6px);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity var(--transition-hover), transform var(--transition-hover);
+  pointer-events: none;
+}
+.foot-cell:hover .foot-cell__club { opacity: 1; transform: translateY(0); }
+
+/* ── Création visuelle ── */
+.fg-creation {
+  max-width: var(--grid-width);
+  margin-inline: auto;
+  padding: 100px var(--px-desktop) 0;
+}
+.fg-creation__head {
+  max-width: 56ch;
+}
+.fg-creation__head h2 {
+  margin: 14px 0 0;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+.fg-creation__head p {
+  margin: 18px 0 0;
+  font-size: 0.94rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-mid);
+}
+.fg-visuels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  margin-top: 44px;
+}
+.fg-visuel {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card-sm);
+  overflow: hidden;
+  background: var(--bg-card);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform var(--transition-hover), box-shadow var(--transition-hover);
+}
+.fg-visuel:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-h);
+}
+.fg-visuel img {
+  width: 100%;
+  height: auto;
+  /* Aucun rognage : ces images se lisent, une bande coupée en ferait perdre
+     la moitié du sens. */
+  aspect-ratio: var(--ar, 0.75);
+  object-fit: contain;
+}
+
+/* ── Relance de fin ── */
+.fg-final {
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding: 104px var(--px-desktop) 104px;
+  text-align: center;
+}
+.fg-final h2 {
+  margin: 20px 0 0;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  color: var(--text);
+}
+.fg-final p {
+  margin: 20px auto 0;
+  max-width: 52ch;
+  font-size: 0.96rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-mid);
+}
+.fg-final .fg-label { justify-content: center; }
+
+@media (max-width: 900px) {
+  .fg-offre { grid-template-columns: 1fr; gap: 34px; padding-block: 72px 64px; }
+  .fg-visuels { gap: 16px; }
+}
+
+@media (max-width: 767px) {
+  .fg-hero { min-height: 82vh; padding: 0 var(--px-mobile) 52px; }
+  .fg-hero__media { opacity: 0.48; }
+  .fg-offre,
+  .fg-galerie-head,
+  .fg-creation,
+  .fg-final { padding-inline: var(--px-mobile); }
+  .fg-creation { padding-top: 76px; }
+  /* Deux par ligne : à trois, le texte des visuels devient illisible. */
+  .fg-visuels { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 32px; }
+  .fg-final { padding-block: 76px; }
+  .fg-lead { font-size: 0.94rem; }
+  /* Deux colonnes, quelle que soit la découpe calculée pour le bureau : les
+     rangées s'effacent et rendent leurs cellules à la grille du dessus, qui
+     leur donne leur propre hauteur puisqu'aucune rangée ne la fixe plus. */
+  .foot-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+  }
+  .foot-row {
+    display: contents;
+  }
+  .foot-cell {
+    height: auto;
+    aspect-ratio: var(--ar, 0.8);
+  }
+  /* Sans survol, l'étiquette resterait affichée en permanence sur des
+     vignettes deux fois plus petites : elle encombrerait plus qu'elle
+     n'informe, les clubs sont déjà nommés au-dessus de la grille. */
+  .foot-cell__club { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fg-cta,
+  .fg-cta span,
+  .fg-visuel,
+  .foot-cell__club { transition: none; }
+  .fg-cta:hover,
+  .fg-visuel:hover { transform: none; }
+}
