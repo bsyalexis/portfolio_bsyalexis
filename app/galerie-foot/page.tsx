@@ -47,13 +47,6 @@ const offre = [
     texte:
       "Compositions aux formats Instagram et Facebook à partir des photos du jour : compos, scores, joueur du match, annonces. Votre identité, pas un gabarit.",
   },
-  {
-    num:   '03',
-    titre: 'Vidéo',
-    href:  '#parlons-en',
-    texte:
-      "Résumés de match, teasers d'avant-rencontre et formats verticaux pour faire vivre la saison au-delà des 90 minutes.",
-  },
 ]
 
 export default function GalerieFootPage() {
@@ -151,9 +144,8 @@ export default function GalerieFootPage() {
           <span className="fg-label">La suite</span>
           <h2>Et si c&apos;était votre club sur ces photos&nbsp;?</h2>
           <p>
-            Un match, une phase finale ou une saison entière, en photo comme en vidéo :
-            dites-moi ce que vous avez en tête, je vous réponds avec une proposition
-            claire et un tarif.
+            Un match, une phase finale ou une saison entière : dites-moi ce que vous
+            avez en tête, je vous réponds avec une proposition claire et un tarif.
           </p>
         </Reveal>
         <Reveal delay={0.12}>
