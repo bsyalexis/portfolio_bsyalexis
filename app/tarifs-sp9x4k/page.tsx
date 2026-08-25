@@ -542,7 +542,7 @@ export default function TarifsPage() {
         <div className="cover-bottom">
           <div className="cover-label">
             <div className="cover-label-line"></div>
-            <span>Document commercial · Juin 2026</span>
+            <span>Document commercial · Septembre 2026</span>
           </div>
           <div className="cover-title">Grille<br /><em>Tarifaire</em></div>
           <div className="cover-meta">
@@ -557,7 +557,7 @@ export default function TarifsPage() {
       {/* PAGE 2 : Prestations */}
       <div className="page">
         <div className="page-header">
-          <span className="page-brand">Alexis Bossy · Grille Tarifaire · Juin 2026</span>
+          <span className="page-brand">Alexis Bossy · Grille Tarifaire · Septembre 2026</span>
           <span className="page-handle">@alexbsy_</span>
         </div>
         <div className="section-label">
@@ -573,7 +573,7 @@ export default function TarifsPage() {
               <div className="card-tags"><span className="tag tag-photo">Photo</span></div>
             </div>
             <div className="card-right">
-              <div className="card-prix">100 €</div>
+              <div className="card-prix">80 €</div>
               <div className="card-prix-label">à l&apos;unité</div>
             </div>
           </div>
@@ -631,7 +631,7 @@ export default function TarifsPage() {
       {/* PAGE 3 : Sur-mesure & Conditions */}
       <div className="page">
         <div className="page-header">
-          <span className="page-brand">Alexis Bossy · Grille Tarifaire · Juin 2026</span>
+          <span className="page-brand">Alexis Bossy · Grille Tarifaire · Septembre 2026</span>
           <span className="page-handle">@alexbsy_</span>
         </div>
         <div className="two-col">
