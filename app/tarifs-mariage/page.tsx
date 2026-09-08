@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Tarifs Mariage 2026-2027',
   description:
-    'Reportage photo de mariage à Saint-Étienne, Lyon et dans le Beaujolais : trois formules, de la cérémonie seule à la journée complète.',
+    'Reportage photo de mariage à Saint-Étienne, Lyon et alentours : trois formules, de la cérémonie seule à la journée complète.',
   robots: {
     index: false,
     follow: false,
@@ -355,12 +355,12 @@ export default function TarifsMariagePage() {
             </div>
             <div className="tm-header-right">
               <div className="tm-date">Mariage · Tarifs 2026-2027</div>
-              <div className="tm-lieu">Saint-Étienne, Lyon, Beaujolais et alentours</div>
+              <div className="tm-lieu">Saint-Étienne, Lyon et alentours</div>
             </div>
           </header>
 
           <section className="tm-hero">
-            <h1>Votre journée, racontée en <em>reportage</em></h1>
+            <h1>Le <em>récit</em> de votre mariage</h1>
             <p className="tm-chapo">
               Je viens du sport : j&apos;ai appris à photographier ce qui ne se rejoue pas.
               Pas de longues séances de poses, pas de mise en scène qui fige tout le monde
@@ -392,15 +392,16 @@ export default function TarifsMariagePage() {
 
               <article className="tm-carte">
                 <div>
-                  <div className="tm-duree">8 heures · jusqu&apos;au vin d&apos;honneur</div>
+                  <div className="tm-duree">8 heures · des préparatifs au vin d&apos;honneur</div>
                   <h3 className="tm-nom-formule">La journée</h3>
                 </div>
                 <div className="tm-prix">1 100 <span>€</span></div>
                 <hr />
                 <ul>
+                  <li>Préparatifs des deux mariés</li>
                   <li>Cérémonie civile et/ou religieuse</li>
                   <li>Photos de groupe, famille et amis</li>
-                  <li>Séance de couple à l&apos;heure dorée</li>
+                  <li>Séance de couple sur le lieu</li>
                   <li>Vin d&apos;honneur</li>
                 </ul>
                 <div className="tm-livrees"><b>200 à 300 photos</b> livrées</div>
@@ -417,7 +418,7 @@ export default function TarifsMariagePage() {
                   <li>Préparatifs des deux mariés</li>
                   <li>Cérémonie civile et/ou religieuse</li>
                   <li>Photos de groupe, famille et amis</li>
-                  <li>Séance de couple à l&apos;heure dorée</li>
+                  <li>Séance de couple à la Golden Hour</li>
                   <li>Vin d&apos;honneur, repas et discours</li>
                   <li>Ouverture de bal et pièce montée</li>
                 </ul>
@@ -447,7 +448,7 @@ export default function TarifsMariagePage() {
               <p><b>Réservation</b> : la date est bloquée à réception du contrat signé et d&apos;un acompte de 30 %. Le solde est réglé dans les 30 jours qui suivent le mariage.</p>
               <p><b>Photos livrées</b> : les fourchettes indiquées correspondent à une sélection resserrée, les doublons, les yeux fermés et les images ratées sont écartés. Mieux vaut 300 photos que vous regarderez que 800 que vous ne rouvrirez jamais.</p>
               <p><b>Repas</b> : un repas est prévu par vos soins au-delà de huit heures de présence.</p>
-              <p><b>Déplacement</b> : 80 km autour de Saint-Étienne.</p>
+              <p><b>Déplacement</b> : 80 km autour de Lorette (42420).</p>
               <p><b>Images</b> : je peux utiliser quelques photos pour mon portfolio mariage, je ne les publie pas sur les réseaux sociaux. Vous restez responsables des autorisations de droit à l&apos;image de vos invités.</p>
             </div>
             <div className="tm-contact">
