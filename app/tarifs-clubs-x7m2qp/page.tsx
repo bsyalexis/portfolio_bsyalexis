@@ -27,7 +27,10 @@ export default function TarifsClubsPage() {
         html { scroll-behavior: smooth; }
 
         body {
-          font-family: 'Inter', sans-serif;
+          /* Hérite de la police auto-hébergée posée par next/font sur le
+             body : le nom 'Inter' ne résout plus rien depuis que l'@import
+             Google Fonts a été retiré. */
+          font-family: inherit;
           background: var(--noir);
           color: var(--blanc);
           line-height: 1.5;
@@ -470,6 +473,12 @@ export default function TarifsClubsPage() {
       `}</style>
 
       {/* COVER */}
+      {/* Ces pages sont des documents autonomes sur fond noir, sans
+          #hero : sans ce marqueur, la barre de navigation garde ses
+          couleurs de fond clair et son nom se dessine en #111010 sur
+          du #0d0d0d, donc invisible. */}
+      <span data-surface="dark" hidden />
+
       <div className="cover">
         <div className="cover-accent"></div>
         <div className="cover-grid"></div>
@@ -510,7 +519,7 @@ export default function TarifsClubsPage() {
           <div className="card">
             <div className="card-left">
               <div className="card-name">Couverture match</div>
-              <div className="card-livrable">2h sur site · 30 photos retouchées · livraison 24h</div>
+              <div className="card-livrable">2h sur site · 50 photos retouchées · livraison 24h</div>
               <div className="card-tags"><span className="tag tag-photo">Photo</span></div>
             </div>
             <div className="card-right">
@@ -555,6 +564,7 @@ export default function TarifsClubsPage() {
             </div>
           </div>
         </div>
+        <div className="note">Tarifs dégressifs si plusieurs shootings réservés</div>
         <div className="page-num">2 / 4</div>
       </div>
 
@@ -597,7 +607,7 @@ export default function TarifsClubsPage() {
           <div className="card featured">
             <div className="card-left">
               <div className="card-name">Pack club · 4 visuels</div>
-              <div className="card-livrable">1 couverture match · 30 photos · 4 visuels réseaux</div>
+              <div className="card-livrable">1 couverture match · 50 photos · 4 visuels réseaux</div>
               <div className="card-tags"><span className="tag tag-pack">Pack</span><span className="tag tag-mois">/mois</span></div>
             </div>
             <div className="card-right">
@@ -609,7 +619,7 @@ export default function TarifsClubsPage() {
           <div className="card featured">
             <div className="card-left">
               <div className="card-name">Pack club · 8 visuels</div>
-              <div className="card-livrable">1 couverture match · 30 photos · 8 visuels · tout géré</div>
+              <div className="card-livrable">1 couverture match · 50 photos · 8 visuels · tout géré</div>
               <div className="card-tags"><span className="tag tag-pack">Pack</span><span className="tag tag-mois">/mois</span></div>
             </div>
             <div className="card-right">
