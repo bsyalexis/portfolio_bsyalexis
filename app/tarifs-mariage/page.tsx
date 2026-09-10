@@ -449,7 +449,7 @@ export default function TarifsMariagePage() {
               <p><b>Réservation</b> : la date est bloquée à réception du contrat signé et d&apos;un acompte de 30 %. Le solde est réglé dans les 30 jours qui suivent le mariage.</p>
               <p><b>Photos livrées</b> : les fourchettes indiquées correspondent à une sélection resserrée, les doublons, les yeux fermés et les images ratées sont écartés. Mieux vaut 300 photos que vous regarderez que 800 que vous ne rouvrirez jamais.</p>
               <p><b>Repas</b> : un repas est prévu par vos soins au-delà de huit heures de présence.</p>
-              <p><b>Déplacement</b> : 80 km autour de Lorette (42420).</p>
+              <p><b>Déplacement</b> : offert jusqu&apos;à 80 km autour de Lorette (42420). Au-delà, 0,50 €/km aller-retour sur les kilomètres excédentaires, péages et carburant compris (itinéraire le plus rapide depuis Saint-Étienne). À partir de 200 km, une nuit sur place est nécessaire et reste à votre charge.</p>
               <p><b>Images</b> : je peux utiliser quelques photos pour mon portfolio mariage, je ne les publie pas sur les réseaux sociaux. Vous restez responsables des autorisations de droit à l&apos;image de vos invités.</p>
             </div>
             <div className="tm-contact">
