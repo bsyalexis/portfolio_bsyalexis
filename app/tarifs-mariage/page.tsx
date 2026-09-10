@@ -386,6 +386,7 @@ export default function TarifsMariagePage() {
                   <li>Cérémonie civile et/ou religieuse</li>
                   <li>Photos de groupe, famille et amis</li>
                   <li>Séance de couple sur le lieu</li>
+                  <li>L&apos;arrivée au vin d&apos;honneur</li>
                 </ul>
                 <div className="tm-livrees"><b>100 à 150 photos</b> livrées</div>
               </article>
@@ -418,7 +419,7 @@ export default function TarifsMariagePage() {
                   <li>Préparatifs des deux mariés</li>
                   <li>Cérémonie civile et/ou religieuse</li>
                   <li>Photos de groupe, famille et amis</li>
-                  <li>Séance de couple à la Golden Hour</li>
+                  <li>Séance de couple sur le lieu</li>
                   <li>Vin d&apos;honneur, repas et discours</li>
                   <li>Ouverture de bal et pièce montée</li>
                 </ul>
