@@ -19,7 +19,13 @@ import { readdir, mkdir, writeFile, stat } from 'fs/promises'
 import { readFile } from 'fs/promises'
 import { join, basename, extname } from 'path'
 
-const SLUGS   = ['st-ferre-coupe-haute-loire', 'fc-saint-chamond', 'fc-saint-joseph']
+const SLUGS   = [
+  'us-feurs-ol2',
+  'st-ferre-coupe-haute-loire',
+  'fc-saint-chamond',
+  'fc-saint-joseph',
+  'fc-saint-joseph-2026-2027',
+]
 
 /* Première rangée, choisie et non tirée au sort : c'est elle qui décide si un
    club fait défiler la page. Un club par photo, trois registres différents
