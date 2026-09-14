@@ -8,9 +8,9 @@
     "date": "2026-09",
     "metaDescription": "Photographie · US Feurs · Septembre 2026. Reportage photo du match de National 2 entre l'US Feurs et l'Olympique Lyonnais 2.",
     "layout": "photo-gallery",
-    "galleryText": "Un cran au-dessus. National 2, l'US Feurs face à la réserve de l'Olympique Lyonnais. Le jeu va plus vite qu'en district et les fenêtres se referment plus tôt : duels, appels, visages, tout se joue à l'anticipation.",
+    "galleryText": "",
     "galleryImages": [
-      "/images/projets/us-feurs-ol2/A7400041.webp",
+      "/images/projets/us-feurs-ol2/A7400227.webp",
       "/images/projets/us-feurs-ol2/A7409997-2.webp",
       "/images/projets/us-feurs-ol2/A7400138.webp",
       "/images/projets/us-feurs-ol2/A7409766.webp",
@@ -23,7 +23,7 @@
       "/images/projets/us-feurs-ol2/A7400120_1.webp",
       "/images/projets/us-feurs-ol2/A7400139.webp",
       "/images/projets/us-feurs-ol2/A7400172.webp",
-      "/images/projets/us-feurs-ol2/A7400227.webp",
+      "/images/projets/us-feurs-ol2/A7400041.webp",
       "/images/projets/us-feurs-ol2/A7400275.webp",
       "/images/projets/us-feurs-ol2/A7400304.webp",
       "/images/projets/us-feurs-ol2/A7400377.webp",
@@ -54,8 +54,8 @@
     "ratio": "2:3",
     "featured": true,
     "chapters": [],
-    "cover": "/images/projets/us-feurs-ol2/A7400041.webp",
-    "heroImage": "/images/projets/us-feurs-ol2/A7400227.webp",
+    "cover": "/images/projets/us-feurs-ol2/A7400227.webp",
+    "heroImage": "/images/projets/us-feurs-ol2/A7400041.webp",
     "homeHero": true,
     "prevProject": "hakai-allumer",
     "nextProject": "fc-saint-joseph-2026-2027"
@@ -68,7 +68,7 @@
     "year": "Saison 2026-2027",
     "metaDescription": "Photographie · FC Saint-Joseph · Saison 2026-2027. Suivi photo de la saison du FC Saint-Joseph à Saint-Étienne, enrichi au fil des matchs.",
     "layout": "photo-gallery",
-    "galleryText": "Nouvelle saison, même club. Le suivi photo du FC Saint-Joseph repart pour 2026-2027 : cette galerie s'étoffera match après match, au fil du calendrier.",
+    "galleryText": "",
     "galleryImages": [
       "/images/projets/fc-saint-joseph-2026-2027/A7408865-2.webp",
       "/images/projets/fc-saint-joseph-2026-2027/A7409535.webp",
@@ -108,7 +108,6 @@
     "date": "2026-07",
     "metaDescription": "Photographie · Volkan · Juillet 2026. Shooting esport pour Volkan sur la scène EVA : portraits joueurs et visuels d'équipe.",
     "layout": "photo-gallery",
-    "galleryText": "",
     "galleryImages": [
       "/images/projets/volkan-eva-esport/A7408113.webp",
       "/images/projets/volkan-eva-esport/A7407330.webp",
@@ -158,7 +157,6 @@
     "date": "2026-07",
     "metaDescription": "Photographie · PadelShot Saint-Étienne · Juillet 2026. Reportage photo du tournoi P100 de padel à Saint-Étienne.",
     "layout": "photo-gallery",
-    "galleryText": "",
     "galleryImages": [
       "/images/projets/padelshot-p100-saint-etienne/A7405626.webp",
       "/images/projets/padelshot-p100-saint-etienne/A7402470.webp",

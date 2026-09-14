@@ -31,7 +31,11 @@ interface Projet {
    Année. », puis le premier chapitre. Trois des sept projets n'ont pas de
    galleryText, et sans cette cascade leur carte serait muette. */
 function lead(p: Projet): string {
-  if (p.galleryText) return p.galleryText
+  /* Un texte vide et un texte absent ne disent pas la même chose : le premier
+     est un silence voulu, le second un oubli que la cascade répare. Sans cette
+     distinction, vider le texte d'un projet faisait remonter sa
+     metaDescription à sa place et la carte restait bavarde. */
+  if (p.galleryText !== undefined) return p.galleryText
 
   const meta = p.metaDescription ?? ''
   if (meta) {
@@ -71,6 +75,8 @@ export default function Works() {
   const rest = featured.filter((p) => p.slug !== hero?.slug).slice(0, 5)
 
   if (!hero) return null
+
+  const heroLead = lead(hero)
 
   const collage = (hero.galleryImages ?? [hero.cover].filter(Boolean) as string[]).slice(0, 6)
 
@@ -113,7 +119,7 @@ export default function Works() {
           <Reveal as="h3" split className="works__title" stagger={0.04}>
             {hero.title}
           </Reveal>
-          <p className="works__lead">{lead(hero)}</p>
+          {heroLead && <p className="works__lead">{heroLead}</p>}
           <Link href={`/projet/${hero.slug}`} className="works__cta">
             Voir le projet
             <span aria-hidden="true">→</span>
