@@ -227,6 +227,51 @@ const css = `
         /* ── Blocs ── */
         .tm-sheet .tm-bloc { display: flex; flex-direction: column; gap: 18px; }
 
+        /* ── Module mairie ──
+           Bordure en pointillés : c'est un complément, pas une quatrième
+           formule, il ne doit pas se lire au même niveau que les cartes. */
+        .tm-sheet .tm-module {
+          background: var(--sable);
+          border: 1px dashed var(--lin-clair);
+          border-radius: 12px;
+          padding: 20px 24px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 28px;
+        }
+        .tm-sheet .tm-module-texte { display: flex; flex-direction: column; gap: 5px; }
+        .tm-sheet .tm-module h3 {
+          font-size: 17px;
+          font-weight: 900;
+          text-transform: uppercase;
+          letter-spacing: -.02em;
+        }
+        .tm-sheet .tm-module p {
+          font-size: 13px;
+          line-height: 1.5;
+          color: var(--terre);
+          max-width: 64ch;
+        }
+        .tm-sheet .tm-module-prix { text-align: right; flex: none; }
+        .tm-sheet .tm-module-montant {
+          font-size: 28px;
+          font-weight: 900;
+          letter-spacing: -.04em;
+          line-height: 1;
+          font-variant-numeric: tabular-nums;
+        }
+        .tm-sheet .tm-module-montant span { font-size: 15px; font-weight: 700; }
+        .tm-sheet .tm-module-prix small {
+          display: block;
+          margin-top: 5px;
+          font-size: 10px;
+          font-weight: 600;
+          letter-spacing: .14em;
+          text-transform: uppercase;
+          color: var(--rouge);
+        }
+
         /* ── Bande « toujours inclus » ── */
         .tm-sheet .tm-inclus {
           background: var(--sable-fonce);
@@ -322,13 +367,15 @@ const css = `
           .tm-sheet .tm-header-right .tm-lieu { margin-left: 0; }
           .tarifs-mariage    { padding-top: 44px; }
           .tm-sheet .tm-inclus     { padding: 26px 22px; }
+          .tm-sheet .tm-module     { flex-direction: column; align-items: flex-start; gap: 14px; }
+          .tm-sheet .tm-module-prix { text-align: left; }
         }
 
         @media print {
           .nav, .mailpill, .scroll-progress { display: none !important; }
           body { background: #fff; }
           .tarifs-mariage { padding: 0; }
-          .tm-sheet .tm-carte, .tm-sheet .tm-inclus { break-inside: avoid; }
+          .tm-sheet .tm-carte, .tm-sheet .tm-inclus, .tm-sheet .tm-module { break-inside: avoid; }
           * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
       `
@@ -372,7 +419,7 @@ export default function TarifsMariagePage() {
           </section>
 
           <section className="tm-bloc">
-            <div className="tm-label">Les trois formules</div>
+            <div className="tm-label">Les formules</div>
             <div className="tm-formules">
 
               <article className="tm-carte">
@@ -380,7 +427,7 @@ export default function TarifsMariagePage() {
                   <div className="tm-duree">4 heures · cérémonie et photos de groupe</div>
                   <h3 className="tm-nom-formule">L&apos;essentiel</h3>
                 </div>
-                <div className="tm-prix">600 <span>€</span></div>
+                <div className="tm-prix">450 <span>€</span></div>
                 <hr />
                 <ul>
                   <li>Cérémonie civile et/ou religieuse</li>
@@ -388,7 +435,7 @@ export default function TarifsMariagePage() {
                   <li>Séance de couple sur le lieu</li>
                   <li>L&apos;arrivée au vin d&apos;honneur</li>
                 </ul>
-                <div className="tm-livrees"><b>100 à 150 photos</b> livrées</div>
+                <div className="tm-livrees"><b>150 photos</b> minimum</div>
               </article>
 
               <article className="tm-carte">
@@ -396,7 +443,7 @@ export default function TarifsMariagePage() {
                   <div className="tm-duree">8 heures · des préparatifs au vin d&apos;honneur</div>
                   <h3 className="tm-nom-formule">La journée</h3>
                 </div>
-                <div className="tm-prix">1 100 <span>€</span></div>
+                <div className="tm-prix">850 <span>€</span></div>
                 <hr />
                 <ul>
                   <li>Préparatifs des deux mariés</li>
@@ -405,7 +452,7 @@ export default function TarifsMariagePage() {
                   <li>Séance de couple sur le lieu</li>
                   <li>Vin d&apos;honneur</li>
                 </ul>
-                <div className="tm-livrees"><b>200 à 300 photos</b> livrées</div>
+                <div className="tm-livrees"><b>200 à 300 photos</b> minimum</div>
               </article>
 
               <article className="tm-carte">
@@ -413,7 +460,7 @@ export default function TarifsMariagePage() {
                   <div className="tm-duree">12 heures · des préparatifs à la soirée</div>
                   <h3 className="tm-nom-formule">Intégrale</h3>
                 </div>
-                <div className="tm-prix">1 600 <span>€</span></div>
+                <div className="tm-prix">1 200 <span>€</span></div>
                 <hr />
                 <ul>
                   <li>Préparatifs des deux mariés</li>
@@ -423,9 +470,20 @@ export default function TarifsMariagePage() {
                   <li>Vin d&apos;honneur, repas et discours</li>
                   <li>Ouverture de bal et pièce montée</li>
                 </ul>
-                <div className="tm-livrees"><b>350 à 500 photos</b> livrées</div>
+                <div className="tm-livrees"><b>350 à 500 photos</b> minimum</div>
               </article>
 
+            </div>
+
+            <div className="tm-module">
+              <div className="tm-module-texte">
+                <h3>Mairie &amp; déjeuner</h3>
+                <p>Quand la cérémonie civile a lieu un autre jour : deux heures sur place, la sortie de mairie, les félicitations et les photos souvenir au restaurant. 60 photos minimum, livrées sous 48 heures. Date fixée à la réservation.</p>
+              </div>
+              <div className="tm-module-prix">
+                <div className="tm-module-montant">250 <span>€</span></div>
+                <small>En complément d&apos;une formule</small>
+              </div>
             </div>
           </section>
 
@@ -447,7 +505,7 @@ export default function TarifsMariagePage() {
             <div className="tm-conditions">
               <div className="tm-label tm-mute" style={{ marginBottom: '14px' }}>Conditions</div>
               <p><b>Réservation</b> : la date est bloquée à réception du contrat signé et d&apos;un acompte de 30 %. Le solde est réglé dans les 30 jours qui suivent le mariage.</p>
-              <p><b>Photos livrées</b> : les fourchettes indiquées correspondent à une sélection resserrée, les doublons, les yeux fermés et les images ratées sont écartés. Mieux vaut 300 photos que vous regarderez que 800 que vous ne rouvrirez jamais.</p>
+              <p><b>Photos livrées</b> : les nombres indiqués sont des minimums garantis. La sélection est resserrée, les doublons, les yeux fermés et les images ratées sont écartés. Mieux vaut 300 photos que vous regarderez que 800 que vous ne rouvrirez jamais.</p>
               <p><b>Repas</b> : un repas est prévu par vos soins au-delà de huit heures de présence.</p>
               <p><b>Déplacement</b> : offert jusqu&apos;à 80 km autour de Lorette (42420). Au-delà, 0,50 €/km aller-retour sur les kilomètres excédentaires, péages et carburant compris (itinéraire le plus rapide depuis Lorette). À partir de 200 km, une nuit sur place est nécessaire et reste à votre charge.</p>
               <p><b>Images</b> : je peux utiliser quelques photos pour mon portfolio mariage, je ne les publie pas sur les réseaux sociaux. Vous restez responsables des autorisations de droit à l&apos;image de vos invités.</p>
