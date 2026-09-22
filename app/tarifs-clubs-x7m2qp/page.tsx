@@ -612,7 +612,7 @@ export default function TarifsClubsPage() {
               <div className="card-tags"><span className="tag tag-pack">Pack</span><span className="tag tag-mois">/mois</span></div>
             </div>
             <div className="card-right">
-              <div className="card-prix">250 €</div>
+              <div className="card-prix">230 €</div>
               <div className="card-prix-label">par mois</div>
             </div>
           </div>
