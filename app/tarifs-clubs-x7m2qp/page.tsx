@@ -519,7 +519,7 @@ export default function TarifsClubsPage() {
           <div className="card">
             <div className="card-left">
               <div className="card-name">Couverture match</div>
-              <div className="card-livrable">2h sur site · 50 photos retouchées · livraison 24h</div>
+              <div className="card-livrable">2h sur site · 50 photos retouchées minimum · livraison 24h</div>
               <div className="card-tags"><span className="tag tag-photo">Photo</span></div>
             </div>
             <div className="card-right">
