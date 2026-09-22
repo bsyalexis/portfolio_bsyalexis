@@ -547,22 +547,11 @@ export default function TarifsClubsPage() {
               <div className="card-tags"><span className="tag tag-graphisme">Graphisme</span></div>
             </div>
             <div className="card-right">
-              <div className="card-prix">50 €</div>
+              <div className="card-prix">25 €</div>
               <div className="card-prix-label">à l&apos;unité</div>
             </div>
           </div>
 
-          <div className="card">
-            <div className="card-left">
-              <div className="card-name">Pack déclinaisons visuel</div>
-              <div className="card-livrable">Post + story + bannière · même visuel 3 formats</div>
-              <div className="card-tags"><span className="tag tag-graphisme">Graphisme</span></div>
-            </div>
-            <div className="card-right">
-              <div className="card-prix">100 €</div>
-              <div className="card-prix-label">à l&apos;unité</div>
-            </div>
-          </div>
         </div>
         <div className="note">Tarifs dégressifs si plusieurs shootings réservés</div>
         <div className="page-num">2 / 4</div>
@@ -599,7 +588,7 @@ export default function TarifsClubsPage() {
               <div className="card-tags"><span className="tag tag-pack">Pack</span><span className="tag tag-mois">/mois</span></div>
             </div>
             <div className="card-right">
-              <div className="card-prix">175 €</div>
+              <div className="card-prix">150 €</div>
               <div className="card-prix-label">par mois</div>
             </div>
           </div>
@@ -670,6 +659,13 @@ export default function TarifsClubsPage() {
                     <div>
                       <div className="surmesure-title">Plusieurs visuels réseaux au mois</div>
                       <div className="surmesure-desc">Fréquence et formats selon votre calendrier</div>
+                    </div>
+                  </div>
+                  <div className="surmesure-item">
+                    <div className="surmesure-bar"></div>
+                    <div>
+                      <div className="surmesure-title">Identité visuelle réseaux sociaux</div>
+                      <div className="surmesure-desc">Gabarits, couleurs et typographies pour vos comptes</div>
                     </div>
                   </div>
                 </div>
