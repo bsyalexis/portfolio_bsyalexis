@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useCallback } from 'react'
+import Image from 'next/image'
 import Lightbox from '@/components/projet/Lightbox'
 import { buildRows } from '@/lib/gallery-rows'
 
@@ -68,14 +69,18 @@ export default function FootGalerie({ photos }: { photos: PhotoFoot[] }) {
                      porte sa propre hauteur faute de rangée pour la fixer. */
                   style={{ ['--ar' as string]: String(photo.ratio) }}
                 >
-                  <img
+                  <Image
                     src={photo.vignette}
                     alt={`Photographie de football, ${photo.club}`}
+                    fill
+                    /* Deux colonnes en dessous de 768px, quelle que soit la
+                       découpe calculée pour le bureau. */
+                    sizes="(max-width: 767px) 50vw, (max-width: 1400px) 30vw, 420px"
+                    quality={72}
                     /* Les six premières sont au-dessus de la ligne de flottaison
                        sur la plupart des écrans : les différer y ferait un trou
                        gris à l'ouverture, exactement là où la page se juge. */
                     loading={i < 6 ? 'eager' : 'lazy'}
-                    decoding="async"
                   />
                   <span className="foot-cell__club">{photo.club}</span>
                 </div>

@@ -47,54 +47,16 @@ export default function ContactForm() {
 
   if (status === 'sent') {
     return (
-      <div style={{
-        display:        'flex',
-        flexDirection:  'column',
-        alignItems:     'center',
-        justifyContent: 'center',
-        gap:            '16px',
-        padding:        '48px 24px',
-        textAlign:      'center',
-      }}>
-        <div style={{
-          width:         '48px',
-          height:        '48px',
-          borderRadius:  '50%',
-          background:    'var(--accent)',
-          display:       'flex',
-          alignItems:    'center',
-          justifyContent:'center',
-          color:         '#fff',
-          fontSize:      '1.3rem',
-        }}>
-          ✓
-        </div>
-        <p style={{ fontSize: '1rem', fontWeight: 500, color: '#ffffff', margin: 0 }}>
-          Message envoyé !
-        </p>
-        <p style={{ fontSize: '0.8rem', fontWeight: 300, color: 'rgba(255,255,255,0.45)', margin: 0 }}>
-          Je vous réponds dans les plus brefs délais.
-        </p>
+      <div className="cform__done" role="status">
+        <span className="cform__check" aria-hidden="true">✓</span>
+        <p className="cform__done-title">Message envoyé !</p>
+        <p className="cform__done-text">Je vous réponds dans les plus brefs délais.</p>
       </div>
     )
   }
 
-  const fieldStyle: React.CSSProperties = {
-    display:       'block',
-    width:         '100%',
-    background:    'rgba(255,255,255,0.06)',
-    border:        '1px solid rgba(255,255,255,0.12)',
-    borderRadius:  '6px',
-    padding:       '11px 14px',
-    color:         '#ffffff',
-    fontFamily:    'inherit',
-    fontSize:      '0.82rem',
-    fontWeight:    300,
-    outline:       'none',
-  }
-
   return (
-    <form className="contact-form" onSubmit={handleSubmit} noValidate>
+    <form className="cform" onSubmit={handleSubmit} noValidate>
 
       {/* Anti-spam : invisible pour les humains, rempli par les bots */}
       <input
@@ -105,91 +67,47 @@ export default function ContactForm() {
         style={{ display: 'none' }}
       />
 
-      {/* Nom + Prénom */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '10px' }}>
+      {/* Les libellés sont visuellement masqués et non absents : un champ
+          qui n'a qu'un placeholder n'est pas nommé pour un lecteur d'écran,
+          et son intitulé disparaît dès la première lettre saisie. */}
+      <div className="cform__row">
+        <label className="sr-only" htmlFor="cf-nom">Nom</label>
         <input
-          type="text"
-          name="nom"
-          placeholder="Nom *"
-          required
-          style={fieldStyle}
+          id="cf-nom" className="cform__field"
+          type="text" name="nom" placeholder="Nom *"
+          required autoComplete="family-name"
         />
+        <label className="sr-only" htmlFor="cf-prenom">Prénom</label>
         <input
-          type="text"
-          name="prenom"
-          placeholder="Prénom *"
-          required
-          style={fieldStyle}
+          id="cf-prenom" className="cform__field"
+          type="text" name="prenom" placeholder="Prénom *"
+          required autoComplete="given-name"
         />
       </div>
 
-      {/* Email */}
+      <label className="sr-only" htmlFor="cf-email">Adresse email</label>
       <input
-        type="email"
-        name="email"
-        placeholder="Adresse email *"
-        required
-        style={{ ...fieldStyle, marginBottom: '10px' }}
+        id="cf-email" className="cform__field"
+        type="email" name="email" placeholder="Adresse email *"
+        required autoComplete="email" inputMode="email"
+        autoCapitalize="off" spellCheck={false}
       />
 
-      {/* Message */}
+      <label className="sr-only" htmlFor="cf-message">Votre message</label>
       <textarea
-        name="message"
-        placeholder="Votre message *"
-        required
-        rows={4}
-        style={{ ...fieldStyle, resize: 'vertical', minHeight: '96px', marginBottom: '16px' }}
+        id="cf-message" className="cform__field cform__field--area"
+        name="message" placeholder="Votre message *"
+        required rows={4}
       />
 
-      {/* Erreur */}
       {status === 'error' && (
-        <div
-          role="alert"
-          style={{
-            marginBottom:  '12px',
-            padding:       '10px 14px',
-            borderRadius:  '6px',
-            background:    'rgba(220, 60, 60, 0.12)',
-            border:        '1px solid rgba(220, 60, 60, 0.35)',
-            color:         'rgba(255,255,255,0.85)',
-            fontSize:      '0.78rem',
-            fontWeight:    300,
-            lineHeight:    1.5,
-          }}
-        >
+        <div role="alert" className="cform__error">
           L’envoi a échoué. Réessayez, ou écrivez-moi directement à{' '}
-          <a
-            href="mailto:contact@alexbsy.fr"
-            style={{ color: '#ffffff', textDecoration: 'underline' }}
-          >
-            contact@alexbsy.fr
-          </a>
-          .
+          <a href="mailto:contact@alexbsy.fr">contact@alexbsy.fr</a>.
         </div>
       )}
 
-      {/* Submit */}
-      <button
-        type="submit"
-        disabled={status === 'sending'}
-        style={{
-          display:       'inline-flex',
-          alignItems:    'center',
-          gap:           '8px',
-          padding:       '11px 24px',
-          borderRadius:  '100px',
-          background:    'var(--accent)',
-          color:         '#ffffff',
-          fontSize:      '0.82rem',
-          fontWeight:    600,
-          border:        'none',
-          cursor:        status === 'sending' ? 'wait' : 'pointer',
-          letterSpacing: '0.02em',
-          opacity:       status === 'sending' ? 0.7 : 1,
-          transition:    'opacity 0.2s',
-          fontFamily:    'inherit',
-        }}
-      >
+      <button type="submit" className="cform__submit" disabled={status === 'sending'}>
         {status === 'sending' ? 'Envoi…' : status === 'error' ? 'Réessayer →' : 'Envoyer →'}
       </button>
 

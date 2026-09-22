@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import Image from 'next/image'
+import CoverMedia from '@/components/ui/CoverMedia'
 import Reveal from '@/components/motion/Reveal'
 import projets from '@/data/projets.json'
 
@@ -110,7 +112,19 @@ export default function Works() {
               aria-hidden={i === 0 ? undefined : true}
               tabIndex={i === 0 ? undefined : -1}
             >
-              <img src={src} alt="" loading="lazy" decoding="async" />
+              {/* Le premier visuel occupe deux colonnes sur cinq (deux sur
+                  deux en dessous de 900px) ; les autres une seule. */}
+              <Image
+                src={src}
+                alt=""
+                fill
+                sizes={
+                  i === 0
+                    ? '(max-width: 900px) 100vw, 40vw'
+                    : '(max-width: 900px) 50vw, 25vw'
+                }
+                quality={72}
+              />
             </Link>
           ))}
         </div>
@@ -138,23 +152,11 @@ export default function Works() {
             className={`works__item works__item--${i + 1}`}
           >
             <div className="works__item-media">
-              {p.coverVideo ? (
-                /* poster : image d'attente le temps que la boucle arrive, et
-                   repli si le navigateur ne décode pas le format.
-                   type déduit de l'extension, la grille mélange .webm et
-                   .mp4 selon la source disponible. */
-                <video
-                  autoPlay muted loop playsInline preload="metadata" aria-hidden="true"
-                  poster={p.cover}
-                >
-                  <source
-                    src={p.coverVideo}
-                    type={p.coverVideo.endsWith('.webm') ? 'video/webm' : 'video/mp4'}
-                  />
-                </video>
-              ) : (
-                <img src={p.cover} alt="" loading="lazy" decoding="async" />
-              )}
+              <CoverMedia
+                cover={p.cover}
+                video={p.coverVideo}
+                sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 600px"
+              />
             </div>
             {/* Titre, type, année et rien de plus : ces cartes sont d'abord
                 des visuels, la légende ne fait que les nommer. */}

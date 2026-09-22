@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { formatProjetDate } from '@/lib/date'
+import CoverMedia from '@/components/ui/CoverMedia'
 
 interface Projet {
   slug: string
@@ -32,36 +33,16 @@ export default function ProjetCard({ projet }: { projet: Projet }) {
   return (
     <Link href={`/projet/${projet.slug}`} className="projet-card">
 
-      {/* Visuel */}
-      <div className="card-img-wrap">
-        {projet.coverVideo ? (
-          <video
-            autoPlay loop muted playsInline
-            className="card-img"
-            style={{ objectFit: 'cover' }}
-            /* Le cover fait office d'image d'attente : sans lui la carte reste
-               vide le temps que la boucle arrive, et grise si le navigateur
-               refuse de décoder. */
-            poster={projet.cover}
-          >
-            {/* Le type est déduit de l'extension : la grille mélange des
-                boucles .webm et .mp4 selon la source dont on dispose, et un
-                type erroné fait rejeter la source sans message. */}
-            <source
-              src={projet.coverVideo}
-              type={projet.coverVideo.endsWith('.webm') ? 'video/webm' : 'video/mp4'}
-            />
-          </video>
-        ) : (
-          <div
-            className="card-img"
-            style={{
-              background: projet.cover
-                ? `url(${projet.cover}) center/cover no-repeat, ${bg}`
-                : bg,
-            }}
-          />
-        )}
+      {/* Visuel. Le dégradé reste en fond du cadre : il habille la carte le
+          temps que le visuel arrive, et sert de repli quand un projet n'a
+          pas de cover. */}
+      <div className="card-img-wrap" style={{ background: bg }}>
+        <CoverMedia
+          cover={projet.cover}
+          video={projet.coverVideo}
+          sizes="(max-width: 767px) 100vw, (max-width: 1024px) 50vw, 380px"
+          className="card-img"
+        />
         {projet.category === 'video' && (
           <div className="video-badge">&#9654;&nbsp;Vidéo</div>
         )}

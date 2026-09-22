@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -31,7 +29,12 @@
   --container-width:   1100px;
   --grid-width:        1200px;
   --px-desktop:        56px;
-  --px-mobile:         20px;
+  /* La marge mobile ne descend jamais sous l'encoche : avec
+     `viewport-fit=cover`, le contenu occupe toute la dalle, y compris la
+     bande latérale occupée par l'encoche en paysage. En portrait, et sur
+     tout appareil sans encoche, les env() valent zéro et la valeur reste
+     20px. */
+  --px-mobile:         max(20px, env(safe-area-inset-left), env(safe-area-inset-right));
   --section-pt:        96px;
   --section-pt-large:  120px;
 
@@ -60,11 +63,31 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth; /* Lenis overrides this */
+  /* Défilement fluide natif pour les ancres. Sur pointeur fin, Lenis prend le
+     relais et neutralise cette règle ; sur mobile, où Lenis n'est plus
+     instancié, c'est elle qui assure la transition des liens d'ancre. */
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Anneau de focus unifié. Le style par défaut du navigateur (bleu, ou orange
+   selon la plateforme) jurait avec la charte et changeait d'un appareil à
+   l'autre. `:focus-visible` et non `:focus` : rien ne s'affiche au clic, tout
+   s'affiche au clavier. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  /* La variable vient de next/font : la police est auto-hebergee, preloadee
+     et sans requete tierce. L'ancien @import Google Fonts chargeait une
+     seconde copie d'Inter derriere une feuille de style bloquante sur un
+     domaine a resoudre, soit ~1 s de rendu differe sur mobile. */
+  font-family: var(--font-inter), system-ui, -apple-system, 'Segoe UI', sans-serif;
   background-color: var(--bg);
   color: var(--text);
   font-weight: 300;
@@ -76,6 +99,16 @@ img,
 video {
   display: block;
   max-width: 100%;
+}
+
+/* iOS grossit d'autorité le corps de texte des blocs qu'il juge étroits après
+   une rotation, ce qui casse les échelles typographiques calées au clamp. */
+html { -webkit-text-size-adjust: 100%; }
+
+/* Le surlignage gris d'iOS apparaît sur chaque tape, y compris sur les
+   photos : l'anneau de focus ci-dessus fait le travail proprement. */
+a, button {
+  -webkit-tap-highlight-color: transparent;
 }
 
 a {
@@ -184,6 +217,9 @@ a {
 .nav {
   position: sticky;
   top: 0;
+  /* Toujours sous le menu (200) et sous la lightbox : rien du header ne doit
+     pouvoir peindre par-dessus un panneau ouvert. */
+  z-index: 100;
   width: 100%;
   height: var(--nav-h);
   /* Grille en trois colonnes plutôt que flex + positionnement absolu :
@@ -199,12 +235,23 @@ a {
   background: transparent;
   pointer-events: none;
 }
-/* Seuls les éléments interactifs reprennent la main, pas les colonnes de
-   la grille : menu ouvert, le header passe au-dessus du panneau (201 > 200)
-   et une colonne cliquable sur toute sa largeur avalerait les clics destinés
-   au bouton « Fermer » situé dessous. */
+/* Le header est transparent et couvre toute la largeur : sans
+   `pointer-events: none` sur le conteneur, sa bande de 68px avalerait les
+   clics destinés à la page. Seuls les éléments interactifs reprennent la
+   main. */
 .nav a,
 .nav button { pointer-events: auto; }
+
+/* ── Menu ouvert ──
+   Le panneau porte sa propre barre et son propre « Fermer ». Le contenu du
+   header s'efface donc : sur mobile le panneau fait presque toute la largeur
+   et le nom se retrouvait dessiné à travers la barre noire. */
+.nav--menu .nav__left,
+.nav--menu .nav__right {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
 
 .nav__left {
   display: flex;
@@ -215,6 +262,8 @@ a {
 .nav__right { justify-self: end; }
 
 .nav__logo {
+  display: inline-flex;
+  align-items: center;
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -283,7 +332,14 @@ a {
   color: var(--text-mid);
   transition: color 0.25s ease;
 }
-.nav__socials a { display: flex; }
+.nav__socials a { display: flex; padding: 6px; border-radius: 50%; }
+/* Le padding des icônes (6px) donne la place au fond de survol : l'écart
+   et la marge négative compensent pour garder l'espacement d'origine. */
+.nav__socials { gap: 4px; margin-inline: -6px; }
+.nav__social-bg {
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+}
 .nav__socials a:hover { color: var(--accent); }
 
 .nav__cta {
@@ -312,6 +368,17 @@ body:has(#hero) .nav:not(.nav--solid) .nav__socials   { color: rgba(255, 255, 25
 body:has(#hero) .nav:not(.nav--solid) .nav__cta       { background: #fff; color: #0d0d0d; }
 body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent); color: #fff; }
 
+/* ── Pages sombres de bout en bout ──
+   Les pages de tarifs sont des documents autonomes sur fond noir et n'ont pas
+   de #hero : la règle ci-dessus ne les couvrait pas, et le nom s'affichait en
+   #111010 sur du #0d0d0d. Elles se signalent par un marqueur explicite plutôt
+   que par une classe de mise en page, pour que le lien reste lisible dans les
+   deux fichiers. */
+body:has([data-surface='dark']) .nav .nav__logo      { color: #fff; }
+body:has([data-surface='dark']) .nav .nav__socials   { color: rgba(255, 255, 255, 0.75); }
+body:has([data-surface='dark']) .nav .nav__cta       { background: #fff; color: #0d0d0d; }
+body:has([data-surface='dark']) .nav .nav__cta:hover { background: var(--accent); color: #fff; }
+
 @media (max-width: 767px) {
   /* Le CTA sort : à 375px il ne tient pas, et il reste accessible depuis le
      menu. Le nom et les réseaux d'un côté, la pilule de l'autre. */
@@ -319,11 +386,16 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   .nav {
     grid-template-columns: auto auto;
     justify-content: space-between;
-    padding-inline: 20px;
+    padding-inline: var(--px-mobile);
   }
-  .nav__left { gap: 12px; }
-  .nav__socials { gap: 12px; }
-  .nav__pill { font-size: 0.82rem; padding-inline: 14px; gap: 10px; }
+  .nav__left { gap: 4px; }
+  /* Cibles tactiles : le nom faisait 23px de haut et les icônes 15px, très
+     en dessous du minimum utilisable au pouce. Le retrait ne se voit pas,
+     la barre fait déjà 68px de haut. */
+  .nav__logo { min-height: 44px; padding-inline: 4px; }
+  .nav__socials { gap: 2px; }
+  .nav__socials a { min-width: 40px; min-height: 44px; align-items: center; justify-content: center; }
+  .nav__pill { height: 44px; font-size: 0.82rem; padding-inline: 16px; gap: 10px; }
 }
 
 /* ─────────────────────────────────────────────
@@ -493,9 +565,15 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   color: var(--text);
 }
 .filter-pill.active {
-  background: var(--text);
   border-color: var(--text);
   color: #ffffff;
+  transition-delay: 0.08s;
+}
+/* Fond du filtre actif, déplacé par AnimatedBackground (Motion). */
+.filter-pill__bg {
+  background: var(--text);
+  border-radius: inherit;
+  margin: -1px;
 }
 
 /* ─────────────────────────────────────────────
@@ -517,8 +595,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   inset: 0;
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .projet-card:hover .card-img {
@@ -569,36 +646,6 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px 24px;
-}
-
-/* CONTACT FORM : thème sombre (footer) */
-.contact-form input,
-.contact-form textarea {
-  display: block;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 6px;
-  padding: 11px 14px;
-  color: #ffffff;
-  font-family: inherit;
-  font-size: 0.82rem;
-  font-weight: 300;
-  outline: none;
-  transition: border-color 0.2s ease;
-  -webkit-appearance: none;
-}
-.contact-form input::placeholder,
-.contact-form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.3);
-}
-.contact-form input:focus,
-.contact-form textarea:focus {
-  border-color: rgba(255, 255, 255, 0.32);
-}
-.contact-form textarea {
-  resize: vertical;
-  min-height: 96px;
 }
 
 /* ─────────────────────────────────────────────
@@ -845,18 +892,6 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
     gap: 40px !important;
   }
 
-  /* Footer → padding réduit */
-  .footer-engage {
-    padding: 56px 24px 48px !important;
-  }
-  .footer-links-inner {
-    padding-inline: 24px !important;
-  }
-  .footer-bottom-inner {
-    padding-inline: 24px !important;
-  }
-
-
   /* Stats → 2 colonnes */
   .stats-grid {
     grid-template-columns: 1fr 1fr !important;
@@ -895,15 +930,6 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
     aspect-ratio: 16/9 !important;
   }
 
-  /* Footer engage → 1 colonne */
-  .engage-inner {
-    grid-template-columns: 1fr !important;
-  }
-  .engage-img { display: none !important; }
-  .footer-links-inner {
-    grid-template-columns: 1fr 1fr !important;
-  }
-
   /* Travaux grid → 1 colonne */
   .travaux-grid {
     grid-template-columns: 1fr !important;
@@ -919,18 +945,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   .chapter-inner-grid {
     grid-template-columns: 1fr !important;
   }
-  .chapter-number-col {
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-    margin-bottom: 24px !important;
-  }
 
-  /* Project nav → colonne */
-  .project-nav-inner {
-    flex-direction: column !important;
-    gap: 32px !important;
-  }
 }
 
 @media (max-width: 1024px) and (min-width: 769px) {
@@ -1065,7 +1080,10 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   top: calc(var(--bar-top) - 8px);
   left: 50%;
   width: min(340px, calc(100vw - 28px));
-  max-height: calc(100svh - 28px);
+  /* svh et non vh : sur iOS la barre d'URL rétractable gonfle vh d'une
+     soixantaine de pixels, et le pied du panneau passait sous le pli.
+     La safe-area couvre l'indicateur d'accueil des iPhone sans bouton. */
+  max-height: calc(100svh - 28px - env(safe-area-inset-bottom, 0px));
   display: flex;
   flex-direction: column;
   background: #ececea;
@@ -1138,6 +1156,17 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 .menu.is-open .menu__link { opacity: 1; transform: none; }
 .menu__link:hover { color: var(--accent); }
+/* Le lien déborde de 12px de chaque côté pour que son fond de survol
+   respire, sans décaler le texte par rapport au reste du panneau. */
+.menu__link {
+  padding-inline: 12px;
+  margin-inline: -12px;
+  border-radius: 8px;
+}
+.menu__link-bg {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+}
 
 .menu__rule {
   border: none;
@@ -1164,8 +1193,18 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 @media (max-width: 767px) {
-  .menu { padding: 88px 24px 36px; }
-  .menu__foot { gap: 28px; }
+  /* Le panneau prend la largeur utile, gouttières comprises : à 375px un
+     panneau de 340px laissait deux liserés inégaux. */
+  .menu__panel { width: calc(100vw - 24px); }
+  /* La barre du panneau reprend la géométrie de la pilule du nav, qui passe
+     à 44px en mobile pour la cible tactile : même hauteur, et le panneau
+     remonte de 2px pour que les deux se superposent au pixel près. */
+  .menu__panel { top: calc(var(--bar-top) - 10px); }
+  .menu__bar { height: 44px; }
+  .menu__close { padding: 12px 12px; font-size: 0.9rem; }
+  .menu__body { padding: 20px 22px 8px; }
+  .menu__link { font-size: 1.5rem; padding-block: 9px; }
+  .menu__small { padding-block: 8px; font-size: 0.86rem; }
   .mq { padding-block: 16px; }
 }
 
@@ -1357,6 +1396,13 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   transform: none;
   transition: opacity 0.45s ease 0.22s, transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) 0.22s;
 }
+.hero__role-fx {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.62);
+}
 .hero__role--ghost {
   position: static;
   visibility: hidden;
@@ -1403,6 +1449,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   position: absolute;
   right: var(--px-desktop);
   bottom: 40px;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1425,6 +1472,27 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 @keyframes cue-slide {
   0%, 100% { transform: scaleY(0.4); transform-origin: top; opacity: 0.4; }
   50%      { transform: scaleY(1);   transform-origin: top; opacity: 1; }
+}
+
+@media (max-width: 767px) {
+  /* L'indice de défilement disparaît : en écriture verticale contre le bord
+     droit il était rogné par la gouttière, et il se posait sur le bouton
+     « Showreel ». Sur un écran tactile, l'invitation à faire défiler n'a de
+     toute façon rien à démontrer. */
+  .hero__cue { display: none; }
+
+  .hero__inner { padding: 84px var(--px-mobile) 44px; }
+  /* Complément de safe-area : sans lui les boutons passent sous
+     l'indicateur d'accueil des iPhone sans bouton. */
+  .hero__bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .hero__title { margin-bottom: 24px; }
+  /* Cible tactile : les boutons du hero faisaient 40px de haut. */
+  .hero__btn { min-height: 46px; padding: 13px 22px; font-size: 0.84rem; }
+  /* À 375px les deux boutons tiennent côte à côte à condition qu'ils
+     puissent se partager la ligne à parts égales. */
+  .hero__actions { gap: 10px; }
+  .hero__actions > * { flex: 1 1 auto; }
+  .hero__btn { justify-content: center; width: 100%; }
 }
 
 /* ── Showreel plein écran ── */
@@ -1510,15 +1578,17 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 .bento__cell--tall { flex: 1; }
 
-/* L'image est plus haute que sa cellule : c'est cette marge qui autorise le
-   déplacement vertical sans jamais découvrir de bord vide. */
+/* L'image est agrandie de 18 % : c'est cette marge qui autorise le
+   déplacement vertical sans jamais découvrir de bord vide.
+   L'agrandissement passe par le `transform` et non par un débord en
+   `inset` / `height`, parce que next/image en mode `fill` pose sa géométrie
+   en style inline (inset 0, 100 % / 100 %) : une règle de feuille de style
+   ne peut pas la contredire. */
 .bento__cell > img {
-  position: absolute;
-  inset: -9% 0;
-  width: 100%;
-  height: 118%;
   object-fit: cover;
-  transform: translate3d(0, calc((var(--p) - 0.5) * var(--speed, 40px)), 0);
+  transform:
+    translate3d(0, calc((var(--p) - 0.5) * var(--speed, 40px)), 0)
+    scale(1.18);
   will-change: transform;
 }
 
@@ -1623,7 +1693,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
     grid-template-rows: 1.25fr 1fr;
     height: 74svh;
     max-height: none;
-    padding-inline: 20px;
+    padding-inline: var(--px-mobile);
   }
   .bento__row { height: 100%; }
   .bento__cell--tall { display: none; }
@@ -1637,7 +1707,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bento__cell > img { transform: none; inset: 0; height: 100%; }
+  .bento__cell > img { transform: none; }
   .bento__float .bento__card { transform: none; }
 }
 
@@ -1920,7 +1990,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 .works__cta:hover { gap: 13px; border-color: var(--accent); }
 
 @media (max-width: 900px) {
-  .works { padding: 56px 20px 16px; gap: 10px; }
+  .works { padding: 56px var(--px-mobile) 16px; gap: 10px; }
   .works__row { grid-template-columns: 1fr; gap: 10px; }
   /* Deux colonnes : la grande carte prend la largeur, les autres se
      répartissent par paires. */
@@ -1969,6 +2039,622 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
   .hero-rise { animation: none; opacity: 1; transform: none; }
   .hero__role { transition: opacity 0.2s ease; transform: none; }
   .hero__role.is-active { transition: opacity 0.2s ease 0.2s; transform: none; }
+}
+
+/* ═════════════════════════════════════════════
+   FORMULAIRE DE CONTACT
+   ═════════════════════════════════════════════ */
+.cform { display: flex; flex-direction: column; gap: 10px; }
+.cform__row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.cform__field {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 300;
+  outline: none;
+  /* Sans ça, iOS impose son propre fond et son propre rayon aux champs. */
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.cform__field::placeholder { color: rgba(255, 255, 255, 0.38); }
+.cform__field:focus {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.09);
+}
+.cform__field:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.cform__field--area { resize: vertical; min-height: 108px; }
+
+.cform__error {
+  padding: 10px 14px;
+  border: 1px solid rgba(220, 60, 60, 0.35);
+  border-radius: 6px;
+  background: rgba(220, 60, 60, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.78rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+.cform__error a { color: #fff; text-decoration: underline; }
+
+.cform__submit {
+  align-self: flex-start;
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 11px 26px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+.cform__submit:hover { background: var(--accent-d); }
+.cform__submit:disabled { opacity: 0.7; cursor: wait; }
+
+.cform__done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 48px 24px;
+  text-align: center;
+}
+.cform__check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1.3rem;
+}
+.cform__done-title { margin: 0; font-size: 1rem; font-weight: 500; color: #fff; }
+.cform__done-text  { margin: 0; font-size: 0.8rem; font-weight: 300; color: rgba(255, 255, 255, 0.45); }
+
+@media (max-width: 767px) {
+  /* 16px pile : en dessous, iOS Safari zoome la page à la prise de focus et
+     l'utilisateur se retrouve avec une mise en page décalée qu'il doit
+     dézoomer à la main. C'est la seule raison de ce corps précis. */
+  .cform__field { font-size: 16px; padding: 13px 14px; }
+  /* Deux champs de 50% à 375px laissent 22 caractères visibles : les noms
+     passent l'un sous l'autre. */
+  .cform__row { grid-template-columns: 1fr; }
+  .cform__submit { align-self: stretch; justify-content: center; }
+}
+
+/* ═════════════════════════════════════════════
+   BLOCS VISUELS DE PAGE PROJET
+   Les hauteurs sont exprimées en proportions et non en pixels : à 375px, une
+   rangée de 407px sur trois colonnes de 123px ne montrait plus qu'une bande
+   verticale de chaque photo.
+   ═════════════════════════════════════════════ */
+.vb-img,
+.vb-vid {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+}
+.vb-img img { object-fit: cover; }
+.vb-vid { object-fit: cover; }
+.vb-img:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+
+/* Bloc pleine largeur : photo, lecteur intégré ou vidéo servie par le site. */
+.vb-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+}
+.vb-media iframe,
+.vb-media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  object-fit: cover;
+}
+
+.vb-grid { display: grid; gap: 3px; overflow: hidden; }
+.vb-grid--split2 { grid-template-columns: 1fr 1fr;  height: 55svh; min-height: 300px; }
+.vb-grid--asym   { grid-template-columns: 2fr 3fr;  height: 65svh; min-height: 360px; }
+.vb-grid--split3 { grid-template-columns: repeat(3, 1fr); height: 55svh; min-height: 300px; }
+
+.vb-grid--3col { grid-template-columns: repeat(3, 1fr); }
+.vb-cell { height: 360px; overflow: hidden; }
+.vb-cell--full { grid-column: 1 / -1; height: 480px; }
+
+/* Bento : onze cellules, trois colonnes, cinq rangées. */
+.vb-bento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 407px 202px 407px 202px 612px;
+  gap: 3px;
+}
+.vb-bento__cell { overflow: hidden; }
+.vb-bento__cell--1  { grid-column: 1 / 3; grid-row: 1; }
+.vb-bento__cell--2  { grid-column: 3;     grid-row: 1; }
+.vb-bento__cell--3  { grid-column: 1;     grid-row: 2; }
+.vb-bento__cell--4  { grid-column: 2;     grid-row: 2; }
+.vb-bento__cell--5  { grid-column: 3;     grid-row: 2; }
+.vb-bento__cell--6  { grid-column: 1;     grid-row: 3; }
+.vb-bento__cell--7  { grid-column: 2 / 4; grid-row: 3; }
+.vb-bento__cell--8  { grid-column: 1;     grid-row: 4; }
+.vb-bento__cell--9  { grid-column: 2;     grid-row: 4; }
+.vb-bento__cell--10 { grid-column: 3;     grid-row: 4; }
+.vb-bento__cell--11 { grid-column: 1 / 4; grid-row: 5; }
+
+@media (max-width: 767px) {
+  /* Deux images côte à côte gardent du sens à 186px ; trois n'en ont plus. */
+  .vb-grid--split2 { height: auto; min-height: 0; }
+  .vb-grid--split2 > * { aspect-ratio: 3 / 4; }
+
+  /* L'asymétrie 40/60 n'est plus lisible : le petit côté tombe à 148px. */
+  .vb-grid--asym { grid-template-columns: 1fr; height: auto; min-height: 0; }
+  .vb-grid--asym > * { aspect-ratio: 4 / 3; }
+
+  /* Trois en une : la troisième prend la largeur sous les deux premières. */
+  .vb-grid--split3 { grid-template-columns: 1fr 1fr; height: auto; min-height: 0; }
+  .vb-grid--split3 > * { aspect-ratio: 3 / 4; }
+  .vb-grid--split3 > *:last-child { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+
+  .vb-grid--3col { grid-template-columns: 1fr 1fr; }
+  .vb-cell { height: auto; aspect-ratio: 3 / 4; }
+  .vb-cell--full { height: auto; aspect-ratio: 16 / 10; }
+
+  /* Bento : les deux vidéos 16:9 prennent la largeur, les photos passent par
+     paires. Les rangées en pixels laissent la place à des proportions. */
+  .vb-bento {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: none;
+    gap: 2px;
+  }
+  .vb-bento__cell { grid-column: auto; grid-row: auto; aspect-ratio: 3 / 4; }
+  .vb-bento__cell--1,
+  .vb-bento__cell--7 { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+  .vb-bento__cell--11 { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
+}
+
+/* ═════════════════════════════════════════════
+   NAVIGATION PROJET PRÉCÉDENT / SUIVANT
+   ═════════════════════════════════════════════ */
+.pnav {
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+  padding-block: 44px;
+}
+.pnav__inner {
+  max-width: var(--grid-width);
+  margin-inline: auto;
+  padding-inline: var(--px-desktop);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+.pnav__next { text-align: right; }
+
+@media (max-width: 767px) {
+  .pnav { padding-block: 32px; }
+  /* Empilés et alignés à gauche : côte à côte, deux titres de projet se
+     réduisaient à trois mots coupés chacun. L'alignement à droite du second
+     n'a plus de sens une fois qu'ils sont l'un sous l'autre. */
+  .pnav__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 26px;
+    padding-inline: var(--px-mobile);
+  }
+  .pnav__next { text-align: left; }
+}
+
+/* ═════════════════════════════════════════════
+   CHAPITRE DE PAGE PROJET
+   ═════════════════════════════════════════════ */
+.chapter {
+  padding-block: 96px 80px;
+  overflow: hidden;
+}
+.chapter__head {
+  max-width: var(--grid-width);
+  margin: 0 auto 56px;
+  padding-inline: var(--px-desktop);
+}
+.chapter__visuals {
+  max-width: var(--grid-width);
+  margin-inline: auto;
+  padding-inline: var(--px-desktop);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* Numéro de chapitre : le repère romain, puis un filet qui file jusqu'au bout
+   de la colonne. */
+.chapter__num {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 6px;
+}
+.chapter__num-label {
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+}
+.chapter__num-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.45;
+}
+
+@media (max-width: 767px) {
+  .chapter { padding-block: 64px 56px; }
+  /* Le filet se posait sur un conteneur en largeur de contenu et se réduisait
+     à zéro : il ne restait que le chiffre isolé en haut du chapitre. */
+  .chapter__num { margin-bottom: 24px; }
+  .chapter__head { margin-bottom: 34px; }
+  /* Les visuels passent bord à bord : à 375px, 40px de gouttières prenaient
+     un neuvième de la largeur d'images qui sont le sujet de la page. */
+  .chapter__visuals { padding-inline: 0; gap: 2px; }
+}
+
+/* ═════════════════════════════════════════════
+   EN-TÊTE DE LA PAGE TRAVAUX
+   ═════════════════════════════════════════════ */
+.tvx-head {
+  max-width: var(--grid-width);
+  margin-inline: auto;
+  padding: 128px var(--px-desktop) 56px;
+}
+.tvx-head__title {
+  margin: 0 0 36px;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--text);
+}
+
+@media (max-width: 767px) {
+  /* 128px de retrait pour une barre de 68px : sur un écran de 812px c'était
+     un cinquième de la hauteur utile en blanc avant le premier mot. */
+  .tvx-head { padding: 96px var(--px-mobile) 36px; }
+  .tvx-head__title { font-size: clamp(2.6rem, 13vw, 3.4rem); margin-bottom: 26px; }
+  /* Cible tactile sur les filtres. */
+  .filter-pill { min-height: 40px; }
+}
+
+/* ═════════════════════════════════════════════
+   FOOTER
+   ═════════════════════════════════════════════ */
+.ft__engage {
+  background: #111010;
+  padding: 80px var(--px-desktop) 72px;
+}
+.ft__engage-inner {
+  max-width: var(--container-width);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: start;
+}
+.ft__engage-left { display: flex; flex-direction: column; gap: 16px; }
+.ft__engage-label {
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.18em;
+  margin-bottom: 18px;
+}
+.ft__engage-title {
+  margin: 0;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: #fff;
+}
+.ft__engage-mail {
+  width: fit-content;
+  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.78rem;
+}
+.ft__form-wrap {
+  position: relative;
+  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+/* Trace lumineuse des modules importants (voir ModuleTrail). Au-dessus
+   des images et de leurs dégradés, jamais des clics. */
+.module-trail {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.ft__links {
+  background: #111010;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 48px var(--px-desktop) 24px;
+}
+/* Grille et non flex : c'est elle qui permet de passer à deux colonnes en
+   mobile. La version flex avec 80px d'écart débordait de 17px à 375px, et la
+   règle mobile qui tentait de la corriger posait un `grid-template-columns`
+   sur un conteneur flex, où il ne veut rien dire. */
+.ft__links-inner {
+  max-width: var(--container-width);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: center;
+  gap: 80px;
+  align-items: start;
+}
+.ft__col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+.ft__col-label {
+  display: block;
+  margin-bottom: 4px;
+  color: rgba(255, 255, 255, 0.25);
+}
+.ft__link {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.2s ease;
+  /* L'adresse e-mail dépasse la largeur d'une demi-colonne à 375px : sans
+     coupure autorisée elle poussait la grille hors de l'écran. */
+  overflow-wrap: anywhere;
+}
+.ft__link:hover { color: #fff; }
+
+.ft__bottom {
+  background: #111010;
+  padding: 18px var(--px-desktop);
+  text-align: center;
+  /* Indicateur d'accueil des iPhone sans bouton : sans ce complément, la
+     mention de bas de page passe dessous. */
+  padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+}
+.ft__copy {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 900px) {
+  .ft__engage-inner { grid-template-columns: 1fr; gap: 40px; }
+  .ft__form-wrap { padding: 20px; }
+}
+
+@media (max-width: 767px) {
+  .ft__engage { padding: 56px var(--px-mobile) 48px; }
+  .ft__links  { padding: 40px var(--px-mobile) 20px; }
+  /* Deux colonnes de largeur égale, alignées à gauche : trois colonnes
+     centrées à 375px ne laissaient pas la place d'une adresse e-mail. */
+  .ft__links-inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+    gap: 28px 20px;
+    text-align: left;
+  }
+  .ft__col { align-items: flex-start; }
+  .ft__col--wide { grid-column: 1 / -1; }
+  /* Cible tactile : les liens de pied de page faisaient 17px de haut. */
+  .ft__link { padding-block: 5px; font-size: 0.86rem; }
+  .ft__bottom { padding-inline: var(--px-mobile); }
+}
+
+/* ═════════════════════════════════════════════
+   HERO DE PAGE PROJET
+   ═════════════════════════════════════════════ */
+.phero {
+  position: relative;
+  /* svh : sur iOS, vh compte la barre d'URL rétractée, et le titre du projet
+     partait sous le pli tant qu'elle était visible. */
+  height: 100svh;
+  min-height: 580px;
+  overflow: hidden;
+}
+.phero__img { object-fit: cover; z-index: 0; }
+.phero__body {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 2;
+  padding: 64px var(--px-desktop);
+}
+.phero__title {
+  margin: 0;
+  max-width: 720px;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .phero { min-height: 480px; }
+  .phero__body { padding: 40px var(--px-mobile) 44px; }
+  .phero__title { font-size: clamp(1.9rem, 8.4vw, 2.6rem); }
+}
+
+/* Vignette de galerie cliquable (galerie foot, blocs visuels de projet). */
+.gallery-clickable {
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+.gallery-clickable:hover {
+  filter: brightness(1.08);
+}
+
+/* ═════════════════════════════════════════════
+   GALERIE PROJET : rangées justifiées
+   Les rangées sont calculées côté serveur (lib/gallery-rows) : nombre de
+   colonnes et ratio du bloc arrivent en variables CSS, ce qui laisse la
+   mise en page mobile les réinterpréter sans recalcul JavaScript.
+   ═════════════════════════════════════════════ */
+.pgal__head {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  width: 100%;
+  aspect-ratio: var(--ar, 1.5);
+  /* Plancher pour que le bloc de texte respire, mais indexé sur la largeur :
+     une valeur fixe en pixels écrasait le ratio sur écran étroit et remettait
+     à rogner l'image qu'on cherche à montrer. */
+  min-height: min(440px, 60vw);
+  max-height: 880px;
+}
+.pgal__head .pgal__card       { grid-column: 1; }
+.pgal__head .pgal__cell--hero { grid-column: 2 / 4; }
+/* Hero en portrait : le texte prend la largeur, la photo garde sa colonne
+   étroite plutôt que de n'en montrer qu'une bande. */
+.pgal__head[data-portrait='true'] .pgal__card       { grid-column: 1 / 3; }
+.pgal__head[data-portrait='true'] .pgal__cell--hero { grid-column: 3; }
+
+.pgal__card {
+  position: relative;
+  grid-row: 1;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  padding: 52px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.pgal__accent {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--accent);
+}
+.pgal__card-top { display: flex; flex-direction: column; gap: 20px; }
+.pgal__pill {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.pgal__title {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 300;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--text);
+}
+.pgal__body {
+  margin: 0;
+  max-width: 340px;
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-mid);
+}
+.pgal__client {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.pgal__rows { display: flex; flex-direction: column; gap: 3px; margin-top: 3px; }
+.pgal__row {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), 1fr);
+  gap: 3px;
+  width: 100%;
+  aspect-ratio: var(--ar, 1.6);
+}
+
+.pgal__cell {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+  cursor: pointer;
+  background: transparent;
+  transition: filter 0.3s ease;
+}
+.pgal__cell img { object-fit: cover; }
+.pgal__cell:hover { filter: brightness(1.08); }
+.pgal__cell:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+
+@media (max-width: 767px) {
+  /* L'en-tête se déplie : le texte au-dessus, la photo en dessous. Sur trois
+     colonnes à 375px, la carte tombait à 29px de texte utile entre ses
+     paddings. */
+  .pgal__head {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: auto;
+    min-height: 0;
+    max-height: none;
+  }
+  .pgal__card { padding: 34px var(--px-mobile) 28px; gap: 24px; }
+  .pgal__card-top { gap: 14px; }
+  .pgal__body { max-width: none; font-size: 0.9rem; }
+  .pgal__cell--hero { height: auto; aspect-ratio: var(--cell-ar, 1.5); }
+
+  /* Deux colonnes, quelles que soient les rangées calculées pour le bureau :
+     les rangées s'effacent et rendent leurs cellules à la grille du dessus,
+     qui leur donne leur propre hauteur puisqu'aucune rangée ne la fixe plus.
+     Même mécanique que la galerie foot. */
+  .pgal__rows {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+  }
+  .pgal__row { display: contents; }
+  .pgal__cell { height: auto; aspect-ratio: var(--cell-ar, 1.5); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pgal__cell { transition: none; }
 }
 
 /* ─────────────────────────────────────────────
@@ -2039,40 +2725,48 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 }
 .lightbox-arrow-left  { left: 20px; }
 .lightbox-arrow-right { right: 20px; }
+/* Boîte de dimensions connues : l'image est en `fill`, donc c'est le cadre
+   qui porte la taille. `contain` garde les proportions quel que soit le
+   format de la source, portrait ou paysage. */
 .lightbox-img-wrap {
-  max-width: calc(100vw - 160px);
-  max-height: calc(100vh - 80px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  width:  calc(100vw - 160px);
+  height: calc(100svh - 80px);
 }
 .lightbox-img {
-  max-width: 100%;
-  max-height: calc(100vh - 80px);
   object-fit: contain;
   border-radius: 4px;
   user-select: none;
 }
 
-/* Clickable gallery images */
-.gallery-clickable {
-  cursor: pointer;
-  transition: filter 0.3s ease;
-}
-.gallery-clickable:hover {
-  filter: brightness(1.08);
-}
-
 @media (max-width: 768px) {
-  .lightbox-arrow { width: 36px; height: 36px; font-size: 1.2rem; }
-  .lightbox-arrow-left  { left: 10px; }
-  .lightbox-arrow-right { right: 10px; }
-  .lightbox-img-wrap {
-    max-width: calc(100vw - 20px);
-    max-height: calc(100vh - 60px);
+  /* Les flèches quittent les bords latéraux : à 375px elles mordaient sur
+     l'image. Elles descendent en pied de visionneuse, côte à côte, en cible
+     tactile réglementaire ; le balayage reste le geste principal. */
+  .lightbox-arrow {
+    width: 46px;
+    height: 46px;
+    font-size: 1.5rem;
+    top: auto;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    transform: none;
   }
-  .lightbox-counter { top: 16px; left: 16px; }
-  .lightbox-close { top: 12px; right: 14px; }
+  .lightbox-arrow-left  { left: auto; right: calc(50% + 8px); }
+  .lightbox-arrow-right { right: calc(50% - 54px); }
+  .lightbox-img-wrap {
+    width:  calc(100vw - 16px);
+    height: calc(100svh - 150px - env(safe-area-inset-bottom, 0px));
+  }
+  .lightbox-counter { top: calc(14px + env(safe-area-inset-top, 0px)); left: 16px; }
+  .lightbox-close {
+    top: calc(8px + env(safe-area-inset-top, 0px));
+    right: 10px;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 /* ─────────────────────────────────────────────
@@ -2131,9 +2825,43 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 .is-copied .mailpill__ic-copy { opacity: 0; transform: scale(0.6); }
 .is-copied .mailpill__ic-check { opacity: 1; transform: scale(1); }
 
-@media (max-width: 560px) {
-  .mailpill { left: 14px; bottom: 14px; }
-  .mailpill__btn { font-size: 0.78rem; padding-inline: 15px 12px; gap: 10px; }
+@media (max-width: 767px) {
+  /* La pilule pleine mesure ~230px de large : posée en fixe, elle couvrait un
+     tiers de la largeur d'un iPhone sur toute la visite, par-dessus les
+     photos. Elle se réduit à son icône, et ne s'ouvre qu'une fois la copie
+     faite, le temps du message de confirmation.
+     Le complément de safe-area la décolle de l'indicateur d'accueil. */
+  /* Passe à droite : les actions du hero et les légendes des cartes sont
+     calées à gauche, et sur un écran de 700px de haut la pilule mordait sur
+     le bouton « Showreel ». À droite, la colonne est libre depuis que
+     l'indice de défilement a disparu. */
+  .mailpill {
+    left: auto;
+    right: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+  .mailpill__btn {
+    width: 44px;
+    padding-inline: 0;
+    justify-content: center;
+    gap: 0;
+    font-size: 0.78rem;
+    transition: width 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.25s ease;
+  }
+  .mailpill__labels {
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  /* Copié : la pilule s'ouvre juste assez pour « Copié ! », puis se referme
+     quand l'état retombe (2 s plus tard). */
+  .mailpill__btn.is-copied {
+    width: auto;
+    padding-inline: 16px 13px;
+    gap: 10px;
+  }
+  .mailpill__btn.is-copied .mailpill__labels { width: auto; }
+  .mailpill__mail { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2442,7 +3170,7 @@ body:has(#hero) .nav:not(.nav--solid) .nav__cta:hover { background: var(--accent
 /* Mobile : l'alternance n'a plus la place, la ligne repasse à gauche et les
    jalons s'empilent en pleine largeur. */
 @media (max-width: 767px) {
-  .tl { padding: 80px 20px 32px; }
+  .tl { padding: 80px var(--px-mobile) 32px; }
   .tl__head { margin-bottom: 44px; }
   .tl__list::before { left: 5px; margin-left: 0; }
   .tl__item,
@@ -2721,6 +3449,11 @@ a.fg-card:hover .fg-card__title { color: var(--accent); }
 }
 .fg-visuel {
   display: block;
+  /* Le ratio est porté par le cadre et non par l'image : celle-ci est en
+     `fill` (next/image), donc sa géométrie est posée en style inline et une
+     règle de feuille de style ne peut plus la fixer. */
+  position: relative;
+  aspect-ratio: var(--ar, 0.75);
   width: 100%;
   padding: 0;
   border: 1px solid var(--border);
@@ -2736,11 +3469,8 @@ a.fg-card:hover .fg-card__title { color: var(--accent); }
   box-shadow: var(--shadow-h);
 }
 .fg-visuel img {
-  width: 100%;
-  height: auto;
   /* Aucun rognage : ces images se lisent, une bande coupée en ferait perdre
      la moitié du sens. */
-  aspect-ratio: var(--ar, 0.75);
   object-fit: contain;
 }
 

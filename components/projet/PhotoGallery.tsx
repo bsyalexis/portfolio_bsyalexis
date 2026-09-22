@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useCallback } from 'react'
+import Image from 'next/image'
 import Lightbox from './Lightbox'
 import { buildRows, estPortrait } from '@/lib/gallery-rows'
 
@@ -35,49 +36,49 @@ const categoryLabel: Record<string, string> = {
   autres: 'Direction Artistique',
 }
 
+/* Largeurs de rendu. En dessous de 768px la grille repasse à deux colonnes
+   quelles que soient les rangées calculées pour le bureau, d'où le 50vw. */
+const CELL_SIZES = '(max-width: 767px) 50vw, (max-width: 1400px) 33vw, 460px'
+const HERO_SIZES = '(max-width: 767px) 100vw, 66vw'
+
 export default function PhotoGallery({
   title, client, year, category, galleryText = '', galleryImages = [],
   galleryAspects = [],
 }: Props) {
   const [lbIndex, setLbIndex] = useState<number | null>(null)
 
-  const openLb = useCallback((i: number) => setLbIndex(i), [])
+  const openLb  = useCallback((i: number) => setLbIndex(i), [])
   const closeLb = useCallback(() => setLbIndex(null), [])
-  const prevLb = useCallback(() => setLbIndex((i) => i !== null ? (i - 1 + galleryImages.length) % galleryImages.length : null), [galleryImages.length])
-  const nextLb = useCallback(() => setLbIndex((i) => i !== null ? (i + 1) % galleryImages.length : null), [galleryImages.length])
-
-  const cell = (globalIdx: number, style: React.CSSProperties) => (
-    <div
-      key={globalIdx}
-      className="gallery-clickable"
-      onClick={() => openLb(globalIdx)}
-      style={{
-        ...style,
-        position: 'relative',
-        overflow: 'hidden',
-        cursor: 'pointer',
-        background: galleryImages[globalIdx] ? undefined : placeholders[globalIdx % placeholders.length],
-      }}
-    >
-      {galleryImages[globalIdx] && (
-        <img
-          src={galleryImages[globalIdx]}
-          alt=""
-          loading="lazy"
-          decoding="async"
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-      )}
-    </div>
-  )
+  const prevLb  = useCallback(() => setLbIndex((i) => i !== null ? (i - 1 + galleryImages.length) % galleryImages.length : null), [galleryImages.length])
+  const nextLb  = useCallback(() => setLbIndex((i) => i !== null ? (i + 1) % galleryImages.length : null), [galleryImages.length])
 
   /* Sans ratios fournis on retombe sur du 3:2 : le rendu vaut alors l'ancien,
      plutôt que de casser une galerie dont les mesures manqueraient. */
   const aspects = galleryImages.map((_, i) => galleryAspects[i] ?? 1.5)
 
+  /* Une cellule cliquable. C'est un bouton et non une div : ouvrir la
+     visionneuse doit être atteignable au clavier et annoncé comme une
+     action, ce qu'une div avec onClick n'est ni l'un ni l'autre. */
+  const cell = (gi: number, extraClass = '', sizes = CELL_SIZES) => (
+    <button
+      key={gi}
+      type="button"
+      className={`pgal__cell${extraClass ? ' ' + extraClass : ''}`}
+      onClick={() => openLb(gi)}
+      aria-label={`Agrandir la photo ${gi + 1} sur ${galleryImages.length}`}
+      style={{
+        ['--cell-ar' as string]: String(aspects[gi] ?? 1.5),
+        background: galleryImages[gi] ? undefined : placeholders[gi % placeholders.length],
+      }}
+    >
+      {galleryImages[gi] && (
+        <Image src={galleryImages[gi]} alt="" fill sizes={sizes} quality={74} />
+      )}
+    </button>
+  )
+
   // La première image occupe la rangée d'en-tête, aux côtés du bloc de texte.
-  const heroImg    = galleryImages[0]
-  const heroAspect = aspects[0] ?? 1.5
+  const heroAspect   = aspects[0] ?? 1.5
   const heroPortrait = estPortrait(heroAspect)
 
   /* Un portrait mis sur deux colonnes ne montrerait qu'une bande de l'image :
@@ -91,126 +92,44 @@ export default function PhotoGallery({
     <>
       {/* ── Rangée d'en-tête : bloc de texte + première image ── */}
       <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '3px',
-          width: '100%',
-          aspectRatio: String(heroRowAspect),
-          /* Plancher pour que le bloc de texte respire, mais indexé sur la
-             largeur : une valeur fixe en pixels écrasait le ratio sur écran
-             étroit et remettait à rogner l'image qu'on cherche à montrer. */
-          minHeight: 'min(440px, 60vw)',
-          maxHeight: '880px',
-        }}
+        className="pgal__head"
+        data-portrait={heroPortrait ? 'true' : 'false'}
+        style={{ ['--ar' as string]: String(heroRowAspect) }}
       >
-        <div style={{ ...styles.textCard, gridColumn: heroPortrait ? '1 / 3' : '1' }}>
-          <div style={styles.accentLine} />
-          <div style={styles.textTop}>
-            <span style={styles.pill}>{categoryLabel[category] ?? category}&ensp;·&ensp;{year}</span>
-            <h2 style={styles.title}>{title}</h2>
-            {galleryText && <p style={styles.body}>{galleryText}</p>}
+        <div className="pgal__card">
+          <div className="pgal__accent" />
+          <div className="pgal__card-top">
+            <span className="pgal__pill">{categoryLabel[category] ?? category}&ensp;·&ensp;{year}</span>
+            <h2 className="pgal__title">{title}</h2>
+            {galleryText && <p className="pgal__body">{galleryText}</p>}
           </div>
-          <p style={styles.clientLabel}>{client}</p>
+          <p className="pgal__client">{client}</p>
         </div>
-        <div
-          className="gallery-clickable"
-          onClick={() => openLb(0)}
-          style={{
-            gridColumn: heroPortrait ? '3' : '2 / 4',
-            position: 'relative',
-            overflow: 'hidden',
-            cursor: 'pointer',
-            background: heroImg ? undefined : placeholders[0],
-          }}
-        >
-          {heroImg && (
-            <img src={heroImg} alt="" loading="lazy" decoding="async"
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-          )}
-        </div>
+        {cell(0, 'pgal__cell--hero', HERO_SIZES)}
       </div>
 
-      {/* ── Rangées suivantes, une hauteur par orientation ── */}
-      {rows.map((row, rowIdx) => (
-        <div
-          key={rowIdx}
-          style={{
-            display: 'grid',
-            gridTemplateColumns: `repeat(${row.cols}, 1fr)`,
-            gap: '3px',
-            width: '100%',
-            aspectRatio: String(row.aspect),
-            marginTop: '3px',
-          }}
-        >
-          {row.idx.map((gi) => cell(gi, { height: '100%' }))}
-        </div>
-      ))}
+      {/* ── Rangées suivantes, une hauteur par orientation ──
+          En dessous de 768px les rangées s'effacent (`display: contents`) et
+          rendent leurs cellules à une grille de deux colonnes : à 375px, une
+          rangée de quatre portraits donnait des vignettes de 90px. */}
+      <div className="pgal__rows">
+        {rows.map((row, rowIdx) => (
+          <div
+            key={rowIdx}
+            className="pgal__row"
+            style={{
+              ['--cols' as string]: String(row.cols),
+              ['--ar' as string]:   String(row.aspect),
+            }}
+          >
+            {row.idx.map((gi) => cell(gi))}
+          </div>
+        ))}
+      </div>
 
       {lbIndex !== null && galleryImages.length > 0 && (
         <Lightbox images={galleryImages} index={lbIndex} onClose={closeLb} onPrev={prevLb} onNext={nextLb} />
       )}
     </>
   )
-}
-
-const styles: Record<string, React.CSSProperties> = {
-  textCard: {
-    gridColumn:     '1',
-    gridRow:        '1',
-    background:     'var(--bg)',
-    padding:        '52px 48px',
-    display:        'flex',
-    flexDirection:  'column',
-    justifyContent: 'space-between',
-    position:       'relative',
-    overflow:       'hidden',
-    height:         '100%',
-  },
-  accentLine: {
-    position:   'absolute',
-    top:        0,
-    left:       0,
-    right:      0,
-    height:     '3px',
-    background: 'var(--accent)',
-  },
-  textTop: {
-    display:       'flex',
-    flexDirection: 'column',
-    gap:           '20px',
-  },
-  pill: {
-    display:       'inline-block',
-    fontSize:      '0.65rem',
-    fontWeight:    600,
-    letterSpacing: '0.12em',
-    color:         'var(--accent)',
-    textTransform: 'uppercase',
-  },
-  title: {
-    fontSize:      'clamp(2rem, 3vw, 3rem)',
-    fontWeight:    300,
-    letterSpacing: '-0.025em',
-    lineHeight:    1.1,
-    color:         'var(--text)',
-    margin:        0,
-  },
-  body: {
-    fontSize:   '0.92rem',
-    fontWeight: 300,
-    lineHeight: 1.8,
-    color:      'var(--text-mid)',
-    margin:     0,
-    maxWidth:   '340px',
-  },
-  clientLabel: {
-    fontSize:      '0.72rem',
-    fontWeight:    500,
-    letterSpacing: '0.08em',
-    color:         'var(--text-dim)',
-    margin:        0,
-    textTransform: 'uppercase',
-  },
 }

@@ -27,7 +27,10 @@ export default function TarifsIndepPage() {
         html { scroll-behavior: smooth; }
 
         body {
-          font-family: 'Inter', sans-serif;
+          /* Hérite de la police auto-hébergée posée par next/font sur le
+             body : le nom 'Inter' ne résout plus rien depuis que l'@import
+             Google Fonts a été retiré. */
+          font-family: inherit;
           background: var(--noir);
           color: var(--blanc);
           line-height: 1.5;
@@ -471,6 +474,12 @@ export default function TarifsIndepPage() {
       `}</style>
 
       {/* COVER */}
+      {/* Ces pages sont des documents autonomes sur fond noir, sans
+          #hero : sans ce marqueur, la barre de navigation garde ses
+          couleurs de fond clair et son nom se dessine en #111010 sur
+          du #0d0d0d, donc invisible. */}
+      <span data-surface="dark" hidden />
+
       <div className="cover">
         <div className="cover-accent"></div>
         <div className="cover-grid"></div>

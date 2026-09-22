@@ -5,6 +5,7 @@ import FootGalerie  from '@/components/foot/FootGalerie'
 import FootVisuels  from '@/components/foot/FootVisuels'
 import type { PhotoFoot }  from '@/components/foot/FootGalerie'
 import type { VisuelFoot } from '@/components/foot/FootVisuels'
+import Image from 'next/image'
 import Reveal       from '@/components/motion/Reveal'
 import Footer       from '@/components/layout/Footer'
 
@@ -57,11 +58,14 @@ export default function GalerieFootPage() {
           L'id « hero » commande la barre de navigation : sans lui elle se pose
           en version claire dès le premier pixel, illisible sur ce fond sombre. */}
       <section id="hero" className="fg-hero">
-        <img
+        <Image
           className="fg-hero__media"
           src="/images/projets/st-ferre-coupe-haute-loire/A7401121.jpg"
           alt=""
-          fetchPriority="high"
+          fill
+          sizes="100vw"
+          quality={70}
+          priority
         />
         <div className="fg-hero__inner">
           <Reveal>

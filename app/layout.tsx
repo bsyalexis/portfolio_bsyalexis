@@ -1,8 +1,9 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import Nav from '@/components/layout/Nav'
 import EmailPill from '@/components/layout/EmailPill'
 import LenisProvider from '@/components/layout/LenisProvider'
+import MotionProvider from '@/components/motion/MotionProvider'
 import ScrollProgress from '@/components/layout/ScrollProgress'
 import '@/styles/globals.css'
 
@@ -12,6 +13,21 @@ const inter = Inter({
   variable: '--font-inter',
   display: 'swap',
 })
+
+/* `viewport-fit: cover` : la page occupe toute la dalle, encoche et
+   indicateur d'accueil compris, au lieu de laisser deux bandes de couleur
+   en haut et en bas sur les iPhone récents. C'est aussi ce réglage qui donne
+   une valeur non nulle aux `env(safe-area-inset-*)` dont se servent la barre
+   de pied de page, la pilule e-mail, le hero et la visionneuse pour ne pas
+   passer sous l'indicateur d'accueil.
+   `maximumScale` n'est pas fixé : brider le zoom sur mobile rend le site
+   inutilisable pour qui a besoin d'agrandir. */
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#0d0d0d',
+}
 
 export const metadata: Metadata = {
   icons: {
@@ -60,9 +76,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <ScrollProgress />
         <LenisProvider>
-          <Nav />
-          {children}
-          <EmailPill />
+          <MotionProvider>
+            <Nav />
+            {children}
+            <EmailPill />
+          </MotionProvider>
         </LenisProvider>
       </body>
     </html>

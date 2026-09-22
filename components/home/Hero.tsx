@@ -2,13 +2,26 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import ShowreelModal from './ShowreelModal'
 import Magnetic from '@/components/motion/Magnetic'
+import { TextEffect } from '@/components/motion-primitives/text-effect'
 
 /* Séquence de rôles : encode la répartition 40 / 40 / 20.
    Sur 5 rotations : 2 photographe, 2 vidéaste, 1 directeur artistique.
    Ne pas ajouter de rôle ici sans recalculer la proportion. */
 const ROLES = ['Photographe', 'Vidéaste', 'Photographe', 'Vidéaste', 'Directeur artistique']
+
+/* Entrée par le bas dans le flou, sortie vers le haut : le mot suivant
+   semble pousser le précédent. Décalages en em pour suivre la taille du
+   texte (le preset d'origine monte de 20px, trop pour un sous-titre). */
+const ROLE_VARIANTS = {
+  item: {
+    hidden:  { opacity: 0, y: '0.4em', filter: 'blur(6px)' },
+    visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
+    exit:    { opacity: 0, y: '-0.4em', filter: 'blur(6px)' },
+  },
+}
 
 /* Boucle de fond : le showreel encodé en AV1 (MP4). AV1 pèse nettement moins
    que le VP9 à qualité égale, mais tous les navigateurs ne le décodent pas
@@ -32,6 +45,12 @@ export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const videoRef   = useRef<HTMLVideoElement>(null)
   const [frame, setFrame]       = useState(0)
+  /* Nombre de visuels réellement montés. Les quatre sont dans le cadre du
+     hero (absolus, inset 0) : les marquer `lazy` ne sert à rien, le
+     navigateur les considère visibles et les télécharge tous les quatre au
+     chargement. On ne les introduit donc qu'au fil du fondu : un seul
+     visuel dans le premier écran au lieu de quatre. */
+  const [mounted, setMounted]   = useState(1)
   const [role, setRole]         = useState(0)
   const [reelOpen, setReelOpen] = useState(false)
   const [useVideo, setUseVideo] = useState(false)
@@ -85,6 +104,15 @@ export default function Hero() {
 
     return () => { clearInterval(ri); if (fi) clearInterval(fi) }
   }, [useVideo])
+
+  /* Le visuel suivant est monté à mi-parcours du précédent : il a le temps
+     d'arriver avant son tour, et il ne dispute pas la bande passante au
+     premier écran. Une fois les quatre montés, plus rien à faire. */
+  useEffect(() => {
+    if (useVideo || mounted >= FRAMES.length) return
+    const t = setTimeout(() => setMounted((m) => Math.min(FRAMES.length, m + 1)), 2600)
+    return () => clearTimeout(t)
+  }, [useVideo, mounted, frame])
 
   /* Sortie au scroll : le média rétrécit et s'arrondit pendant que le contenu
      s'efface. Piloté en CSS var pour rester sur le compositeur. */
@@ -152,14 +180,27 @@ export default function Hero() {
             <source src={VIDEO} type="video/mp4" />
           </video>
         ) : (
-          FRAMES.map((src, i) => (
-            <img
+          FRAMES.slice(0, mounted).map((src, i) => (
+            /* next/image plutôt qu'une balise brute : les sources font 2000px
+               de large, et sans srcset un téléphone téléchargeait chacune en
+               pleine résolution pour un cadre de 375px. `sizes="100vw"`
+               laisse Next servir le palier juste au-dessus de la largeur
+               réelle, en AVIF quand le navigateur l'accepte. */
+            <Image
               key={src}
               src={src}
               alt=""
-              className={`hero__frame${i === frame ? ' is-active' : ''}`}
+              fill
+              sizes="100vw"
+              quality={70}
+              /* Le premier visuel est le LCP de la page sur mobile. `eager` +
+                 priorité haute plutôt que `priority` : sur grand écran ce
+                 fondu cède la place à la vidéo juste après l'hydratation, et
+                 `priority` aurait posé dans le <head> un preload pleine
+                 largeur pour une image aussitôt démontée. */
               loading={i === 0 ? 'eager' : 'lazy'}
-              decoding="async"
+              fetchPriority={i === 0 ? 'high' : 'auto'}
+              className={`hero__frame${i === frame ? ' is-active' : ''}`}
             />
           ))
         )}
@@ -180,14 +221,23 @@ export default function Hero() {
           <h1 className="hero__title hero-rise">
             <span className="hero__name">Alexis Bossy</span>
             <span className="hero__roles" aria-live="polite">
+              {/* Un seul rôle monté à la fois : Text Effect joue sa sortie
+                  lettre par lettre avant de retirer le mot, et l'entrant
+                  attend (delay) que le sortant ait disparu, pour ne jamais
+                  laisser deux mots lisibles l'un sur l'autre. */}
               {ROLES.map((r, i) => (
-                <span
+                <TextEffect
                   key={`${r}-${i}`}
-                  className={`hero__role${i === role ? ' is-active' : ''}`}
-                  aria-hidden={i !== role}
+                  as="span"
+                  per="char"
+                  trigger={i === role}
+                  delay={0.25}
+                  speedReveal={1.6}
+                  className="hero__role-fx"
+                  variants={ROLE_VARIANTS}
                 >
                   {r}
-                </span>
+                </TextEffect>
               ))}
               {/* Réserve la largeur du plus long rôle pour que rien ne saute */}
               <span className="hero__role hero__role--ghost">Directeur artistique</span>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import Image from 'next/image'
 import { gsap } from 'gsap'
 import { formatProjetDate } from '@/lib/date'
 
@@ -51,21 +52,29 @@ export default function ProjectHero({ projet }: Props) {
   }, [])
 
   const heroSrc = projet.heroImage ?? projet.cover
-  const bg = heroSrc
-    ? `url(${heroSrc}) center/cover no-repeat, ${gradients[projet.category] ?? gradients.photo}`
-    : (gradients[projet.category] ?? gradients.photo)
+  const grad = gradients[projet.category] ?? gradients.photo
 
   return (
     <div
       ref={heroRef}
-      style={{
-        position:  'relative',
-        height:    '100vh',
-        minHeight: '580px',
-        overflow:  'hidden',
-        background: bg,
-      }}
+      className="phero"
+      style={{ background: grad }}
     >
+      {/* Le visuel passe par next/image et non par `background-image` : une
+          image de fond CSS n'a pas de srcset, le téléphone téléchargeait donc
+          la source de 2000px pour un cadre de 375px. C'est le LCP de la page
+          projet, d'où `priority`. */}
+      {heroSrc && (
+        <Image
+          src={heroSrc}
+          alt=""
+          fill
+          sizes="100vw"
+          quality={72}
+          priority
+          className="phero__img"
+        />
+      )}
       {/* Vidéo Vimeo en fond */}
       {projet.vimeoId && (
         <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }} aria-hidden="true">
@@ -100,16 +109,7 @@ export default function ProjectHero({ projet }: Props) {
       />
 
       {/* Contenu bas-gauche */}
-      <div
-        style={{
-          position:      'absolute',
-          bottom:        0,
-          left:          0,
-          right:         0,
-          padding:       '64px 56px',
-          zIndex:        2,
-        }}
-      >
+      <div className="phero__body">
         {/* Meta row */}
         <div
           ref={metaRef}
@@ -138,18 +138,7 @@ export default function ProjectHero({ projet }: Props) {
         </div>
 
         {/* Titre */}
-        <h1
-          ref={titleRef}
-          style={{
-            fontSize:      'clamp(2.5rem, 5vw, 4.5rem)',
-            fontWeight:    700,
-            letterSpacing: '-0.03em',
-            lineHeight:    1.05,
-            color:         '#ffffff',
-            margin:        0,
-            maxWidth:      '720px',
-          }}
-        >
+        <h1 ref={titleRef} className="phero__title">
           {projet.title}
         </h1>
       </div>

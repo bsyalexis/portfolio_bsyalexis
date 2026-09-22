@@ -22,7 +22,7 @@ const config: Config = {
         'accent-d': 'var(--accent-d)',
       },
       fontFamily: {
-        inter: ['Inter', 'system-ui', 'sans-serif'],
+        inter: ['var(--font-inter)', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         'hero':    ['clamp(3.8rem, 8vw, 7rem)', { lineHeight: '1.05', fontWeight: '300' }],

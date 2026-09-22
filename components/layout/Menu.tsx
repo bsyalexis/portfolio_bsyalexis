@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { AnimatedBackground } from '@/components/motion-primitives/animated-background'
+import { lockScroll, unlockScroll } from '@/lib/scroll-lock'
 
 const LINKS = [
   { href: '/',         label: 'Accueil' },
@@ -36,8 +38,7 @@ export default function Menu({ open, onClose }: Props) {
   useEffect(() => {
     if (!open) return
 
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
+    lockScroll()
     firstRef.current?.focus()
 
     const onKey = (e: KeyboardEvent) => {
@@ -57,7 +58,7 @@ export default function Menu({ open, onClose }: Props) {
     document.addEventListener('keydown', onKey)
     return () => {
       document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = prev
+      unlockScroll()
     }
   }, [open, onClose])
 
@@ -92,9 +93,15 @@ export default function Menu({ open, onClose }: Props) {
         <div className="menu__body">
           <p className="menu__label">Menu</p>
           <nav className="menu__nav">
+            <AnimatedBackground
+              enableHover
+              className="menu__link-bg"
+              transition={{ type: 'spring', bounce: 0.2, duration: 0.3 }}
+            >
             {LINKS.map((l, i) => (
               <Link
                 key={l.href}
+                data-id={l.href}
                 href={l.href}
                 ref={i === 0 ? firstRef : undefined}
                 tabIndex={open ? 0 : -1}
@@ -105,6 +112,7 @@ export default function Menu({ open, onClose }: Props) {
                 {l.label}
               </Link>
             ))}
+            </AnimatedBackground>
           </nav>
 
           <hr className="menu__rule" />

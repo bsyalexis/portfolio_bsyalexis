@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import Image from 'next/image'
 import Lightbox from '@/components/projet/Lightbox'
 
 export interface VisuelFoot {
@@ -39,7 +40,13 @@ export default function FootVisuels({ visuels }: { visuels: VisuelFoot[] }) {
             style={{ ['--ar' as string]: String(visuel.ratio) }}
             aria-label={`Agrandir le visuel ${i + 1}`}
           >
-            <img src={visuel.image} alt="Visuel réseaux sociaux pour un club de football" loading="lazy" decoding="async" />
+            <Image
+              src={visuel.image}
+              alt="Visuel réseaux sociaux pour un club de football"
+              fill
+              sizes="(max-width: 767px) 50vw, 33vw"
+              quality={74}
+            />
           </button>
         ))}
       </div>

@@ -17,25 +17,8 @@ export default function ProjectNav({ currentSlug }: Props) {
     : null
 
   return (
-    <nav
-      style={{
-        borderTop:  '1px solid var(--border)',
-        background: 'var(--bg)',
-        paddingBlock: '44px',
-      }}
-    >
-      <div
-        className="project-nav-inner"
-        style={{
-          maxWidth:        '1200px',
-          margin:          '0 auto',
-          paddingInline:   '56px',
-          display:         'flex',
-          justifyContent:  'space-between',
-          alignItems:      'center',
-          gap:             '24px',
-        }}
-      >
+    <nav className="pnav">
+      <div className="pnav__inner">
         {/* Précédent */}
         {prev ? (
           <Link href={`/projet/${prev.slug}`} className="project-nav-link">
@@ -55,11 +38,7 @@ export default function ProjectNav({ currentSlug }: Props) {
 
         {/* Suivant */}
         {next ? (
-          <Link
-            href={`/projet/${next.slug}`}
-            className="project-nav-link"
-            style={{ textAlign: 'right' }}
-          >
+          <Link href={`/projet/${next.slug}`} className="project-nav-link pnav__next">
             <p className="label" style={{ color: 'var(--text-dim)', marginBottom: '6px' }}>
               Suivant →
             </p>

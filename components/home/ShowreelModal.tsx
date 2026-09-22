@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { lockScroll, unlockScroll } from '@/lib/scroll-lock'
 
 interface Props {
   videoId: string
@@ -23,12 +24,11 @@ export default function ShowreelModal({ videoId, onClose }: Props) {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
     document.addEventListener('keydown', onKey)
 
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
+    lockScroll()
 
     return () => {
       document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = prev
+      unlockScroll()
     }
   }, [onClose])
 

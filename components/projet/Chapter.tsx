@@ -51,22 +51,11 @@ export default function Chapter({ chapter }: Props) {
   return (
     <section
       ref={ref}
-      style={{
-        paddingTop:    '96px',
-        paddingBottom: '80px',
-        background:    dark ? '#111010' : 'var(--bg)',
-        overflow:      'hidden',
-      }}
+      className="chapter"
+      style={{ background: dark ? '#111010' : 'var(--bg)' }}
     >
       {/* ── En-tête du chapitre ─────────────────── */}
-      <div
-        style={{
-          maxWidth:      '1200px',
-          margin:        '0 auto',
-          paddingInline: '56px',
-          marginBottom:  '56px',
-        }}
-      >
+      <div className="chapter__head">
         <div
           className="chapter-inner-grid"
           style={{
@@ -77,31 +66,9 @@ export default function Chapter({ chapter }: Props) {
           }}
         >
           {/* Colonne gauche : numéro + trait cerise */}
-          <div
-            className="chapter-entry chapter-number-col"
-            style={{ paddingTop: '6px' }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-              <span
-                style={{
-                  fontSize:      '0.68rem',
-                  fontWeight:    700,
-                  letterSpacing: '0.22em',
-                  color:         'var(--accent)',
-                  flexShrink:    0,
-                }}
-              >
-                {chapter.number}
-              </span>
-              <div
-                style={{
-                  flex:       1,
-                  height:     '1px',
-                  background: 'var(--accent)',
-                  opacity:    0.45,
-                }}
-              />
-            </div>
+          <div className="chapter-entry chapter__num">
+            <span className="chapter__num-label">{chapter.number}</span>
+            <span className="chapter__num-rule" aria-hidden="true" />
           </div>
 
           {/* Colonne droite : titre, texte, méta */}
@@ -145,16 +112,7 @@ export default function Chapter({ chapter }: Props) {
 
       {/* ── Visuels ────────────────────────────── */}
       {chapter.visuals && chapter.visuals.length > 0 && (
-        <div
-          style={{
-            maxWidth:        '1200px',
-            margin:          '0 auto',
-            paddingInline:   '56px',
-            display:         'flex',
-            flexDirection:   'column',
-            gap:             '3px',
-          }}
-        >
+        <div className="chapter__visuals">
           {chapter.visuals.map((visual, i) => (
             <VisualBlock key={i} visual={visual} dark={dark} />
           ))}

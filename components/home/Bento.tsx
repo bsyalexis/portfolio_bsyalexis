@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import Image from 'next/image'
 import Reveal from '@/components/motion/Reveal'
+import ModuleTrail from '@/components/motion/ModuleTrail'
 
 const IMGS = [
   '/A7403250.webp',
@@ -51,26 +53,61 @@ export default function Bento() {
 
         {/* Grande image, à gauche */}
         <Reveal className="bento__cell bento__cell--main">
-          <img src={IMGS[0]} alt="" loading="eager" decoding="async" style={{ '--speed': '58px' } as React.CSSProperties} />
+          <Image
+            src={IMGS[0]}
+            alt=""
+            fill
+            /* La grande cellule occupe ~55 % de la grille (1.45fr sur 2.45fr),
+               plafonnée à la largeur de grille. En dessous de 768px elle
+               prend toute la largeur. */
+            sizes="(max-width: 767px) 100vw, (max-width: 1280px) 56vw, 700px"
+            quality={72}
+            style={{ '--speed': '58px' } as React.CSSProperties}
+          />
           <div className="bento__overlay">
             <p className="bento__tagline">
               <span>Des images qui parlent</span>
               <strong>pour vous.</strong>
             </p>
           </div>
+          <ModuleTrail size={120} duration={9} />
         </Reveal>
 
         <div className="bento__col">
           <Reveal delay={0.08} className="bento__cell bento__cell--tall">
-            <img src={IMGS[1]} alt="" loading="lazy" decoding="async" style={{ '--speed': '-46px' } as React.CSSProperties} />
+            <Image
+              src={IMGS[1]}
+              alt=""
+              fill
+              /* Cellule masquée en dessous de 768px : `display: none` la rend
+                 non intersectante, le chargement paresseux ne part donc
+                 jamais sur mobile. */
+              sizes="(max-width: 1280px) 40vw, 500px"
+              quality={72}
+              style={{ '--speed': '-46px' } as React.CSSProperties}
+            />
           </Reveal>
 
           <div className="bento__row">
             <Reveal delay={0.16} className="bento__cell">
-              <img src={IMGS[2]} alt="" loading="lazy" decoding="async" style={{ '--speed': '38px' } as React.CSSProperties} />
+              <Image
+                src={IMGS[2]}
+                alt=""
+                fill
+                sizes="(max-width: 767px) 50vw, (max-width: 1280px) 20vw, 250px"
+                quality={72}
+                style={{ '--speed': '38px' } as React.CSSProperties}
+              />
             </Reveal>
             <Reveal delay={0.24} className="bento__cell">
-              <img src={IMGS[3]} alt="" loading="lazy" decoding="async" style={{ '--speed': '-32px' } as React.CSSProperties} />
+              <Image
+                src={IMGS[3]}
+                alt=""
+                fill
+                sizes="(max-width: 767px) 50vw, (max-width: 1280px) 20vw, 250px"
+                quality={72}
+                style={{ '--speed': '-32px' } as React.CSSProperties}
+              />
             </Reveal>
           </div>
         </div>

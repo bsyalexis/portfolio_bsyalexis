@@ -5,6 +5,7 @@ import Link from 'next/link'
 import clsx from 'clsx'
 import Menu from './Menu'
 import Magnetic from '@/components/motion/Magnetic'
+import { AnimatedBackground } from '@/components/motion-primitives/animated-background'
 
 export default function Nav() {
   const [pastHero, setPastHero] = useState(false)
@@ -36,9 +37,15 @@ export default function Nav() {
 
   return (
     <>
+      {/* Pas de z-index inline : le header reste sous le menu (100 < 200) en
+          toutes circonstances. Le faire passer au-dessus faisait peindre le
+          nom et les réseaux par-dessus la barre « Fermer » du panneau, qui
+          occupe presque toute la largeur sur mobile. */}
       <header
-        className={clsx('nav', { 'nav--solid': pastHero || menuOpen })}
-        style={{ zIndex: menuOpen ? 201 : 100 }}
+        className={clsx('nav', {
+          'nav--solid': pastHero || menuOpen,
+          'nav--menu':  menuOpen,
+        })}
       >
         {/* Bloc identité : le nom et les réseaux, groupés à gauche. */}
         <div className="nav__left">
@@ -47,18 +54,24 @@ export default function Nav() {
           </Link>
 
           <div className="nav__socials">
-            <a href="https://www.instagram.com/alexbsy_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <AnimatedBackground
+              enableHover
+              className="nav__social-bg"
+              transition={{ type: 'spring', bounce: 0.2, duration: 0.3 }}
+            >
+            <a data-id="instagram" href="https://www.instagram.com/alexbsy_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                 <circle cx="12" cy="12" r="4"/>
                 <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
               </svg>
             </a>
-            <a href="https://www.tiktok.com/@bsyalex_" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <a data-id="tiktok" href="https://www.tiktok.com/@bsyalex_" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
               </svg>
             </a>
+            </AnimatedBackground>
           </div>
         </div>
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import Image from 'next/image'
 import Lightbox from './Lightbox'
 
 interface Visual {
@@ -25,32 +26,31 @@ const GRAD = [
   'radial-gradient(ellipse at 40% 60%, rgba(255,255,255,0.12) 0%, transparent 55%), linear-gradient(155deg, #d0c8be 0%, #aca098 50%, #888078 100%)',
 ]
 
+/* Le bloc occupe au plus la moitié de la largeur de page sur grand écran, et
+   toute la largeur en dessous de 768px. */
+const IMG_SIZES = '(max-width: 767px) 100vw, 55vw'
+
 function ImgBlock({ src, grad, onClick }: { src: string; grad: string; onClick?: () => void }) {
-  return (
-    <div
-      className={onClick ? 'gallery-clickable' : undefined}
-      onClick={onClick}
-      style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden', background: grad }}
-    >
-      {src && (
-        <img
-          src={src}
-          alt=""
-          loading="lazy"
-          decoding="async"
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-      )}
-    </div>
-  )
+  const inner = src ? (
+    <Image src={src} alt="" fill sizes={IMG_SIZES} quality={74} style={{ objectFit: 'cover' }} />
+  ) : null
+
+  /* Cliquable : c'est un bouton, pas une div. Ouvrir la visionneuse doit être
+     atteignable au clavier et annoncé comme une action. */
+  if (onClick) {
+    return (
+      <button type="button" className="vb-img gallery-clickable" onClick={onClick}
+        style={{ background: grad }} aria-label="Agrandir la photo">
+        {inner}
+      </button>
+    )
+  }
+  return <div className="vb-img" style={{ background: grad }}>{inner}</div>
 }
 
 function VidBlock({ src }: { src: string }) {
   return (
-    <video
-      autoPlay loop muted playsInline
-      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-    >
+    <video autoPlay loop muted playsInline className="vb-vid">
       <source src={src} type="video/webm" />
     </video>
   )
@@ -60,10 +60,10 @@ export default function VisualBlock({ visual }: Props) {
   const { layout, images } = visual
   const [lbIndex, setLbIndex] = useState<number | null>(null)
 
-  const openLb = useCallback((i: number) => setLbIndex(i), [])
+  const openLb  = useCallback((i: number) => setLbIndex(i), [])
   const closeLb = useCallback(() => setLbIndex(null), [])
-  const prevLb = useCallback(() => setLbIndex((i) => i !== null ? (i - 1 + images.length) % images.length : null), [images.length])
-  const nextLb = useCallback(() => setLbIndex((i) => i !== null ? (i + 1) % images.length : null), [images.length])
+  const prevLb  = useCallback(() => setLbIndex((i) => i !== null ? (i - 1 + images.length) % images.length : null), [images.length])
+  const nextLb  = useCallback(() => setLbIndex((i) => i !== null ? (i + 1) % images.length : null), [images.length])
 
   const lightbox = lbIndex !== null && images.length > 0 ? (
     <Lightbox images={images} index={lbIndex} onClose={closeLb} onPrev={prevLb} onNext={nextLb} />
@@ -73,12 +73,12 @@ export default function VisualBlock({ visual }: Props) {
   if (layout === 'full') {
     if (visual.vimeoId) {
       return (
-        <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000' }}>
+        <div className="vb-media">
           <iframe
             src={`https://player.vimeo.com/video/${visual.vimeoId}?autoplay=0&title=0&byline=0&portrait=0`}
-            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
             allow="fullscreen; picture-in-picture"
             allowFullScreen
+            loading="lazy"
           />
         </div>
       )
@@ -90,10 +90,9 @@ export default function VisualBlock({ visual }: Props) {
        flottaison, l'iframe ne pèse rien tant qu'on n'a pas scrollé. */
     if (visual.youtubeId) {
       return (
-        <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000' }}>
+        <div className="vb-media">
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${visual.youtubeId}?rel=0&modestbranding=1&playsinline=1`}
-            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
             allow="fullscreen; encrypted-media; picture-in-picture"
             allowFullScreen
             loading="lazy"
@@ -109,14 +108,8 @@ export default function VisualBlock({ visual }: Props) {
        qui ne décodent pas l'AV1 échouent proprement et laissent le poster. */
     if (visual.video) {
       return (
-        <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000' }}>
-          <video
-            controls
-            preload="none"
-            playsInline
-            poster={visual.poster}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-          >
+        <div className="vb-media">
+          <video controls preload="none" playsInline poster={visual.poster}>
             <source src={visual.video} type="video/mp4" />
           </video>
         </div>
@@ -124,7 +117,7 @@ export default function VisualBlock({ visual }: Props) {
     }
     return (
       <>
-        <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden' }}>
+        <div className="vb-media">
           <ImgBlock src={images[0] ?? ''} grad={GRAD[0]} onClick={() => openLb(0)} />
         </div>
         {lightbox}
@@ -136,16 +129,7 @@ export default function VisualBlock({ visual }: Props) {
   if (layout === 'split-equal') {
     return (
       <>
-        <div
-          style={{
-            display:               'grid',
-            gridTemplateColumns:   '1fr 1fr',
-            gap:                   '3px',
-            height:                '55vh',
-            minHeight:             '300px',
-            overflow:              'hidden',
-          }}
-        >
+        <div className="vb-grid vb-grid--split2">
           {[0, 1].map((i) => (
             <ImgBlock key={i} src={images[i] ?? ''} grad={GRAD[i % GRAD.length]} onClick={() => openLb(i)} />
           ))}
@@ -159,16 +143,7 @@ export default function VisualBlock({ visual }: Props) {
   if (layout === 'split-asymmetric') {
     return (
       <>
-        <div
-          style={{
-            display:               'grid',
-            gridTemplateColumns:   '2fr 3fr',
-            gap:                   '3px',
-            height:                '65vh',
-            minHeight:             '360px',
-            overflow:              'hidden',
-          }}
-        >
+        <div className="vb-grid vb-grid--asym">
           {[0, 1].map((i) => (
             <ImgBlock key={i} src={images[i] ?? ''} grad={GRAD[i % GRAD.length]} onClick={() => openLb(i)} />
           ))}
@@ -178,44 +153,30 @@ export default function VisualBlock({ visual }: Props) {
     )
   }
 
-  /* ── BENTO GALLERY (9 images + 2 vidéos 16:9) ── */
+  /* ── BENTO GALLERY (9 images + 2 vidéos 16:9) ──
+     Le placement des onze cellules est décrit en CSS et non ici : c'est ce qui
+     permet à la version mobile de le redéfinir. Posé en style inline, il
+     n'était plus rattrapable et donnait des colonnes de 123px à 375px. */
   if (layout === 'bento') {
-    const imgs = images
     const vids = visual.videos ?? []
-
-    const imgCell = (idx: number, col: string, row: string, key: string) => (
-      <div key={key} style={{ gridColumn: col, gridRow: row, overflow: 'hidden' }}>
-        <ImgBlock src={imgs[idx] ?? ''} grad={GRAD[idx % GRAD.length]} onClick={() => openLb(idx)} />
-      </div>
-    )
-
-    const vidCell = (idx: number, col: string, row: string, key: string) => (
-      <div key={key} style={{ gridColumn: col, gridRow: row, overflow: 'hidden' }}>
-        <VidBlock src={vids[idx] ?? ''} />
-      </div>
-    )
+    const order = [
+      { kind: 'v', idx: 0 }, { kind: 'i', idx: 0 },
+      { kind: 'i', idx: 2 }, { kind: 'i', idx: 3 }, { kind: 'i', idx: 4 },
+      { kind: 'i', idx: 1 }, { kind: 'v', idx: 1 },
+      { kind: 'i', idx: 5 }, { kind: 'i', idx: 6 }, { kind: 'i', idx: 7 },
+      { kind: 'i', idx: 8 },
+    ] as const
 
     return (
       <>
-        <div
-          style={{
-            display:             'grid',
-            gridTemplateColumns: '1fr 1fr 1fr',
-            gridTemplateRows: '407px 202px 407px 202px 612px',
-            gap: '3px',
-          }}
-        >
-          {vidCell(0, '1 / 3', '1', 'v0')}
-          {imgCell(0, '3',     '1', 'i0')}
-          {imgCell(2, '1', '2', 'i2')}
-          {imgCell(3, '2', '2', 'i3')}
-          {imgCell(4, '3', '2', 'i4')}
-          {imgCell(1, '1',     '3', 'i1')}
-          {vidCell(1, '2 / 4', '3', 'v1')}
-          {imgCell(5, '1', '4', 'i5')}
-          {imgCell(6, '2', '4', 'i6')}
-          {imgCell(7, '3', '4', 'i7')}
-          {imgCell(8, '1 / 4', '5', 'i8')}
+        <div className="vb-bento">
+          {order.map((c, pos) => (
+            <div key={`${c.kind}${c.idx}`} className={`vb-bento__cell vb-bento__cell--${pos + 1}`}>
+              {c.kind === 'v'
+                ? <VidBlock src={vids[c.idx] ?? ''} />
+                : <ImgBlock src={images[c.idx] ?? ''} grad={GRAD[c.idx % GRAD.length]} onClick={() => openLb(c.idx)} />}
+            </div>
+          ))}
         </div>
         {lightbox}
       </>
@@ -226,16 +187,7 @@ export default function VisualBlock({ visual }: Props) {
   if (layout === 'split-3') {
     return (
       <>
-        <div
-          style={{
-            display:             'grid',
-            gridTemplateColumns: '1fr 1fr 1fr',
-            gap:                 '3px',
-            height:              '55vh',
-            minHeight:           '300px',
-            overflow:            'hidden',
-          }}
-        >
+        <div className="vb-grid vb-grid--split3">
           {[0, 1, 2].map((i) => (
             <ImgBlock key={i} src={images[i] ?? ''} grad={GRAD[i % GRAD.length]} onClick={() => openLb(i)} />
           ))}
@@ -247,33 +199,21 @@ export default function VisualBlock({ visual }: Props) {
 
   /* ── GRID 3 colonnes : n images ─────── */
   if (layout === 'grid-3col') {
-    const rows = Math.ceil(images.length / 3)
+    // Une image seule sur sa dernière rangée occupe toute la largeur plutôt
+    // que de laisser deux trous.
     const lastIsAlone = images.length % 3 === 1
 
     return (
       <>
-        <div
-          style={{
-            display:             'grid',
-            gridTemplateColumns: '1fr 1fr 1fr',
-            gap:                 '3px',
-            overflow:            'hidden',
-          }}
-        >
-          {images.map((src, i) => {
-            const isLast  = i === images.length - 1
-            const colspan = isLast && lastIsAlone ? '1 / 4' : undefined
-            const height  = isLast && lastIsAlone ? '480px' : '360px'
-            return (
-              <div
-                key={i}
-                style={{ gridColumn: colspan, height, overflow: 'hidden' }}
-              >
-                <ImgBlock src={src} grad={GRAD[i % GRAD.length]} onClick={() => openLb(i)} />
-              </div>
-            )
-          })}
-          {rows > 0 && images.length % 3 === 2 && <div />}
+        <div className="vb-grid vb-grid--3col">
+          {images.map((src, i) => (
+            <div
+              key={i}
+              className={`vb-cell${i === images.length - 1 && lastIsAlone ? ' vb-cell--full' : ''}`}
+            >
+              <ImgBlock src={src} grad={GRAD[i % GRAD.length]} onClick={() => openLb(i)} />
+            </div>
+          ))}
         </div>
         {lightbox}
       </>

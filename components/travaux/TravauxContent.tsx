@@ -1,7 +1,6 @@
 'use client'
 
-import { Suspense } from 'react'
-import { useSearchParams, useRouter, usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import TravauxHeader from './TravauxHeader'
 import ProjetGrid    from './ProjetGrid'
 
@@ -21,13 +20,26 @@ interface Props {
   projets: Projet[]
 }
 
-/* ─── Composant interne : utilise useSearchParams ─── */
-function TravauxInner({ projets }: Props) {
-  const searchParams  = useSearchParams()
-  const router        = useRouter()
-  const pathname      = usePathname()
+const FILTRES = ['video', 'photo', 'autres']
 
-  const activeFilter = searchParams.get('filter') ?? 'all'
+/**
+ * Grille des travaux et son filtre.
+ *
+ * Le filtre est tenu en état React et non lu par `useSearchParams`. Ce hook
+ * fait basculer tout son sous-arbre en rendu client : la page ne livrait
+ * qu'un bloc vide de 60vh, et le visiteur mobile regardait un écran blanc
+ * jusqu'au démarrage du JavaScript. Ici le serveur rend la grille complète,
+ * qui est déjà la bonne réponse pour la quasi-totalité des visites (pas de
+ * paramètre dans l'URL), et un éventuel `?filter=` la resserre à
+ * l'hydratation.
+ */
+export default function TravauxContent({ projets }: Props) {
+  const [activeFilter, setActiveFilter] = useState('all')
+
+  useEffect(() => {
+    const f = new URLSearchParams(window.location.search).get('filter')
+    if (f && FILTRES.includes(f)) setActiveFilter(f)
+  }, [])
 
   const filtered =
     activeFilter === 'all'
@@ -37,14 +49,16 @@ function TravauxInner({ projets }: Props) {
         )
 
   function handleFilter(f: string) {
-    const params = new URLSearchParams(searchParams.toString())
-    if (f === 'all') {
-      params.delete('filter')
-    } else {
-      params.set('filter', f)
-    }
+    setActiveFilter(f)
+
+    /* L'URL suit, pour qu'une sélection reste partageable et survive au
+       rechargement. `replaceState` plutôt que le routeur : rien à recharger,
+       et ça n'empile pas une entrée d'historique par clic de filtre. */
+    const params = new URLSearchParams(window.location.search)
+    if (f === 'all') params.delete('filter')
+    else params.set('filter', f)
     const qs = params.toString()
-    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+    window.history.replaceState(null, '', qs ? `${window.location.pathname}?${qs}` : window.location.pathname)
   }
 
   return (
@@ -56,14 +70,5 @@ function TravauxInner({ projets }: Props) {
       />
       <ProjetGrid projets={filtered} />
     </>
-  )
-}
-
-/* ─── Wrapper avec Suspense (requis pour useSearchParams en Next 14) ─── */
-export default function TravauxContent({ projets }: Props) {
-  return (
-    <Suspense fallback={<div style={{ height: '60vh' }} />}>
-      <TravauxInner projets={projets} />
-    </Suspense>
   )
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
+import { AnimatedBackground } from '@/components/motion-primitives/animated-background'
 
 interface Props {
   activeFilter: string
@@ -31,15 +32,7 @@ export default function TravauxHeader({ activeFilter, count, onFilter }: Props) 
   }, [])
 
   return (
-    <header
-      style={{
-        paddingTop:    '128px',
-        paddingBottom: '56px',
-        maxWidth:      '1200px',
-        margin:        '0 auto',
-        paddingInline: '56px',
-      }}
-    >
+    <header className="tvx-head">
       {/* Eyebrow */}
       <p
         ref={eyebrowRef}
@@ -50,20 +43,7 @@ export default function TravauxHeader({ activeFilter, count, onFilter }: Props) 
       </p>
 
       {/* Titre */}
-      <h1
-        ref={titleRef}
-        style={{
-          fontSize:      'clamp(3.5rem, 6vw, 5.5rem)',
-          fontWeight:    300,
-          letterSpacing: '-0.04em',
-          lineHeight:    1.0,
-          color:         'var(--text)',
-          margin:        0,
-          marginBottom:  '36px',
-        }}
-      >
-        Travaux.
-      </h1>
+      <h1 ref={titleRef} className="tvx-head__title">Travaux.</h1>
 
       {/* Ligne cerise */}
       <div
@@ -88,15 +68,27 @@ export default function TravauxHeader({ activeFilter, count, onFilter }: Props) 
         }}
       >
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          {/* Le fond noir du filtre actif glisse d'une pastille à l'autre.
+              AnimatedBackground pose son propre onClick sur chaque bouton :
+              le changement de filtre passe donc par onValueChange. */}
+          <AnimatedBackground
+            defaultValue={activeFilter}
+            onValueChange={(id) => { if (id) onFilter(id) }}
+            className="filter-pill__bg"
+            transition={{ type: 'spring', bounce: 0.2, duration: 0.35 }}
+          >
           {FILTERS.map((f) => (
             <button
               key={f.key}
+              data-id={f.key}
+              type="button"
               className={`filter-pill${activeFilter === f.key ? ' active' : ''}`}
-              onClick={() => onFilter(f.key)}
+              aria-pressed={activeFilter === f.key}
             >
               {f.label}
             </button>
           ))}
+          </AnimatedBackground>
         </div>
         <span
           style={{
