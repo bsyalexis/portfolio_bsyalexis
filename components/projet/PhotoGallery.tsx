@@ -8,6 +8,10 @@ import { buildRows, estPortrait } from '@/lib/gallery-rows'
 interface Props {
   title:         string
   client:        string
+  /* Site du client, quand il en a un. Le nom du client devient alors un lien
+     sortant : c'est le seul endroit de la page projet où il apparaît en toutes
+     lettres, donc la bonne ancre. */
+  clientUrl?:    string
   year:          string
   category:      string
   galleryText?:  string
@@ -42,7 +46,7 @@ const CELL_SIZES = '(max-width: 767px) 50vw, (max-width: 1400px) 33vw, 460px'
 const HERO_SIZES = '(max-width: 767px) 100vw, 66vw'
 
 export default function PhotoGallery({
-  title, client, year, category, galleryText = '', galleryImages = [],
+  title, client, clientUrl, year, category, galleryText = '', galleryImages = [],
   galleryAspects = [],
 }: Props) {
   const [lbIndex, setLbIndex] = useState<number | null>(null)
@@ -103,7 +107,17 @@ export default function PhotoGallery({
             <h2 className="pgal__title">{title}</h2>
             {galleryText && <p className="pgal__body">{galleryText}</p>}
           </div>
-          <p className="pgal__client">{client}</p>
+          <p className="pgal__client">
+            {clientUrl ? (
+              /* Pas de `nofollow` : le lien est là pour servir au client, pas
+                 seulement pour décorer la page. `noopener` reste, lui, requis
+                 par l'ouverture dans un onglet neuf. */
+              <a className="pgal__client-link" href={clientUrl} target="_blank" rel="noopener">
+                {client}
+                <span aria-hidden="true">&#8599;</span>
+              </a>
+            ) : client}
+          </p>
         </div>
         {cell(0, 'pgal__cell--hero', HERO_SIZES)}
       </div>

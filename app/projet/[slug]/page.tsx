@@ -55,6 +55,8 @@ export default function ProjetPage({ params }: Props) {
         <PhotoGallery
           title={projet.title}
           client={projet.client}
+          /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+          clientUrl={(projet as any).clientUrl}
           year={projet.year}
           category={projet.category}
           /* eslint-disable @typescript-eslint/no-explicit-any */

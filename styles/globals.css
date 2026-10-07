@@ -2598,6 +2598,24 @@ body:has([data-surface='dark']) .nav .nav__cta:hover { background: var(--accent)
   text-transform: uppercase;
   color: var(--text-dim);
 }
+/* Le nom du client, quand il pointe vers son site. Le soulignement est
+   permanent et non révélé au survol : sur un bas de carte en petites
+   capitales, rien d'autre ne dit qu'il y a un lien à cliquer. */
+.pgal__client-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-dim);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  transition: color 0.25s ease;
+}
+.pgal__client-link:hover { color: var(--accent); }
+.pgal__client-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
 
 .pgal__rows { display: flex; flex-direction: column; gap: 3px; margin-top: 3px; }
 .pgal__row {
